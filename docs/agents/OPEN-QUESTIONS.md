@@ -9,114 +9,33 @@
 <!-- graffino-agentic:end -->
 
 ## Index
+### [Abateri si teren](questions/abateri-si-teren.md)
+- Q-011 · Rapoartele utilizatorilor despre abateri sunt o funcție a aplicației? · _answered_
+- Q-013 · Unde e FIELD.md și ce format au observațiile de teren? · _answered_
+- Q-015 · Ce format au valorile din field/observations.csv? · _answered_
+- Q-016 · Cum apar observațiile de teren în aplicație față de rapoartele utilizatorilor? · _answered_
+- Q-017 · Câte poze cu panouri există și de la ce stații?
+- Q-018 · Când sunt gata celelalte 2 interviuri cu navetiști?
+- Q-020 · Unde stă tabelul de corespondență teren → feed și ce coloane are?
+- Q-021 · Ce conține coloana `poza` din field/observations.csv?
+
+### [Date gtfs](questions/date-gtfs.md)
 - Q-001 · Ce oraș și ce feed GTFS (URL, licență, conține shapes.txt)? · _answered_
 - Q-002 · Ce face un import nou cu datele existente? · _answered_
 - Q-003 · Următoarele plecări vin doar din orar (static) sau și din GTFS-Realtime? · _answered_
+- Q-009 · Confirmă Tursib folosirea datelor GTFS în acest proiect?
+- Q-010 · Feed-ul Tursib conține shapes.txt?
+- Q-019 · Ce identificator stabil folosim pentru stații: stop_code sau stop_id?
+
+### [Infrastructura](questions/infrastructura.md)
 - Q-004 · Ce furnizor de tile-uri folosește harta? · _answered_
-- Q-005 · După ce criterii alege planificatorul și cum definim un transfer?
 - Q-006 · Maven sau Gradle, și cu ce rulăm testele? · _answered_
 - Q-007 · Cum facem screenshot-uri ale paginilor?
 - Q-008 · Aplicația rămâne doar locală sau va fi găzduită? · _answered_
-- Q-009 · Confirmă Tursib folosirea datelor GTFS în acest proiect?
-- Q-010 · Feed-ul Tursib conține shapes.txt?
-- Q-011 · Rapoartele utilizatorilor despre abateri sunt o funcție a aplicației? · _answered_
 - Q-012 · Pe ce furnizor găzduim aplicația?
-- Q-013 · Unde e FIELD.md și ce format au observațiile de teren? · _answered_
 - Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin? · _answered_
-- Q-015 · Ce format au valorile din field/observations.csv?
+
+### [Planificator](questions/planificator.md)
+- Q-005 · După ce criterii alege planificatorul și cum definim un transfer? · _answered_
 
 ---
-
-## Q-001 · Ce oraș și ce feed GTFS (URL, licență, conține shapes.txt)?
-- **Status:** answered 2026-11-18
-- **Blocks:** importul, datele de test, vizualizarea traseelor
-- **Who answers:** utilizatorul
-- **Answer:** Sibiu, operator Tursib S.A. Feed oficial: https://tursib.ro/trasee/gtfs ; copie de rezervă: https://mobilitydatabase.org/feeds/gtfs/mdb-2099 . Licența: vezi DATA.md și Q-009. Dacă există `shapes.txt`: Q-010.
-- **Recorded as:** DATA.md, CONTRACTS.md (External)
-
-## Q-002 · Ce face un import nou cu datele existente?
-- **Status:** answered 2026-11-18
-- **Blocks:** designul importului
-- **Who answers:** utilizatorul
-- **Answer:** Re-importul creează o versiune nouă a feed-ului, într-o singură tranzacție (tot sau nimic), și produce raportul de diferențe cerut de catalog (stații noi / dispărute, trasee schimbate).
-- **Recorded as:** D-003
-
-## Q-003 · Următoarele plecări vin doar din orar (static) sau și din GTFS-Realtime?
-- **Status:** answered 2026-11-18
-- **Blocks:** sursa pentru următoarele plecări
-- **Who answers:** utilizatorul
-- **Answer:** Doar orarul static GTFS; GTFS-Realtime e în afara scopului. Abaterile vin din rapoartele utilizatorilor și din observațiile de teren ale autorului.
-- **Recorded as:** D-004
-
-## Q-004 · Ce furnizor de tile-uri folosește harta?
-- **Status:** answered 2026-11-18
-- **Blocks:** configurarea Leaflet, atribuirea
-- **Who answers:** utilizatorul
-- **Answer:** Tile-uri OpenStreetMap, cu atribuirea „© OpenStreetMap contributors”.
-- **Recorded as:** D-005
-
-## Q-005 · După ce criterii alege planificatorul și cum definim un transfer?
-- **Status:** open
-- **Blocks:** planificatorul: criteriul (sosire cea mai devreme? cel mai puțin mers pe jos?), timpul minim de transfer, transfer doar în aceeași stație sau și între stații apropiate (la ce distanță)
-- **Who answers:** utilizatorul, la interviu și la /plan
-
-## Q-006 · Maven sau Gradle, și cu ce rulăm testele?
-- **Status:** answered 2026-11-18
-- **Blocks:** comenzile din AGENTS.md secțiunea 2 și definition of done
-- **Who answers:** utilizatorul
-- **Answer:** Maven prin `./mvnw`, JUnit 5 și Testcontainers cu PostgreSQL/PostGIS.
-- **Recorded as:** D-006
-
-## Q-007 · Cum facem screenshot-uri ale paginilor?
-- **Status:** open
-- **Blocks:** pasul de screenshot din /build și DESIGN.md (de ex. Playwright headless pe aplicația din Docker Compose)
-- **Who answers:** utilizatorul, la interviu și la /plan
-
-## Q-008 · Aplicația rămâne doar locală sau va fi găzduită?
-- **Status:** answered 2026-11-18
-- **Blocks:** AGENTS.md secțiunea 5 (release), configurare și secrete
-- **Who answers:** utilizatorul
-- **Answer:** Găzduită pe un URL public cu HTTPS (cerință din catalog). Furnizorul se alege mai târziu (Q-012).
-- **Recorded as:** D-007
-
-## Q-009 · Confirmă Tursib folosirea datelor GTFS în acest proiect?
-- **Status:** open
-- **Blocks:** statutul licenței în DATA.md
-- **Who answers:** utilizatorul, după răspunsul Tursib la cererea către office@tursib.ro (data trimiterii: de completat)
-
-## Q-010 · Feed-ul Tursib conține shapes.txt?
-- **Status:** open
-- **Blocks:** vizualizarea traseelor: forma reală de pe hartă sau linii drepte între stații
-- **Who answers:** utilizatorul, la descărcarea feed-ului
-
-## Q-011 · Rapoartele utilizatorilor despre abateri sunt o funcție a aplicației?
-- **Status:** answered 2026-11-18
-- **Blocks:** orice funcție de raportare a abaterilor (D-004 spune doar că abaterile vin din rapoarte și observații de teren)
-- **Who answers:** utilizatorul
-- **Answer:** Da, cerută de catalog: utilizatorii logați raportează o abatere (linie, stație, oră); pagina liniei arată abaterea medie pe intervale orare; adminul moderează; observațiile din FIELD.md intră ca seed.
-- **Recorded as:** D-009
-
-## Q-012 · Pe ce furnizor găzduim aplicația?
-- **Status:** open
-- **Blocks:** deploy, HTTPS, configurare și secrete (D-007). Termen: înainte de checkpoint-ul de duminică, 2026-11-22, când trebuie să existe deja un deploy „hello” pe URL-ul live.
-- **Who answers:** utilizatorul, la /plan (după interviu și design)
-
-## Q-013 · Unde e FIELD.md și ce format au observațiile de teren?
-- **Status:** answered 2026-11-18
-- **Blocks:** seed-ul observațiilor de teren în rapoartele de abatere (D-009); FIELD.md nu există încă în repo
-- **Who answers:** utilizatorul
-- **Answer:** `FIELD.md` în root, lângă `DATA.md`; observațiile în `field/observations.csv` (antet `data,ora_reala,statie,linie,sens,ora_feed,abatere_min,observatii,poza`); pozele în `field/photos/<data>/`, ~1600 px. FIELD.md: alegerea liniilor și stațiilor, link la CSV, poze, „Interviuri navetiști”. Datele le completează autorul.
-- **Recorded as:** D-010
-
-## Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin?
-- **Status:** answered 2026-11-18
-- **Blocks:** rapoartele de abatere (D-009): înregistrare și login, roluri utilizator / admin
-- **Who answers:** utilizatorul
-- **Answer:** Email + parolă (BCrypt), login cu sesiune, prin Spring Security. Roluri USER (la înregistrare) și ADMIN. Primul admin se creează la pornire din variabile de mediu (`.env`); nimeni nu devine admin din aplicație.
-- **Recorded as:** D-011
-
-## Q-015 · Ce format au valorile din field/observations.csv?
-- **Status:** open
-- **Blocks:** seed-ul din observații (D-009, D-010): formatul pentru `data` și ore, valorile pentru `sens`, cum se identifică `statie` și `linie` (nume sau ID din feed), ce conține `poza` (cale sau nume de fișier)
-- **Who answers:** utilizatorul
-- **Proposed answer:** stabilit la /plan pentru seed, după ce există primele rânduri reale

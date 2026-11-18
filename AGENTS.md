@@ -18,6 +18,7 @@ non-fast-forward or on uncommitted changes you did not make.
 | Structural work | `docs/agents/ARCHITECTURE.md` |
 | Old code or a past decision needs explaining | `docs/agents/DECISIONS-SUPERSEDED.md`, `PATTERNS-SUPERSEDED.md` (never obeyed) |
 | UI work | `docs/design/DESIGN.md`, `docs/design/registry.yaml` |
+| Ce intră în proiect și ce nu | `SCOPE.md` |
 | Import, date GTFS sau atribuire | `DATA.md` (sursă, licență, probleme, curățare) |
 | Date de teren sau seed-ul de abateri | `FIELD.md`, `field/observations.csv` (completate doar de autor) |
 

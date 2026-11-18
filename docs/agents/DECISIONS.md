@@ -7,128 +7,41 @@
 <!-- graffino-agentic:end -->
 
 ## Index
-- D-001 · Stack: Java 21 + Spring Boot, PostgreSQL/PostGIS, Flyway, Thymeleaf + Leaflet; dezvoltare locală în Docker Compose
-- D-002 · Planificatorul caută itinerarii cu maxim un transfer
-- D-003 · Re-importul creează o versiune nouă a feed-ului, atomic, cu raport de diferențe
-- D-004 · Doar orarul static GTFS; GTFS-Realtime e în afara scopului
-- D-005 · Harta folosește tile-uri OpenStreetMap, cu atribuire
-- D-006 · Build cu Maven (./mvnw); teste cu JUnit 5 și Testcontainers PostGIS
-- D-007 · Aplicația e găzduită pe un URL public, cu HTTPS
-- D-008 · Fiecare pagină afișează în subsol „Date de transport: Tursib S.A.”
+### [Abateri si teren](decisions/abateri-si-teren.md)
 - D-009 · Rapoartele de abatere: utilizatorii logați raportează, adminul moderează
 - D-010 · Datele de teren: FIELD.md în root, observațiile în field/observations.csv
+- D-016 · Abaterea medie pe linie: pe intervale de o oră, separat pe tip de zi
+- D-017 · Raportul de abatere: utilizatorul alege o plecare din orar și scrie ora reală
+- D-021 · Corespondența dintre datele de teren și feed: un tabel completat de autor
+- D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn · _proposed_
+- D-025 · Observațiile de teren intră ca rapoarte de abatere cu sursa „teren” · _proposed_
+
+### [Date gtfs](decisions/date-gtfs.md)
+- D-003 · Re-importul creează o versiune nouă a feed-ului, atomic, cu raport de diferențe
+- D-004 · Doar orarul static GTFS; GTFS-Realtime e în afara scopului
+- D-019 · Jobul de import: zilnic și la cererea adminului; versiune nouă doar la checksum nou
+- D-020 · Rapoartele și favoritele se leagă de identificatori stabili, nu de o versiune de feed
+
+### [Ecrane si scop](decisions/ecrane-si-scop.md)
+- D-005 · Harta folosește tile-uri OpenStreetMap, cu atribuire
+- D-008 · Fiecare pagină afișează în subsol „Date de transport: Tursib S.A.”
+- D-022 · Pagina principală: hartă pentru vizitatori, „Acasă” pentru utilizatorii logați
+- D-023 · În afara scopului: alte orașe, rutare pe străzi, notificări, aplicație mobilă, bilete, alte limbi
+
+### [Orar si plecari](decisions/orar-si-plecari.md)
+- D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală
+- D-015 · Lista sărbătorilor legale e în DB, doar pentru eticheta zilei și media abaterilor
+- D-018 · Următoarele plecări: primele 3 pe fiecare linie și sens, completate cu ziua următoare
+
+### [Planificator](decisions/planificator.md)
+- D-002 · Planificatorul caută itinerarii cu maxim un transfer
+- D-012 · Transfer: stații la maxim 150 m; timp minim 2 min plus mersul pe jos la 1,2 m/s
+- D-013 · Planificatorul arată primele 3 itinerarii, ordonate după sosire
+
+### [Stack si infrastructura](decisions/stack-si-infrastructura.md)
+- D-001 · Stack: Java 21 + Spring Boot, PostgreSQL/PostGIS, Flyway, Thymeleaf + Leaflet; dezvoltare locală în Docker Compose
+- D-006 · Build cu Maven (./mvnw); teste cu JUnit 5 și Testcontainers PostGIS
+- D-007 · Aplicația e găzduită pe un URL public, cu HTTPS
 - D-011 · Autentificare cu Spring Security: email + parolă BCrypt, sesiune, roluri USER și ADMIN
 
 ---
-
-## D-001 · Stack: Java 21 + Spring Boot, PostgreSQL/PostGIS, Flyway, Thymeleaf + Leaflet; dezvoltare locală în Docker Compose
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Backend Java 21 + Spring Boot, expus ca REST API. Date în PostgreSQL cu PostGIS; schema doar prin migrări Flyway. Paginile sunt Thymeleaf; harta e Leaflet și își ia datele din API-ul aplicației. Dezvoltarea locală rulează în Docker Compose.
-- **Why:** Alegerea utilizatorului la setup. PostGIS acoperă căutarea spațială a stațiilor; Flyway ține schema versionată.
-- **Rejected:** React/Vite, Laravel, Python (FastAPI) — oferite la setup, neselectate.
-- **Evidence:** cerința utilizatorului la setup, 2026-11-18 (nu există cod încă)
-- **Source:** user · confidence high
-- **Owner note:** 2026-11-18: reformulat din „totul rulează local” după D-007 (găzduire publică).
-- **Confirmed:** 2026-11-18
-
-## D-002 · Planificatorul caută itinerarii cu maxim un transfer
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Planificatorul întoarce doar itinerarii cu o cursă directă sau cu exact un transfer; niciodată două sau mai multe.
-- **Why:** Cerință din catalog: „un planificator simplu cu maxim un transfer”.
-- **Rejected:** rutare multi-transfer (de ex. RAPTOR complet) — în afara scopului cerut.
-- **Evidence:** cerința utilizatorului la setup, 2026-11-18 (nu există cod încă)
-- **Source:** user · confidence high
-- **Owner note:** cerință din catalog; se păstrează.
-- **Confirmed:** 2026-11-18
-
-## D-003 · Re-importul creează o versiune nouă a feed-ului, atomic, cu raport de diferențe
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Fiecare import creează o versiune nouă a feed-ului GTFS, într-o singură tranzacție: fie se importă tot, fie nimic. Importul produce un raport de diferențe față de versiunea anterioară: stații noi, stații dispărute, trasee schimbate.
-- **Why:** Cerință din catalog (raportul de diferențe). Un import eșuat nu trebuie să lase date pe jumătate.
-- **Rejected:** înlocuirea datelor pe loc, fără versiuni (nu permite raportul de diferențe).
-- **Evidence:** răspunsul utilizatorului la Q-002, 2026-11-18
-- **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
-
-## D-004 · Doar orarul static GTFS; GTFS-Realtime e în afara scopului
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Următoarele plecări și planificatorul folosesc doar orarul static GTFS. Aplicația nu citește GTFS-Realtime. Abaterile de la orar se cunosc din rapoartele utilizatorilor și din observațiile de teren ale autorului.
-- **Why:** Decizia utilizatorului: realtime e în afara scopului.
-- **Rejected:** GTFS-Realtime.
-- **Evidence:** răspunsul utilizatorului la Q-003, 2026-11-18
-- **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
-
-## D-005 · Harta folosește tile-uri OpenStreetMap, cu atribuire
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Fundalul hărții Leaflet vine din tile-urile OpenStreetMap. Harta afișează mereu atribuirea „© OpenStreetMap contributors”.
-- **Why:** Alegerea utilizatorului; atribuirea e cerută de licența OSM.
-- **Rejected:** alți furnizori de tile-uri.
-- **Evidence:** răspunsul utilizatorului la Q-004, 2026-11-18
-- **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
-
-## D-006 · Build cu Maven (./mvnw); teste cu JUnit 5 și Testcontainers PostGIS
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Build-ul folosește Maven prin wrapper-ul `./mvnw`. Testele sunt JUnit 5; testele cu baza de date rulează pe PostgreSQL/PostGIS prin Testcontainers.
-- **Why:** Alegerea utilizatorului. Testcontainers testează pe același PostGIS ca în producție, nu pe o bază în memorie.
-- **Rejected:** Gradle.
-- **Evidence:** răspunsul utilizatorului la Q-006, 2026-11-18
-- **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
-
-## D-007 · Aplicația e găzduită pe un URL public, cu HTTPS
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Aplicația se publică pe un URL public, doar prin HTTPS. Furnizorul de găzduire se alege mai târziu (Q-012).
-- **Why:** Cerință din catalog.
-- **Rejected:** rulare doar locală.
-- **Evidence:** răspunsul utilizatorului la Q-008, 2026-11-18
-- **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
-
-## D-008 · Fiecare pagină afișează în subsol „Date de transport: Tursib S.A.”
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Subsolul fiecărei pagini afișează textul „Date de transport: Tursib S.A.”.
-- **Why:** Atribuirea cerută pentru datele Tursib (DATA.md → Licență).
-- **Rejected:** atribuire doar pe o pagină „Despre”.
-- **Evidence:** cerința utilizatorului, 2026-11-18; DATA.md
-- **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
-
-## D-009 · Rapoartele de abatere: utilizatorii logați raportează, adminul moderează
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Un utilizator logat raportează o abatere pentru o linie, într-o stație, la o oră (ex. „a venit cu 7 minute întârziere”). Pagina liniei arată abaterea medie raportată, pe intervale orare. Adminul moderează rapoartele. Observațiile de teren din FIELD.md intră ca seed în aceleași date.
-- **Why:** Cerință din catalog. Completează D-004: abaterile vin din rapoarte, nu din GTFS-Realtime.
-- **Rejected:** rapoarte anonime (doar utilizatori logați); un depozit separat pentru observațiile de teren.
-- **Evidence:** răspunsul utilizatorului la Q-011, 2026-11-18
-- **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
-
-## D-010 · Datele de teren: FIELD.md în root, observațiile în field/observations.csv
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** `FIELD.md` stă în root, lângă `DATA.md`, și conține: de ce au fost alese liniile și stațiile, linkul la CSV, pozele și secțiunea „Interviuri navetiști”. Observațiile stau în `field/observations.csv`, cu antetul `data,ora_reala,statie,linie,sens,ora_feed,abatere_min,observatii,poza`. Pozele stau în `field/photos/<data>/`, micșorate la ~1600 px. Datele de teren le completează doar autorul: un agent nu inventează observații, interviuri sau poze.
-- **Why:** Răspunsul utilizatorului la Q-013. Observațiile sunt seed pentru rapoartele de abatere (D-009), deci formatul trebuie fixat.
-- **Rejected:** observații direct în FIELD.md, fără CSV.
-- **Evidence:** răspunsul utilizatorului la Q-013, 2026-11-18 (fișierele nu există încă)
-- **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
-
-## D-011 · Autentificare cu Spring Security: email + parolă BCrypt, sesiune, roluri USER și ADMIN
-- **Status:** approved
-- **Date:** 2026-11-18
-- **Rule:** Înregistrare cu email și parolă (hash BCrypt) și login cu sesiune, prin Spring Security. Două roluri: USER (oricine se înregistrează) și ADMIN. Nimeni nu devine admin din aplicație. Primul admin se creează la pornire din variabile de mediu (`.env`), niciodată din cod.
-- **Why:** Răspunsul utilizatorului la Q-014. Rapoartele cer utilizatori logați, iar moderarea cere un admin (D-009). Credențialele adminului nu ajung în cod sau în git.
-- **Rejected:** promovarea la admin din aplicație; un admin scris în cod sau într-o migrare.
-- **Evidence:** răspunsul utilizatorului la Q-014, 2026-11-18
-- **Source:** user · confidence high
-- **Confirmed:** 2026-11-18

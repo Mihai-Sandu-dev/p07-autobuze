@@ -52,3 +52,12 @@ _Avoid_: sesizare, reclamație, feedback
 
 **Observație de teren** (substantiv) — o abatere notată de autor la fața locului, în FIELD.md; intră ca seed printre rapoartele de abatere.
 _Avoid_: măsurătoare, notă
+
+**Versiune de feed** (substantiv) — rezultatul unui import reușit, cu checksum; una singură e activă.
+_Avoid_: snapshot, revizie, ediție
+
+**Tip de zi** (substantiv) — lucrătoare, sâmbătă, sau duminică și sărbătoare legală.
+_Avoid_: tip de serviciu, regim
+
+**Favorită** (substantiv) — o stație salvată de un utilizator logat; plecările ei apar pe pagina „Acasă”.
+_Avoid_: bookmark, stație preferată
