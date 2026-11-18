@@ -13,8 +13,9 @@
 - D-016 · Abaterea medie pe linie: pe intervale de o oră, separat pe tip de zi
 - D-017 · Raportul de abatere: utilizatorul alege o plecare din orar și scrie ora reală
 - D-021 · Corespondența dintre datele de teren și feed: un tabel completat de autor
-- D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn · _proposed_
-- D-025 · Observațiile de teren intră ca rapoarte de abatere cu sursa „teren” · _proposed_
+- D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn
+- D-025 · Observațiile de teren intră ca rapoarte de abatere cu sursa „teren”
+- D-026 · Coloana `poza`: calea relativă a pozei cu panoul stației, sau goală
 
 ### [Date gtfs](decisions/date-gtfs.md)
 - D-003 · Re-importul creează o versiune nouă a feed-ului, atomic, cu raport de diferențe

@@ -51,19 +51,32 @@
 - **Confirmed:** 2026-11-19
 
 ## D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-19
 - **Rule:** În `field/observations.csv` și în DB, data se scrie YYYY-MM-DD și ora HH:MM. Abaterea e un întreg cu semn, în minute (+4, -1, 0). Formatul românesc (17.11.2026) rămâne doar în `field/Date_Teren_Autobuze.xlsx`.
 - **Why:** Răspunsul la Q-015: un format neambiguu, ușor de citit de seed.
 - **Rejected:** formatul românesc din xlsx și în CSV.
 - **Evidence:** răspunsul utilizatorului la Q-015, 2026-11-19
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
 
 ## D-025 · Observațiile de teren intră ca rapoarte de abatere cu sursa „teren”
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-19
 - **Rule:** Seed-ul încarcă observațiile din `field/observations.csv` ca rapoarte de abatere obișnuite, cu sursa „teren”. Ele intră în aceeași medie ca rapoartele utilizatorilor (D-016) și sunt vizibile ca abateri în aplicație.
 - **Why:** Răspunsul la Q-016; Definition of Done din fișa P07: „FIELD.md are cele 20 de observații și sunt vizibile ca abateri în aplicație”.
 - **Rejected:** un depozit separat pentru observațiile de teren; rapoarte fără sursă, ale unui cont de sistem.
 - **Evidence:** răspunsul utilizatorului la Q-016, 2026-11-19; SCOPE.md → Definition of done
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
+
+## D-026 · Coloana `poza`: calea relativă a pozei cu panoul stației, sau goală
+- **Status:** approved
+- **Date:** 2026-11-19
+- **Rule:** În `field/observations.csv`, coloana `poza` conține calea relativă (de la rădăcina repo-ului) a pozei cu panoul stației, în subfolderul zilei din D-010, de ex. `field/photos/2026-11-17/2026-11-17_metro_panou.jpg`. Dacă observația nu are poză, coloana rămâne goală.
+- **Why:** Răspunsul la Q-021: seed-ul și FIELD.md leagă observația de poză fără să ghicească numele fișierului.
+- **Rejected:** doar numele fișierului, fără cale.
+- **Evidence:** răspunsul utilizatorului la Q-021, 2026-11-19
+- **Source:** user · confidence high
+- **Owner note:** 2026-11-19: pozele rămân în subfolderul zilei (D-010), nu direct în `field/photos/`.
+- **Confirmed:** 2026-11-19

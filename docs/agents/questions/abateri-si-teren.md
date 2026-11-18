@@ -19,14 +19,14 @@
 - **Blocks:** seed-ul din observații (D-009, D-010): formatul pentru `data` și ore, valorile pentru `sens`, ce conține `poza` (cale sau nume de fișier)
 - **Who answers:** utilizatorul
 - **Answer:** În CSV și în DB: data YYYY-MM-DD, ora HH:MM, abaterea întreg cu semn în minute (+4, -1, 0). Formatul românesc rămâne doar în xlsx. Coloana `poza`: Q-021.
-- **Recorded as:** D-024 (proposed)
+- **Recorded as:** D-024
 
 ## Q-016 · Cum apar observațiile de teren în aplicație față de rapoartele utilizatorilor?
 - **Status:** answered 2026-11-19
 - **Blocks:** seed-ul (D-009): etichetă „observație de teren” cu link spre FIELD.md, sau raport obișnuit al unui cont de sistem
 - **Who answers:** utilizatorul
 - **Answer:** Ca rapoarte de abatere cu sursa „teren”, în aceeași medie; vizibile ca abateri în aplicație (Definition of Done).
-- **Recorded as:** D-025 (proposed)
+- **Recorded as:** D-025
 
 ## Q-017 · Câte poze cu panouri există și de la ce stații?
 - **Status:** open
@@ -44,6 +44,8 @@
 - **Who answers:** utilizatorul, la /plan
 
 ## Q-021 · Ce conține coloana `poza` din field/observations.csv?
-- **Status:** open
+- **Status:** answered 2026-11-19
 - **Blocks:** legătura dintre o observație și poza panoului (D-010): cale relativă, nume de fișier sau gol
 - **Who answers:** utilizatorul
+- **Answer:** Calea relativă a pozei cu panoul (ex. `field/photos/2026-11-17/2026-11-17_metro_panou.jpg`, în subfolderul zilei din D-010) sau gol dacă observația nu are poză.
+- **Recorded as:** D-026

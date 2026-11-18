@@ -55,8 +55,8 @@ Designul fiecărui ecran se face în pasul următor (`docs/design/`).
   vin numai din calendar.txt și calendar_dates.txt (D-014, D-015).
 - **Seed din teren:** observațiile din `field/observations.csv` intră în rapoartele de
   abatere (D-009, D-010), legate de feed printr-un tabel de corespondență completat de
-  autor (D-021; Q-020). Intră ca rapoarte de abatere cu sursa „teren” (D-025 _propus_).
-  Format în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn (D-024 _propus_).
+  autor (D-021; Q-020). Intră ca rapoarte de abatere cu sursa „teren” (D-025).
+  Format în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn (D-024).
 
 ## Cerințe tehnice (din fișă)
 - Importul a 200.000+ rânduri durează minute, nu ore: insert în batch, indecși
@@ -107,5 +107,4 @@ importat 200.000 de rânduri și cât a durat.
 ## Încă deschis
 Q-007 (screenshot-uri), Q-009 (licența Tursib), Q-010 (shapes.txt), Q-012 (găzduire,
 la /plan, înainte de 2026-11-22), Q-017 (poze), Q-018 (interviuri), Q-019
-(identificatorul stabil al stațiilor), Q-020 (tabelul de corespondență), Q-021
-(coloana `poza`).
+(identificatorul stabil al stațiilor), Q-020 (tabelul de corespondență).
