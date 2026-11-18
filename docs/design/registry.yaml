@@ -19,7 +19,8 @@ designs:
     note: "pagina de stație — următoarele 3 plecări pe linie și sens, „mâine” marcat, buton de raport (D-018, D-017)"
     source: none
     screenshots: []
-    design_ref: none
+    design_ref: mocks/DS-autobuze-statie.html
+    status: draft
   - id: DS-autobuze-harta
     kind: screen
     note: "„/” pentru vizitator — harta cu stații, căutare după nume și „aproape de mine” (D-022)"
