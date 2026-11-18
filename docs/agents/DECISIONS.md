@@ -15,7 +15,9 @@
 - D-006 · Build cu Maven (./mvnw); teste cu JUnit 5 și Testcontainers PostGIS
 - D-007 · Aplicația e găzduită pe un URL public, cu HTTPS
 - D-008 · Fiecare pagină afișează în subsol „Date de transport: Tursib S.A.”
-- D-009 · Rapoartele de abatere: utilizatorii logați raportează, adminul moderează · _proposed_
+- D-009 · Rapoartele de abatere: utilizatorii logați raportează, adminul moderează
+- D-010 · Datele de teren: FIELD.md în root, observațiile în field/observations.csv
+- D-011 · Autentificare cu Spring Security: email + parolă BCrypt, sesiune, roluri USER și ADMIN
 
 ---
 
@@ -102,10 +104,31 @@
 - **Confirmed:** 2026-11-18
 
 ## D-009 · Rapoartele de abatere: utilizatorii logați raportează, adminul moderează
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-18
 - **Rule:** Un utilizator logat raportează o abatere pentru o linie, într-o stație, la o oră (ex. „a venit cu 7 minute întârziere”). Pagina liniei arată abaterea medie raportată, pe intervale orare. Adminul moderează rapoartele. Observațiile de teren din FIELD.md intră ca seed în aceleași date.
 - **Why:** Cerință din catalog. Completează D-004: abaterile vin din rapoarte, nu din GTFS-Realtime.
 - **Rejected:** rapoarte anonime (doar utilizatori logați); un depozit separat pentru observațiile de teren.
 - **Evidence:** răspunsul utilizatorului la Q-011, 2026-11-18
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-18
+
+## D-010 · Datele de teren: FIELD.md în root, observațiile în field/observations.csv
+- **Status:** approved
+- **Date:** 2026-11-18
+- **Rule:** `FIELD.md` stă în root, lângă `DATA.md`, și conține: de ce au fost alese liniile și stațiile, linkul la CSV, pozele și secțiunea „Interviuri navetiști”. Observațiile stau în `field/observations.csv`, cu antetul `data,ora_reala,statie,linie,sens,ora_feed,abatere_min,observatii,poza`. Pozele stau în `field/photos/<data>/`, micșorate la ~1600 px. Datele de teren le completează doar autorul: un agent nu inventează observații, interviuri sau poze.
+- **Why:** Răspunsul utilizatorului la Q-013. Observațiile sunt seed pentru rapoartele de abatere (D-009), deci formatul trebuie fixat.
+- **Rejected:** observații direct în FIELD.md, fără CSV.
+- **Evidence:** răspunsul utilizatorului la Q-013, 2026-11-18 (fișierele nu există încă)
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-18
+
+## D-011 · Autentificare cu Spring Security: email + parolă BCrypt, sesiune, roluri USER și ADMIN
+- **Status:** approved
+- **Date:** 2026-11-18
+- **Rule:** Înregistrare cu email și parolă (hash BCrypt) și login cu sesiune, prin Spring Security. Două roluri: USER (oricine se înregistrează) și ADMIN. Nimeni nu devine admin din aplicație. Primul admin se creează la pornire din variabile de mediu (`.env`), niciodată din cod.
+- **Why:** Răspunsul utilizatorului la Q-014. Rapoartele cer utilizatori logați, iar moderarea cere un admin (D-009). Credențialele adminului nu ajung în cod sau în git.
+- **Rejected:** promovarea la admin din aplicație; un admin scris în cod sau într-o migrare.
+- **Evidence:** răspunsul utilizatorului la Q-014, 2026-11-18
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-18

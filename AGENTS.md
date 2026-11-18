@@ -19,6 +19,7 @@ non-fast-forward or on uncommitted changes you did not make.
 | Old code or a past decision needs explaining | `docs/agents/DECISIONS-SUPERSEDED.md`, `PATTERNS-SUPERSEDED.md` (never obeyed) |
 | UI work | `docs/design/DESIGN.md`, `docs/design/registry.yaml` |
 | Import, date GTFS sau atribuire | `DATA.md` (sursă, licență, probleme, curățare) |
+| Date de teren sau seed-ul de abateri | `FIELD.md`, `field/observations.csv` (completate doar de autor) |
 
 **Flow:** a change to more than a few lines, or one with a design choice, starts with
 `/plan`. The approved plan runs with `/build`. Small fixes go straight to build, with
@@ -82,7 +83,7 @@ Aplicație de transport public pentru Sibiu, pe datele GTFS ale Tursib S.A. (DAT
 Funcții cerute: import complet al feed-ului GTFS, căutare de stații pe hartă,
 următoarele plecări dintr-o stație, vizualizarea traseelor și un planificator simplu
 cu maxim un transfer (D-002). Doar orar static, fără GTFS-Realtime (D-004); abaterile vin
-din rapoartele utilizatorilor logați (D-009, propus). Dezvoltare locală în Docker Compose
+din rapoartele utilizatorilor logați (D-009). Dezvoltare locală în Docker Compose
 (D-001); găzduire publică cu HTTPS (D-007).
 
 ## 2. Stack și comenzi

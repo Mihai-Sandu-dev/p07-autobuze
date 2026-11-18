@@ -21,8 +21,9 @@
 - Q-010 · Feed-ul Tursib conține shapes.txt?
 - Q-011 · Rapoartele utilizatorilor despre abateri sunt o funcție a aplicației? · _answered_
 - Q-012 · Pe ce furnizor găzduim aplicația?
-- Q-013 · Unde e FIELD.md și ce format au observațiile de teren?
-- Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin?
+- Q-013 · Unde e FIELD.md și ce format au observațiile de teren? · _answered_
+- Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin? · _answered_
+- Q-015 · Ce format au valorile din field/observations.csv?
 
 ---
 
@@ -38,21 +39,21 @@
 - **Blocks:** designul importului
 - **Who answers:** utilizatorul
 - **Answer:** Re-importul creează o versiune nouă a feed-ului, într-o singură tranzacție (tot sau nimic), și produce raportul de diferențe cerut de catalog (stații noi / dispărute, trasee schimbate).
-- **Recorded as:** D-003 (proposed)
+- **Recorded as:** D-003
 
 ## Q-003 · Următoarele plecări vin doar din orar (static) sau și din GTFS-Realtime?
 - **Status:** answered 2026-11-18
 - **Blocks:** sursa pentru următoarele plecări
 - **Who answers:** utilizatorul
 - **Answer:** Doar orarul static GTFS; GTFS-Realtime e în afara scopului. Abaterile vin din rapoartele utilizatorilor și din observațiile de teren ale autorului.
-- **Recorded as:** D-004 (proposed)
+- **Recorded as:** D-004
 
 ## Q-004 · Ce furnizor de tile-uri folosește harta?
 - **Status:** answered 2026-11-18
 - **Blocks:** configurarea Leaflet, atribuirea
 - **Who answers:** utilizatorul
 - **Answer:** Tile-uri OpenStreetMap, cu atribuirea „© OpenStreetMap contributors”.
-- **Recorded as:** D-005 (proposed)
+- **Recorded as:** D-005
 
 ## Q-005 · După ce criterii alege planificatorul și cum definim un transfer?
 - **Status:** open
@@ -64,7 +65,7 @@
 - **Blocks:** comenzile din AGENTS.md secțiunea 2 și definition of done
 - **Who answers:** utilizatorul
 - **Answer:** Maven prin `./mvnw`, JUnit 5 și Testcontainers cu PostgreSQL/PostGIS.
-- **Recorded as:** D-006 (proposed)
+- **Recorded as:** D-006
 
 ## Q-007 · Cum facem screenshot-uri ale paginilor?
 - **Status:** open
@@ -76,7 +77,7 @@
 - **Blocks:** AGENTS.md secțiunea 5 (release), configurare și secrete
 - **Who answers:** utilizatorul
 - **Answer:** Găzduită pe un URL public cu HTTPS (cerință din catalog). Furnizorul se alege mai târziu (Q-012).
-- **Recorded as:** D-007 (proposed)
+- **Recorded as:** D-007
 
 ## Q-009 · Confirmă Tursib folosirea datelor GTFS în acest proiect?
 - **Status:** open
@@ -93,7 +94,7 @@
 - **Blocks:** orice funcție de raportare a abaterilor (D-004 spune doar că abaterile vin din rapoarte și observații de teren)
 - **Who answers:** utilizatorul
 - **Answer:** Da, cerută de catalog: utilizatorii logați raportează o abatere (linie, stație, oră); pagina liniei arată abaterea medie pe intervale orare; adminul moderează; observațiile din FIELD.md intră ca seed.
-- **Recorded as:** D-009 (proposed)
+- **Recorded as:** D-009
 
 ## Q-012 · Pe ce furnizor găzduim aplicația?
 - **Status:** open
@@ -101,11 +102,21 @@
 - **Who answers:** utilizatorul
 
 ## Q-013 · Unde e FIELD.md și ce format au observațiile de teren?
-- **Status:** open
+- **Status:** answered 2026-11-18
 - **Blocks:** seed-ul observațiilor de teren în rapoartele de abatere (D-009); FIELD.md nu există încă în repo
 - **Who answers:** utilizatorul
+- **Answer:** `FIELD.md` în root, lângă `DATA.md`; observațiile în `field/observations.csv` (antet `data,ora_reala,statie,linie,sens,ora_feed,abatere_min,observatii,poza`); pozele în `field/photos/<data>/`, ~1600 px. FIELD.md: alegerea liniilor și stațiilor, link la CSV, poze, „Interviuri navetiști”. Datele le completează autorul.
+- **Recorded as:** D-010
 
 ## Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin?
-- **Status:** open
+- **Status:** answered 2026-11-18
 - **Blocks:** rapoartele de abatere (D-009): înregistrare și login, roluri utilizator / admin
 - **Who answers:** utilizatorul
+- **Answer:** Email + parolă (BCrypt), login cu sesiune, prin Spring Security. Roluri USER (la înregistrare) și ADMIN. Primul admin se creează la pornire din variabile de mediu (`.env`); nimeni nu devine admin din aplicație.
+- **Recorded as:** D-011
+
+## Q-015 · Ce format au valorile din field/observations.csv?
+- **Status:** open
+- **Blocks:** seed-ul din observații (D-009, D-010): formatul pentru `data` și ore, valorile pentru `sens`, cum se identifică `statie` și `linie` (nume sau ID din feed), ce conține `poza` (cale sau nume de fișier)
+- **Who answers:** utilizatorul
+- **Proposed answer:** stabilit la /plan pentru seed, după ce există primele rânduri reale

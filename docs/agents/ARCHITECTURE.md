@@ -35,7 +35,7 @@ pagini Thymeleaf. Harta Leaflet din pagini citește datele din API.
 3. **Următoarele plecări:** stație + ora curentă → calendar + plecări → listă (doar orar static: D-004).
 4. **Trasee:** linie → traseele ei → geometrie pe hartă (shapes: Q-010).
 5. **Planificator:** origine + destinație + oră → itinerarii cu maxim un transfer (D-002; criterii: Q-005).
-6. **Raport de abatere:** utilizator logat → raport (linie, stație, oră, minute) → moderare de admin → medie pe intervale orare pe pagina liniei; seed din FIELD.md (D-009, propus; auth: Q-014).
+6. **Raport de abatere:** utilizator logat → raport (linie, stație, oră, minute) → moderare de admin → medie pe intervale orare pe pagina liniei; seed din FIELD.md (D-009; format: D-010; auth: D-011).
 
 ## State and storage
 | What | Where | Owner | Notes |
@@ -45,6 +45,7 @@ pagini Thymeleaf. Harta Leaflet din pagini citește datele din API.
 ## Configuration
 | Name | Where set | Used by | Notes |
 |---|---|---|---|
+| datele primului admin | `.env` (niciodată în git) | pornirea aplicației | nume de variabile: de stabilit la /plan (D-011) |
 <!-- names only, never values -->
 
 ## Build, deploy, runtime
