@@ -43,3 +43,12 @@ _Avoid_: rută, călătorie, traseu
 
 **Transfer** (substantiv) — trecerea de pe o cursă pe alta în cadrul unui itinerariu.
 _Avoid_: corespondență, schimbare
+
+**Abatere** (substantiv) — diferența dintre ora din orar și ora reală a unei curse într-o stație, în minute.
+_Avoid_: întârziere (ca termen general), deviere
+
+**Raport de abatere** (substantiv) — o abatere trimisă de un utilizator logat: linie, stație, oră, minute.
+_Avoid_: sesizare, reclamație, feedback
+
+**Observație de teren** (substantiv) — o abatere notată de autor la fața locului, în FIELD.md; intră ca seed printre rapoartele de abatere.
+_Avoid_: măsurătoare, notă

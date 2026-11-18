@@ -19,8 +19,10 @@
 - Q-008 · Aplicația rămâne doar locală sau va fi găzduită? · _answered_
 - Q-009 · Confirmă Tursib folosirea datelor GTFS în acest proiect?
 - Q-010 · Feed-ul Tursib conține shapes.txt?
-- Q-011 · Rapoartele utilizatorilor despre abateri sunt o funcție a aplicației?
+- Q-011 · Rapoartele utilizatorilor despre abateri sunt o funcție a aplicației? · _answered_
 - Q-012 · Pe ce furnizor găzduim aplicația?
+- Q-013 · Unde e FIELD.md și ce format au observațiile de teren?
+- Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin?
 
 ---
 
@@ -87,11 +89,23 @@
 - **Who answers:** utilizatorul, la descărcarea feed-ului
 
 ## Q-011 · Rapoartele utilizatorilor despre abateri sunt o funcție a aplicației?
-- **Status:** open
+- **Status:** answered 2026-11-18
 - **Blocks:** orice funcție de raportare a abaterilor (D-004 spune doar că abaterile vin din rapoarte și observații de teren)
 - **Who answers:** utilizatorul
+- **Answer:** Da, cerută de catalog: utilizatorii logați raportează o abatere (linie, stație, oră); pagina liniei arată abaterea medie pe intervale orare; adminul moderează; observațiile din FIELD.md intră ca seed.
+- **Recorded as:** D-009 (proposed)
 
 ## Q-012 · Pe ce furnizor găzduim aplicația?
 - **Status:** open
-- **Blocks:** deploy, HTTPS, configurare și secrete (D-007)
+- **Blocks:** deploy, HTTPS, configurare și secrete (D-007). Termen: înainte de checkpoint-ul de duminică, 2026-11-22, când trebuie să existe deja un deploy „hello” pe URL-ul live.
+- **Who answers:** utilizatorul
+
+## Q-013 · Unde e FIELD.md și ce format au observațiile de teren?
+- **Status:** open
+- **Blocks:** seed-ul observațiilor de teren în rapoartele de abatere (D-009); FIELD.md nu există încă în repo
+- **Who answers:** utilizatorul
+
+## Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin?
+- **Status:** open
+- **Blocks:** rapoartele de abatere (D-009): înregistrare și login, roluri utilizator / admin
 - **Who answers:** utilizatorul

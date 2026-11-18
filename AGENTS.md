@@ -81,15 +81,16 @@ without new evidence. A rejected proposal is added there with the reason.
 Aplicație de transport public pentru Sibiu, pe datele GTFS ale Tursib S.A. (DATA.md).
 Funcții cerute: import complet al feed-ului GTFS, căutare de stații pe hartă,
 următoarele plecări dintr-o stație, vizualizarea traseelor și un planificator simplu
-cu maxim un transfer (D-002). Doar orar static, fără GTFS-Realtime (D-004, propus).
-Dezvoltare locală în Docker Compose (D-001); găzduire publică cu HTTPS (D-007, propus).
+cu maxim un transfer (D-002). Doar orar static, fără GTFS-Realtime (D-004); abaterile vin
+din rapoartele utilizatorilor logați (D-009, propus). Dezvoltare locală în Docker Compose
+(D-001); găzduire publică cu HTTPS (D-007).
 
 ## 2. Stack și comenzi
 D-001: Java 21 + Spring Boot (REST API), PostgreSQL cu
-PostGIS, migrări Flyway, pagini Thymeleaf cu o hartă Leaflet care citește din API,
-totul local în Docker Compose.
+PostGIS, migrări Flyway, pagini Thymeleaf cu o hartă Leaflet care citește din API;
+dezvoltarea locală rulează în Docker Compose.
 
-Build: Maven prin `./mvnw`; teste JUnit 5 + Testcontainers PostGIS (D-006, propus).
+Build: Maven prin `./mvnw`; teste JUnit 5 + Testcontainers PostGIS (D-006).
 
 ```bash
 # Nu există cod încă: nicio comandă nu a fost rulată.
@@ -110,7 +111,8 @@ docker compose up -d     # pornește aplicația și PostGIS (neexecutat: nu exis
 - Nimic nu se construiește pe stack până când D-001 e aprobat.
 
 ## 5. Release
-Aplicația va fi publică, pe HTTPS (D-007, propus); furnizorul e Q-012.
+Aplicația va fi publică, pe HTTPS (D-007); furnizorul e Q-012.
+Termen: un deploy „hello” pe URL-ul live înainte de checkpoint-ul din 2026-11-22.
 Branch-uri, versiune și changelog: nestabilite încă.
 Niciun push, tag sau deploy fără acordul utilizatorului.
 
