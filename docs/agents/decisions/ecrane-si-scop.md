@@ -39,3 +39,14 @@
 - **Evidence:** interviul de scope, 2026-11-19
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-19
+
+## D-027 · Direcția vizuală: bază neutră, un accent, stil de panou doar la plecări și linii
+- **Status:** approved
+- **Date:** 2026-11-19
+- **Rule:** Interfața are o bază neutră (alb / gri închis) și un singur accent, folosit doar pentru acțiuni. Stilul de panou de stație apare doar unde contează: orele de plecare sunt mari, cu cifre monospace, iar numărul liniei stă într-o etichetă colorată. Culoarea etichetei vine din `route_color` / `route_text_color` din feed; dacă textul nu are contrast de cel puțin 4,5:1, trece pe alb sau negru, care dintre ele contrastează mai bine. Nu se folosesc culorile sau logo-ul Tursib.
+- **Why:** Alegerea utilizatorului. Aplicația nu e oficială Tursib și nu trebuie să pară; orele trebuie citite repede, ca pe panou.
+- **Rejected:** stil de panou pe toată interfața; culorile Tursib.
+- **Evidence:** răspunsul utilizatorului la designul din 2026-11-19 (după el, feed-ul Tursib are route_color / route_text_color; neverificat încă în feed)
+- **Source:** user · confidence high
+- **Owner note:** 2026-11-19: tokens aprobate cu corectura de contrast: fiecare culoare trece și pe --color-bg, și pe --color-surface (docs/design/DESIGN.md).
+- **Confirmed:** 2026-11-19

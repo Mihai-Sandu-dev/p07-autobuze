@@ -38,6 +38,7 @@ raportate de utilizatori. Fișa: categoria B, dificultate ★★★★★, ~45 h
 | Admin: import | pornește jobul; versiuni și checksum-uri | D-003, D-019 |
 | Admin: raport de diferențe | stații noi, stații dispărute, trasee schimbate | D-003 |
 | Admin: rapoarte | lista rapoartelor; ștergerea unui raport greșit | D-016 |
+| Pagina de eroare | o pagină comună pentru 403, 404 și 500, fără detalii tehnice | DS-autobuze-eroare |
 | Toate paginile | subsol „Date de transport: Tursib S.A.”; atribuirea OSM pe hartă | D-008, D-005 |
 
 Designul fiecărui ecran se face în pasul următor (`docs/design/`).

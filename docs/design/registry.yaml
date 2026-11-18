@@ -1,5 +1,125 @@
 # docs/design/registry.yaml — every screen and shared component, by DS- ID.
 # Plans, commits, mocks and board files use the ID (tickets don't). kind: foundation | component | screen
 # status: draft (mock drawn) | approved (confirmed on the board) | implemented | deprecated (never delete an entry)
-# Niciun ecran încă. ID-urile vor avea forma DS-autobuze-<nume> (de ex. DS-autobuze-harta-statii).
-designs: []
+#
+# Aprobat 2026-11-19, din SCOPE.md → Ecrane (plus DS-autobuze-eroare; fără pagină „Despre”). Niciun mock nu e desenat încă:
+# design_ref: none și fără status până la primul mock (devine draft când mockul există).
+# Ordinea mock-urilor: întâi DS-autobuze-statie.
+designs:
+  # --- foundation ---
+  - id: DS-autobuze-tokens
+    kind: foundation
+    note: "culori, fonturi, spațieri din DESIGN.md → Tokens (D-027)"
+    source: none
+    design_ref: none
+
+  # --- screens ---
+  - id: DS-autobuze-statie
+    kind: screen
+    note: "pagina de stație — următoarele 3 plecări pe linie și sens, „mâine” marcat, buton de raport (D-018, D-017)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-harta
+    kind: screen
+    note: "„/” pentru vizitator — harta cu stații, căutare după nume și „aproape de mine” (D-022)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-acasa
+    kind: screen
+    note: "„/” pentru utilizator logat — plecările de la favorite, harta dedesubt (D-022)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-linie
+    kind: screen
+    note: "pagina de linie — traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi, abaterea medie pe ore (D-014, D-016)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-planificator
+    kind: screen
+    note: "de la stația A la B, acum sau la o oră dată; primele 3 itinerarii (D-002, D-012, D-013)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-raport-abatere
+    kind: screen
+    note: "formularul de raport, deschis din pagina de stație — plecarea aleasă + ora reală (D-017)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-login
+    kind: screen
+    note: "autentificare cu email și parolă (D-011)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-inregistrare
+    kind: screen
+    note: "cont nou cu email și parolă, rol USER (D-011)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-admin-import
+    kind: screen
+    note: "admin — pornește jobul, versiunile și checksum-urile (D-003, D-019)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-admin-diferente
+    kind: screen
+    note: "admin — raportul de diferențe: stații noi, dispărute, trasee schimbate (D-003)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-admin-rapoarte
+    kind: screen
+    note: "admin — lista rapoartelor de abatere, inclusiv sursa „teren”; ștergere (D-016, D-025)"
+    source: none
+    screenshots: []
+    design_ref: none
+  - id: DS-autobuze-eroare
+    kind: screen
+    note: "pagina comună pentru 403, 404 și 500 — mesaj pentru om și următorul pas, fără detalii tehnice"
+    source: none
+    screenshots: []
+    design_ref: none
+
+  # --- shared components ---
+  - id: DS-autobuze-antet
+    kind: component
+    note: "antetul cu navigarea (hartă, planificator, Acasă/login, admin pentru ADMIN)"
+    source: none
+    design_ref: none
+  - id: DS-autobuze-subsol
+    kind: component
+    note: "subsolul cu „Date de transport: Tursib S.A.” pe fiecare pagină (D-008)"
+    source: none
+    design_ref: none
+  - id: DS-autobuze-eticheta-linie
+    kind: component
+    note: "numărul liniei în eticheta colorată din route_color / route_text_color, cu regula de contrast (D-027)"
+    source: none
+    design_ref: none
+  - id: DS-autobuze-rand-plecare
+    kind: component
+    note: "un rând de plecare — eticheta liniei, sensul, ora mare monospace, „mâine” când e cazul (D-018, D-027)"
+    source: none
+    design_ref: none
+  - id: DS-autobuze-harta-leaflet
+    kind: component
+    note: "harta Leaflet cu tile-uri OSM și atribuirea „© OpenStreetMap contributors” (D-005)"
+    source: none
+    design_ref: none
+  - id: DS-autobuze-cautare-statii
+    kind: component
+    note: "căutarea după nume și butonul „aproape de mine” (geolocația din browser)"
+    source: none
+    design_ref: none
+  - id: DS-autobuze-abatere-medie
+    kind: component
+    note: "abaterea medie pe intervale de o oră, pe tip de zi (D-016)"
+    source: none
+    design_ref: none

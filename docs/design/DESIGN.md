@@ -98,32 +98,79 @@ them; a ticket with UI has a design subtask instead (team addon).
 ## Source
 - Design board: niciunul încă (publicat din `mocks/`, niciodată preluat înapoi)
 - Figma: niciunul
-- Token source in code: nu există încă; un fișier CSS de tokens (de ex. `src/main/resources/static/css/tokens.css`) se propune odată cu primul ecran
-
-> Nu există cod sau CSS încă: tabelele de tokens sunt goale. Primul ecran începe cu
-> un mock în `mocks/` și o PROPUNERE de tokens (AGENTS.md → The gate).
+- Token source in code: `src/main/resources/static/css/tokens.css` (se creează la primul /build cu UI)
+- Direcția vizuală: D-027
 
 ## Tokens
+Aprobate 2026-11-19 (D-027). Contrastul e măsurat față de **ambele** fundaluri,
+`--color-bg` și `--color-surface`: text ≥ 4,5:1, borduri de câmpuri ≥ 3:1.
 
 ### Color
 | Token | Light | Dark | Use |
 |---|---|---|---|
+| `--color-bg` | #ffffff | #121417 | fundalul paginii |
+| `--color-surface` | #f4f5f7 | #1c1f24 | carduri, liste |
+| `--color-text` | #1a1d21 (16,9 / 15,5) | #e8eaed (15,3 / 13,7) | text |
+| `--color-text-muted` | #5a6270 (6,2 / 5,6) | #a3abb7 (8,0 / 7,1) | text secundar |
+| `--color-border` | #868e99 (3,3 / 3,0) | #626a76 (3,4 / 3,0) | borduri de câmpuri, eticheta liniei fără culoare |
+| `--color-divider` | #d6d9de | #2b3037 | separatoare decorative (fără cerință de contrast) |
+| `--color-accent` | #1d5fd1 (5,8 / 5,3) | #6ea2ff (7,3 / 6,5) | butoane, linkuri, inelul de focus |
+| `--color-on-accent` | #ffffff (5,8 pe accent) | #0b1b33 (6,8 pe accent) | text pe accent |
+| `--color-danger` | #b42318 (6,6 / 6,0) | #ff7b72 (7,3 / 6,6) | erori, ștergere |
+| `--color-success` | #1a7f37 (5,1 / 4,7) | #56d364 (9,6 / 8,6) | confirmări |
+| `--color-warning` | #986600 (5,0 / 4,5) | #e3b341 (9,5 / 8,5) | „mâine”, abateri mari |
+
+Valorile din paranteze: contrast pe bg / pe surface.
+
+**Eticheta liniei** (D-027): fundal `route_color`, text `route_text_color` din feed. Sub
+4,5:1, textul trece pe #ffffff sau #000000, care contrastează mai bine. O linie fără
+culoare în feed folosește valorile implicite GTFS (fundal alb, text negru) și bordura
+`--color-border`.
 
 ### Typography
 | Token | Family | Size / line height | Weight | Use |
 |---|---|---|---|---|
+| `--font-text` | `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` | — | — | tot textul |
+| `--font-mono` | `ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`, cu `font-variant-numeric: tabular-nums` | — | — | orele de plecare |
+| `--text-xs` | text | 12 / 16 px | 400 | note, atribuiri |
+| `--text-sm` | text | 14 / 20 px | 400 | text secundar, etichete |
+| `--text-md` | text | 16 / 24 px | 400 | text de bază |
+| `--text-lg` | text | 20 / 28 px | 600 | titluri de secțiune |
+| `--text-xl` | text | 24 / 32 px | 600 | titlul paginii |
+| `--text-2xl` | text | 32 / 40 px | 700 | titlu mare (rar) |
+| `--text-time` | mono | 28 / 32 px | 700 | ora de plecare |
+
+Fără fonturi descărcate.
 
 ### Spacing
 | Token | Value |
 |---|---|
+| `--space-1` | 4 px |
+| `--space-2` | 8 px |
+| `--space-3` | 12 px |
+| `--space-4` | 16 px |
+| `--space-5` | 24 px |
+| `--space-6` | 32 px |
+| `--space-7` | 48 px |
 
 ### Radius, shadow, motion
 | Token | Value | Use |
 |---|---|---|
+| `--radius-sm` | 4 px | câmpuri, butoane |
+| `--radius-md` | 8 px | carduri |
+| `--radius-pill` | 999 px | eticheta liniei |
+| `--shadow-1` | `0 1px 2px rgb(0 0 0 / 0.12)` | carduri peste hartă |
+| `--motion-fast` | 150 ms | hover, focus |
+| `--motion-base` | 250 ms | deschideri de panouri |
+
+Animațiile se opresc la `prefers-reduced-motion: reduce`.
 
 ### Breakpoints / window sizes
 | Name | Min | Max |
 |---|---|---|
+| mobil | 360 px | 599 px |
+| tabletă | 600 px | 1023 px |
+| desktop | 1024 px | — |
 
 ## Hard-coded values found (to migrate)
 | path:line | Value | Should be |
