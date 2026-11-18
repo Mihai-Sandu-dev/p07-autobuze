@@ -99,7 +99,7 @@
 ## Q-012 · Pe ce furnizor găzduim aplicația?
 - **Status:** open
 - **Blocks:** deploy, HTTPS, configurare și secrete (D-007). Termen: înainte de checkpoint-ul de duminică, 2026-11-22, când trebuie să existe deja un deploy „hello” pe URL-ul live.
-- **Who answers:** utilizatorul
+- **Who answers:** utilizatorul, la /plan (după interviu și design)
 
 ## Q-013 · Unde e FIELD.md și ce format au observațiile de teren?
 - **Status:** answered 2026-11-18

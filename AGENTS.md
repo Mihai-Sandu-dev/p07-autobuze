@@ -109,10 +109,10 @@ docker compose up -d     # pornește aplicația și PostGIS (neexecutat: nu exis
 ## 4. Reguli pentru acest repo
 - Termenii de domeniu sunt cei din `CONTEXT.md` (stație, linie, traseu, cursă, plecare...).
 - Sursa, licența și problemele datelor GTFS se țin în `DATA.md`.
-- Nimic nu se construiește pe stack până când D-001 e aprobat.
+- Stack-ul e cel din D-001 (aprobat). O tehnologie sau o dependență nouă se propune întâi (PROPOSAL).
 
 ## 5. Release
-Aplicația va fi publică, pe HTTPS (D-007); furnizorul e Q-012.
+Aplicația va fi publică, pe HTTPS (D-007); furnizorul e Q-012, stabilit la /plan.
 Termen: un deploy „hello” pe URL-ul live înainte de checkpoint-ul din 2026-11-22.
 Branch-uri, versiune și changelog: nestabilite încă.
 Niciun push, tag sau deploy fără acordul utilizatorului.
