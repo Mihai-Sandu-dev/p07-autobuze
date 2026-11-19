@@ -3,6 +3,44 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · Design mai viu: variante de culoare, D-042, mock-urile actualizate
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe `main`
+(doar documentație).
+
+### 1. Variantele
+**Ce am cerut**
+- Un design mai viu și mai primitor, fără să schimb organizarea și poziția elementelor: fundal
+  și suprafețe nuanțate, un accent mai prietenos, dark fără negru pur; umbre moi, stratificate,
+  ca tokens noi; animații line pe butoane, carduri și la comutarea temei, oprite la
+  prefers-reduced-motion. Contrast minim 4,5:1 pentru text și 3:1 pentru borduri, pe bg și pe
+  surface, în ambele teme; orele de plecare cu contrast maxim și fără animații. 2–3 variante
+  una lângă alta, într-un mock separat al paginii de stație; DESIGN.md și tokens.css neatinse.
+
+**Ce am primit**
+- Semnalarea că o bază colorată contrazice D-027 („bază neutră”), deci o propunere de înlocuire.
+- `DS-autobuze-statie.variante.html`: pagina de acum lângă trei variante (cald, rece, salvie),
+  cu contrastul calculat în pagină; toate pragurile trec, orele la ~17:1 cu `--color-time`.
+- Două propuneri: D-042 în locul lui D-027 și tokens-urile noi (culori, `--color-time`, patru
+  umbre, `--ease-out`, regulile de mișcare).
+
+**Ce am făcut cu răspunsul**
+- Am aprobat ambele propuneri și am ales varianta „rece” (cer + azur) → D-042; D-027 înlocuită.
+
+### 2. Mock-urile
+**Ce am cerut**
+- Cele 5 mock-uri actualizate la D-042, cu valorile scrise direct în ele, pe draft până le
+  reconfirm; DESIGN.md și tokens.css rămân până la /plan-ul care aplică D-042.
+
+**Ce am primit**
+- Mock-urile stației, hărții, planificatorului, autentificării și antetului, cu culorile
+  „rece”, umbrele, mișcarea și orele pe `--color-time`; toate pe `draft` în registry.yaml.
+- Două defecte vechi ale mock-urilor, găsite la verificarea capturilor și reparate: în mock-ul
+  antetului, navigarea apărea și în varianta „doar numele”, iar în mock-ul de login eroarea
+  apărea la formularul gol (`display` anula atributul `hidden`). Aplicația nu era afectată.
+
+**Ce am făcut cu răspunsul**
+- Am cerut commit pe `main` (doar documentație), lint, AI_LOG și push, cu comanda arătată înainte.
+
 ## 2026-11-19 · Redenumirea aplicației: „Staționar — când vine autobuzul?”
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
 `feat/nume-stationar`.

@@ -41,7 +41,7 @@
 - **Confirmed:** 2026-11-19
 
 ## D-027 · Direcția vizuală: bază neutră, un accent, stil de panou doar la plecări și linii
-- **Status:** approved
+- **Status:** superseded-by D-042
 - **Date:** 2026-11-19
 - **Rule:** Interfața are o bază neutră (alb / gri închis) și un singur accent, folosit doar pentru acțiuni. Stilul de panou de stație apare doar unde contează: orele de plecare sunt mari, cu cifre monospace, iar numărul liniei stă într-o etichetă colorată. Culoarea etichetei vine din `route_color` / `route_text_color` din feed; dacă textul nu are contrast de cel puțin 4,5:1, trece pe alb sau negru, care dintre ele contrastează mai bine. Nu se folosesc culorile sau logo-ul Tursib.
 - **Why:** Alegerea utilizatorului. Aplicația nu e oficială Tursib și nu trebuie să pară; orele trebuie citite repede, ca pe panou.
@@ -49,7 +49,6 @@
 - **Evidence:** răspunsul utilizatorului la designul din 2026-11-19 (după el, feed-ul Tursib are route_color / route_text_color; neverificat încă în feed)
 - **Source:** user · confidence high
 - **Owner note:** 2026-11-19: tokens aprobate cu corectura de contrast: fiecare culoare trece și pe --color-bg, și pe --color-surface (docs/design/DESIGN.md).
-- **Confirmed:** 2026-11-19
 
 ## D-030 · Harta e și la /harta, pentru toți; „Hartă” din antet duce acolo
 - **Status:** approved
@@ -87,5 +86,16 @@
 - **Rejected:** antetul cu numele complet de la 600 px în sus și scurt pe mobil; păstrarea numelui „Când vine autobuzul?”.
 - **Evidence:** răspunsul autorului, 2026-11-19 (înlocuiește răspunsul 1 la mock-ul DS-autobuze-statie: „Numele rămâne «Când vine autobuzul?»”)
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
+
+## D-042 · Direcția vizuală: bază ușor colorată „rece”, umbre moi și mișcare lină; orele rămân de contrast maxim
+- **Status:** approved
+- **Date:** 2026-11-19
+- **Rule:** Înlocuiește D-027. Interfața are o bază ușor colorată, varianta „rece” (cer + accent azur): fundal și suprafețe nuanțate, în dark fără negru pur. Rămân din D-027: un singur accent, folosit doar pentru acțiuni; stilul de panou de stație doar la plecări și linii (ore mari, monospace; numărul liniei în eticheta colorată din `route_color` / `route_text_color`, cu regula de contrast); fără culorile sau logo-ul Tursib. Orele de plecare au o culoare proprie de contrast maxim (`--color-time`) și nu au nicio animație. Cardurile și butoanele au umbre moi, stratificate; butoanele și cardurile au hover și focus animate, cardurile apar cu un fade scurt, iar tema se comută lin; toate se opresc la `prefers-reduced-motion`. Contrastul rămâne: text ≥ 4,5:1 și borduri ≥ 3:1, pe bg și pe surface, în ambele teme.
+- **Why:** Alegerea autorului: un design mai viu și mai primitor, fără să schimbe organizarea și poziția elementelor; „varianta bună e cea care rămâne ușor de citit dintr-o privire în stație”.
+- **Rejected:** varianta „cald” (nisip + teracotă); varianta „salvie” (verde pal + petrol); baza neutră din D-027.
+- **Evidence:** `docs/design/mocks/DS-autobuze-statie.variante.html` (coloana „B · Rece”, cu valorile light și dark și contrastul calculat în pagină); răspunsul autorului, 2026-11-19
+- **Source:** user · confidence high
+- **Owner note:** 2026-11-19: aprobată și propunerea de tokens (culorile variantei „rece”, `--color-time`, `--shadow-card`, `--shadow-card-hover`, `--shadow-button`, `--shadow-button-hover`, `--ease-out` și regulile de mișcare). Până la /plan-ul care le aplică, DESIGN.md și `tokens.css` rămân neschimbate (altfel pică TokensTest); valorile sunt în mock-ul de mai sus.
 - **Confirmed:** 2026-11-19
 

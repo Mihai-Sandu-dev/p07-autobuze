@@ -8,5 +8,7 @@
 <!-- graffino-agentic:end -->
 
 ## Index
+### [Ecrane si scop](decisions/ecrane-si-scop.md)
+- D-027 · Direcția vizuală: bază neutră, un accent, stil de panou doar la plecări și linii · _superseded-by D-042_
 
 ---

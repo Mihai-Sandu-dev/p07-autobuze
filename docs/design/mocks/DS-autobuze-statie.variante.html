@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DS-autobuze-statie · variante de culoare · mock</title>
+<!-- Mock de comparație (2026-11-19). ALES de autor: „B · Rece” → D-042 (înlocuiește D-027); tokens-urile
+     aprobate se aplică în DESIGN.md și tokens.css prin /plan. Cerut de autor: un design mai viu, fără să
+     schimbe organizarea și poziția elementelor. Trei variante de culoare (cald, rece, salvie) lângă
+     pagina de acum (D-027), fiecare cu umbre stratificate și animații propuse.
+     PROPUNERE: culorile, umbrele și animațiile de aici NU sunt în DESIGN.md / tokens.css; intră
+     doar după aprobare (PROPOSAL pentru D-027 și tokens) și un /plan care le aplică.
+     Reguli păstrate: text ≥ 4,5:1 și borduri ≥ 3:1, pe bg și pe surface, în ambele teme (calculat
+     în pagină, jos la fiecare variantă); orele de plecare au o culoare proprie, de contrast maxim,
+     și nu au animații; tot ce se mișcă se oprește la prefers-reduced-motion. -->
+<style>
+/* ===== Tokens comuni, neschimbați (DESIGN.md) ===== */
+:root {
+  --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --text-xs: 12px/16px; --text-sm: 14px/20px; --text-md: 16px/24px; --text-lg: 20px/28px;
+  --text-xl: 24px/32px; --text-time: 28px/32px; --text-time-sm: 20px/28px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px;
+  --radius-sm: 4px; --radius-md: 8px; --radius-pill: 999px;
+  --motion-fast: 150ms; --motion-base: 250ms;
+  /* PROPUS: curba de mișcare */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ===== Acum (D-027), ca referință ===== */
+.var[data-v="acum"] {
+  --color-bg: #ffffff; --color-surface: #f4f5f7; --color-text: #1a1d21; --color-text-muted: #5a6270;
+  --color-border: #868e99; --color-divider: #d6d9de; --color-accent: #1d5fd1; --color-on-accent: #ffffff;
+  --color-danger: #b42318; --color-success: #1a7f37; --color-warning: #986600; --color-time: #1a1d21;
+  --shadow-rgb: 0 0 0;
+}
+:root[data-theme="dark"] .var[data-v="acum"] {
+  --color-bg: #121417; --color-surface: #1c1f24; --color-text: #e8eaed; --color-text-muted: #a3abb7;
+  --color-border: #626a76; --color-divider: #2b3037; --color-accent: #6ea2ff; --color-on-accent: #0b1b33;
+  --color-danger: #ff7b72; --color-success: #56d364; --color-warning: #e3b341; --color-time: #e8eaed;
+}
+
+/* ===== Varianta A · Cald (nisip + teracotă) ===== */
+.var[data-v="cald"] {
+  --color-bg: #fbf6ef; --color-surface: #f3eadc; --color-text: #2b2118; --color-text-muted: #5f5144;
+  --color-border: #8a7a69; --color-divider: #e6dac8; --color-accent: #b3471b; --color-on-accent: #ffffff;
+  --color-danger: #a8261b; --color-success: #2f6b2a; --color-warning: #8a5a00; --color-time: #1a120b;
+  --shadow-rgb: 74 52 30;
+}
+:root[data-theme="dark"] .var[data-v="cald"] {
+  --color-bg: #1d1813; --color-surface: #2a221b; --color-text: #f2e9de; --color-text-muted: #c4b5a4;
+  --color-border: #7d6e5f; --color-divider: #3a3027; --color-accent: #f29c6b; --color-on-accent: #2a1206;
+  --color-danger: #ff8a7a; --color-success: #8fd18a; --color-warning: #f0c062; --color-time: #fffaf3;
+  --shadow-rgb: 0 0 0;
+}
+
+/* ===== Varianta B · Rece (cer + azur) ===== */
+.var[data-v="rece"] {
+  --color-bg: #f3f8fc; --color-surface: #e4eef6; --color-text: #13212d; --color-text-muted: #4c5d6c;
+  --color-border: #748797; --color-divider: #d2e0eb; --color-accent: #0f62a8; --color-on-accent: #ffffff;
+  --color-danger: #b42318; --color-success: #1a7340; --color-warning: #8a5a00; --color-time: #08121b;
+  --shadow-rgb: 20 50 80;
+}
+:root[data-theme="dark"] .var[data-v="rece"] {
+  --color-bg: #111a23; --color-surface: #1a2734; --color-text: #e6eef5; --color-text-muted: #a6b6c4;
+  --color-border: #5f7385; --color-divider: #263646; --color-accent: #7cbcf5; --color-on-accent: #06213a;
+  --color-danger: #ff8a80; --color-success: #6fd49a; --color-warning: #f0c062; --color-time: #ffffff;
+  --shadow-rgb: 0 0 0;
+}
+
+/* ===== Varianta C · Salvie (verde pal + petrol) ===== */
+.var[data-v="salvie"] {
+  --color-bg: #f5f8f2; --color-surface: #e8efe2; --color-text: #1a2419; --color-text-muted: #4f5d4c;
+  --color-border: #788873; --color-divider: #d7e2cf; --color-accent: #0e6b6b; --color-on-accent: #ffffff;
+  --color-danger: #ad2a1d; --color-success: #2c6b2f; --color-warning: #875900; --color-time: #0c140b;
+  --shadow-rgb: 34 60 30;
+}
+:root[data-theme="dark"] .var[data-v="salvie"] {
+  --color-bg: #141b16; --color-surface: #1f2a22; --color-text: #e7efe4; --color-text-muted: #aebcaa;
+  --color-border: #66786a; --color-divider: #2b382f; --color-accent: #6fcfc4; --color-on-accent: #07302c;
+  --color-danger: #ff8a7a; --color-success: #8fd38c; --color-warning: #e9bd5c; --color-time: #ffffff;
+  --shadow-rgb: 0 0 0;
+}
+
+/* PROPUS: umbre moi, stratificate (culoarea umbrei urmează paleta; în dark e neagră și mai densă) */
+.var {
+  --shadow-card: 0 1px 2px rgb(var(--shadow-rgb) / 0.06), 0 4px 12px rgb(var(--shadow-rgb) / 0.08);
+  --shadow-card-hover: 0 2px 4px rgb(var(--shadow-rgb) / 0.08), 0 10px 24px rgb(var(--shadow-rgb) / 0.12);
+  --shadow-button: 0 1px 2px rgb(var(--shadow-rgb) / 0.10), 0 2px 6px rgb(var(--shadow-rgb) / 0.08);
+  --shadow-button-hover: 0 2px 4px rgb(var(--shadow-rgb) / 0.12), 0 6px 14px rgb(var(--shadow-rgb) / 0.12);
+}
+:root[data-theme="dark"] .var:not([data-v="acum"]) {
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.30), 0 4px 14px rgb(0 0 0 / 0.35);
+  --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 10px 26px rgb(0 0 0 / 0.45);
+  --shadow-button: 0 1px 2px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.30);
+  --shadow-button-hover: 0 2px 4px rgb(0 0 0 / 0.40), 0 6px 16px rgb(0 0 0 / 0.40);
+}
+/* Referința „acum” păstrează umbrele de azi: niciuna pe carduri. */
+.var[data-v="acum"] { --shadow-card: none; --shadow-card-hover: none; --shadow-button: none; --shadow-button-hover: none; }
+
+/* ===== Mock chrome (nu face parte din design) ===== */
+html, body { margin: 0; }
+body { background: #dcdce3; font: 13px/1.4 var(--font-text); }
+.mock-bar { background: #2d2a4a; color: #fff; padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; position: sticky; top: 0; z-index: 2; }
+.mock-bar label { display: inline-flex; gap: 6px; align-items: center; }
+.mock-bar select, .mock-bar button { font: inherit; }
+.mock-note { background: #fff4cc; color: #3d3000; padding: 6px 16px; }
+.grila { display: flex; gap: 16px; padding: 16px; overflow-x: auto; align-items: flex-start; }
+.coloana { flex: 0 0 360px; }
+.eticheta-var { font-weight: 700; color: #1f1d33; margin: 0 0 6px; }
+.eticheta-var small { font-weight: 400; color: #4a4860; }
+.contrast { margin-top: 6px; background: #fff; color: #1f1d33; border-radius: 6px; padding: 6px 8px; font: 12px/1.45 var(--font-mono); }
+.contrast b { color: #11602b; } .contrast .rau { color: #a61b1b; font-weight: 700; }
+
+/* ===== Pagina (aceeași organizare ca DS-autobuze-statie) ===== */
+.var { background: var(--color-bg); color: var(--color-text); font: var(--text-md) var(--font-text); border: 1px dashed #999; }
+.var a { color: var(--color-accent); }
+.var a.btn { color: var(--color-text); }
+.var :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.ic { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.25em; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* PROPUS: comutarea temei e lină (culori și umbre, 250 ms). Orele NU intră aici. */
+.var, .var *:not(.ora) {
+  transition: background-color var(--motion-base) var(--ease-out), border-color var(--motion-base) var(--ease-out),
+              color var(--motion-base) var(--ease-out), box-shadow var(--motion-base) var(--ease-out);
+}
+
+.antet { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider); }
+.antet .brand { font-weight: 700; color: var(--color-text); text-decoration: none; display: inline-flex; gap: var(--space-2); align-items: center; margin-inline-end: auto; }
+.tema { width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--radius-sm); background: none; color: var(--color-text); cursor: pointer; }
+.tema:hover { background: var(--color-surface); }
+.tema .soare { display: none; }
+:root[data-theme="dark"] .tema .luna { display: none; }
+:root[data-theme="dark"] .tema .soare { display: block; }
+/* PROPUS: iconița se rotește scurt la comutare */
+.tema svg { transition: transform var(--motion-base) var(--ease-out); }
+.tema:active svg { transform: rotate(-30deg) scale(0.9); }
+
+main { padding: var(--space-4); }
+.harta-mini { display: block; aspect-ratio: 5 / 2; border-radius: var(--radius-md); overflow: hidden; background: var(--color-surface); border: 1px solid var(--color-divider); position: relative; box-shadow: var(--shadow-card); }
+.harta-mini svg { width: 100%; height: 100%; display: block; }
+.harta-mini .strada { stroke: var(--color-divider); fill: none; stroke-linecap: round; }
+.harta-mini .pin { fill: var(--color-text); stroke: var(--color-bg); stroke-width: 2; }
+.harta-mini .atribuire { position: absolute; right: 0; bottom: 0; font: var(--text-xs) var(--font-text); background: var(--color-bg); color: var(--color-text-muted); padding: 0 var(--space-1); }
+h1 { font: 600 var(--text-xl) var(--font-text); margin: var(--space-4) 0 0; display: flex; gap: var(--space-2); align-items: baseline; }
+h1 .ic { color: var(--color-text-muted); align-self: center; }
+.meta { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); margin: var(--space-1) 0 0; }
+.actiuni { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+
+/* Butoane — PROPUS: umbră moale; la hover se ridică 1 px; focus cu inel; apăsat revine */
+.btn { font: var(--text-sm) var(--font-text); padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm); border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text); cursor: pointer; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; gap: var(--space-2); text-decoration: none; box-shadow: var(--shadow-button); transition: background-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out), transform var(--motion-fast) var(--ease-out), color var(--motion-base) var(--ease-out), border-color var(--motion-base) var(--ease-out); }
+.btn:hover { background: var(--color-surface); box-shadow: var(--shadow-button-hover); transform: translateY(-1px); }
+.btn:active { transform: translateY(0); box-shadow: var(--shadow-button); }
+.btn[aria-pressed="true"] { border-color: var(--color-accent); color: var(--color-accent); }
+.btn[aria-pressed="true"] .ic { fill: currentColor; }
+.var[data-v="acum"] .btn:hover { transform: none; }
+.info-login { margin: var(--space-4) 0 0; font: var(--text-sm) var(--font-text); color: var(--color-text-muted); }
+
+/* Carduri — PROPUS: umbră stratificată; la hover doar umbra crește (cardul nu e un link, deci nu se ridică); apar cu fade scurt */
+.plecari { margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+.grup { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); border-top: var(--space-1) solid var(--linie, var(--color-border)); box-shadow: var(--shadow-card); }
+.grup:hover, .grup:focus-within { box-shadow: var(--shadow-card-hover); }
+.var:not([data-v="acum"]) .grup { animation: apare var(--motion-base) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 40ms); }
+@keyframes apare { from { opacity: 0; transform: translateY(var(--space-1)); } }
+.grup-cap { display: flex; align-items: center; gap: var(--space-3); }
+.sens { font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.sens .ic { color: var(--color-text-muted); margin-inline-end: var(--space-1); }
+.eticheta { font: 700 var(--text-md) var(--font-text); padding: 0 var(--space-3); min-width: var(--space-5); text-align: center; border-radius: var(--radius-pill); flex: none; border: 1px solid transparent; text-decoration: none; }
+.eticheta.fara-culoare { background: #ffffff; color: #000000; border-color: var(--color-border); }
+
+/* Orele: culoare proprie de contrast maxim (--color-time), fără nicio animație sau tranziție */
+.urmatoarea { margin-top: var(--space-3); background: var(--color-bg); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); }
+.ora { color: var(--color-time); font-variant-numeric: tabular-nums; display: block; transition: none !important; animation: none !important; }
+.urmatoarea .ora { font: 700 var(--text-time) var(--font-mono); }
+.altele { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+.altele li { padding: var(--space-1) var(--space-3); }
+.altele .ora { font: 700 var(--text-time-sm) var(--font-mono); }
+.cand { font: var(--text-sm) var(--font-text); color: var(--color-text-muted); display: flex; gap: var(--space-1); align-items: center; }
+.chip-maine { font: 600 var(--text-xs) var(--font-text); color: var(--color-warning); border: 1px solid currentColor; border-radius: var(--radius-pill); padding: 0 var(--space-2); }
+.grup .raporteaza { margin-top: var(--space-3); }
+.subsol { border-top: 1px solid var(--color-divider); padding: var(--space-4); font: var(--text-xs) var(--font-text); color: var(--color-text-muted); text-align: center; }
+
+/* Tot ce se mișcă se oprește la prefers-reduced-motion (și la comutatorul din bara mock-ului) */
+@media (prefers-reduced-motion: reduce) {
+  .var, .var * { transition: none !important; animation: none !important; }
+}
+.fara-miscare .var, .fara-miscare .var * { transition: none !important; animation: none !important; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/><circle cx="8" cy="14.5" r="0.5"/><circle cx="16" cy="14.5" r="0.5"/></symbol>
+  <symbol id="i-ceas" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-stea" viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9z"/></symbol>
+  <symbol id="i-sageata" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-harta" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></symbol>
+  <symbol id="i-luna" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-soare" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+</svg>
+
+<div class="mock-bar" role="region" aria-label="Controale mock">
+  <b>DS-autobuze-statie · variante de culoare</b> · mock de comparație
+  <label>Temă <select id="tema"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  <label>Stare <select id="stare"><option value="vizitator">Vizitator</option><option value="logat">Utilizator logat</option><option value="maine">Seara: „mâine” + linie fără culoare</option></select></label>
+  <button type="button" id="rejoaca">Rejoacă apariția cardurilor</button>
+  <label><input type="checkbox" id="fara"> Simulează „reducerea mișcării”</label>
+</div>
+<div class="mock-note">
+  Aceeași pagină de stație, aceeași organizare; se schimbă doar culorile, umbrele și mișcarea. Prima coloană e pagina de acum (D-027), ca referință. Contrastul de sub fiecare variantă e calculat în pagină, pentru tema afișată. Butonul de temă din fiecare antet comută toate coloanele. Date de exemplu, ca în mock-ul paginii de stație.
+</div>
+
+<div class="grila" id="grila"></div>
+
+<script>
+const VARIANTE = [
+  { v: "acum", nume: "Acum", nota: "D-027: bază neutră, fără umbre" },
+  { v: "cald", nume: "A · Cald", nota: "nisip + accent teracotă" },
+  { v: "rece", nume: "B · Rece", nota: "cer + accent azur" },
+  { v: "salvie", nume: "C · Salvie", nota: "verde pal + accent petrol" },
+];
+const LINII = { "11": { bg: "#0057a8", fg: "#ffffff" }, "19": { bg: "#f2c500", fg: "#000000" }, "21": { bg: "#00843d", fg: "#ffffff" }, "118": null };
+const icon = id => `<svg class="ic" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+const DATE = {
+  zi: [
+    ["19", "Cartier Magnolia - Marquardt", [["16:44", "în 4 min"], ["17:04", "în 24 min"], ["17:24", "în 44 min"]]],
+    ["21", "Marquardt", [["16:47", "în 7 min"], ["17:17", "în 37 min"], ["17:47", "în 1 h 7 min"]]],
+    ["11", "Aumovio", [["16:51", "în 11 min"], ["17:06", "în 26 min"], ["17:21", "în 41 min"]]],
+  ],
+  maine: [
+    ["19", "Cartier Magnolia - Marquardt", [["22:34", "în 9 min"], ["05:44", "mâine"], ["06:04", "mâine"]]],
+    ["118", "Gușterița", [["22:55", "în 30 min"], ["06:15", "mâine"], ["06:45", "mâine"]]],
+    ["11", "Aumovio", [["22:41", "în 16 min"], ["23:11", "în 46 min"], ["05:21", "mâine"]]],
+  ],
+};
+const $ = id => document.getElementById(id);
+
+function eticheta(l) {
+  const c = LINII[l];
+  return c ? `<a class="eticheta" href="#" style="background:${c.bg};color:${c.fg}" aria-label="Linia ${l}, pagina liniei">${l}</a>`
+           : `<a class="eticheta fara-culoare" href="#" aria-label="Linia ${l}, pagina liniei">${l}</a>`;
+}
+const cand = t => t === "mâine" ? `<span class="cand"><span class="chip-maine">mâine</span></span>` : `<span class="cand">${icon("ceas")}${t}</span>`;
+
+function pagina(stare) {
+  const logat = stare === "logat";
+  const d = stare === "maine" ? DATE.maine : DATE.zi;
+  return `<header class="antet"><a class="brand" href="#">${icon("bus")}Staționar</a>
+      <button class="tema" type="button" aria-label="Temă întunecată" aria-pressed="false">${icon("luna").replace('class="ic"', 'class="ic luna"')}${icon("soare").replace('class="ic"', 'class="ic soare"')}</button></header>
+    <main>
+      <a class="harta-mini" href="#" aria-label="Deschide harta mare"><svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <path class="strada" stroke-width="10" d="M-10 110 C 80 100, 160 70, 410 60"/><path class="strada" stroke-width="10" d="M190 -10 L 215 170"/>
+        <path class="strada" stroke-width="5" d="M-10 30 L 140 55 L 205 40"/><path class="strada" stroke-width="5" d="M260 -10 L 300 170"/>
+        <path class="pin" d="M203 52c-11 0-19 8-19 18 0 13 19 30 19 30s19-17 19-30c0-10-8-18-19-18z"/></svg>
+        <span class="atribuire">© OpenStreetMap contributors</span></a>
+      <h1>${icon("bus")}<span>Turnișor</span></h1>
+      <p class="meta">${stare === "maine" ? "Marți, 17 noiembrie · zi lucrătoare · acum 22:25" : "Marți, 17 noiembrie · zi lucrătoare · acum 16:40"}</p>
+      <div class="actiuni">${logat ? `<button class="btn fav" type="button" aria-pressed="false">${icon("stea")}<span>Adaugă la favorite</span></button>` : ""}<a class="btn" href="#">${icon("harta")}Vezi pe hartă</a></div>
+      ${logat ? "" : `<p class="info-login">Ai văzut un autobuz întârziat? <a href="#">Autentifică-te</a> ca să raportezi o abatere sau să salvezi stația la favorite.</p>`}
+      <div class="plecari">${d.map(([l, sens, p], i) => `
+        <section class="grup" style="--i:${i};${LINII[l] ? `--linie:${LINII[l].bg}` : ""}" aria-label="Linia ${l} spre ${sens}">
+          <div class="grup-cap">${eticheta(l)}<span class="sens">${icon("sageata")}<span class="sr">spre </span>${sens}</span></div>
+          <div class="urmatoarea"><span class="ora">${p[0][0]}</span>${cand(p[0][1])}</div>
+          <ul class="altele">${p.slice(1).map(([o, t]) => `<li><span class="ora">${o}</span>${cand(t)}</li>`).join("")}</ul>
+          ${logat ? `<a class="btn raporteaza" href="#">Raportează o abatere</a>` : ""}
+        </section>`).join("")}</div>
+    </main>
+    <footer class="subsol">Date de transport: Tursib S.A.</footer>`;
+}
+
+// Contrastul WCAG, calculat din culorile efective ale fiecărei variante
+function rgb(c) { const m = c.trim().match(/^#([0-9a-f]{6})$/i); return m ? [0, 2, 4].map(i => parseInt(m[1].substr(i, 2), 16) / 255) : null; }
+function lum(c) { return rgb(c).map(x => x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4).reduce((s, x, i) => s + x * [0.2126, 0.7152, 0.0722][i], 0); }
+function cr(a, b) { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); }
+function contrast(el) {
+  const s = getComputedStyle(el), v = k => s.getPropertyValue("--color-" + k);
+  const linii = [];
+  let rau = 0;
+  const verif = (eticheta, perechi, prag) => {
+    const min = Math.min(...perechi.map(([a, b]) => cr(v(a), v(b))));
+    if (min < prag) rau++;
+    linii.push(`${eticheta}: ${min < prag ? `<span class="rau">${min.toFixed(2)}</span>` : `<b>${min.toFixed(2)}</b>`} (min ${prag})`);
+  };
+  const pe = k => [["bg", k], ["surface", k]].map(([b, t]) => [t, b]);
+  verif("text, muted, accent, alerte", ["text", "text-muted", "accent", "danger", "success", "warning"].flatMap(pe), 4.5);
+  verif("ore", pe("time"), 4.5);
+  linii.push(`ore pe fundalul orei: <b>${cr(v("time"), v("bg")).toFixed(1)}</b>`);
+  verif("borduri", pe("border"), 3);
+  verif("text pe butonul principal", [["on-accent", "accent"]], 4.5);
+  return (rau ? `<span class="rau">${rau} sub prag</span>` : "<b>toate trec</b>") + "<br>" + linii.join("<br>");
+}
+
+function randeaza() {
+  $("grila").innerHTML = VARIANTE.map(x => `<div class="coloana"><p class="eticheta-var">${x.nume} <small>· ${x.nota}</small></p>
+    <div class="var" data-v="${x.v}">${pagina($("stare").value)}</div><div class="contrast" data-c="${x.v}"></div></div>`).join("");
+  document.querySelectorAll(".var").forEach(el => {
+    el.querySelectorAll(".tema").forEach(b => b.onclick = () => { $("tema").value = $("tema").value === "dark" ? "light" : "dark"; aplicaTema(); });
+    el.querySelectorAll(".fav").forEach(b => b.onclick = () => {
+      const on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", on);
+      b.querySelector("span").textContent = on ? "În favorite" : "Adaugă la favorite";
+    });
+  });
+  actualizeazaContrast();
+}
+function actualizeazaContrast() {
+  document.querySelectorAll(".var").forEach(el => {
+    document.querySelector(`.contrast[data-c="${el.dataset.v}"]`).innerHTML = contrast(el);
+    el.querySelectorAll(".tema").forEach(b => b.setAttribute("aria-pressed", document.documentElement.dataset.theme === "dark"));
+  });
+}
+function aplicaTema() { document.documentElement.dataset.theme = $("tema").value; actualizeazaContrast(); }
+$("tema").onchange = aplicaTema;
+$("stare").onchange = randeaza;
+$("rejoaca").onclick = randeaza;
+$("fara").onchange = e => document.body.classList.toggle("fara-miscare", e.target.checked);
+// Opțional, pentru capturi: ?tema=dark&stare=logat
+const q = new URLSearchParams(location.search);
+for (const k of ["tema", "stare"]) if (q.get(k) && [...$(k).options].some(o => o.value === q.get(k))) $(k).value = q.get(k);
+document.documentElement.dataset.theme = $("tema").value;
+randeaza();
+</script>
+</body>
+</html>

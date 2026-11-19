@@ -33,11 +33,11 @@
 - D-008 · Fiecare pagină afișează în subsol „Date de transport: Tursib S.A.”
 - D-022 · Pagina principală: hartă pentru vizitatori, „Acasă” pentru utilizatorii logați
 - D-023 · În afara scopului: alte orașe, rutare pe străzi, notificări, aplicație mobilă, bilete, alte limbi
-- D-027 · Direcția vizuală: bază neutră, un accent, stil de panou doar la plecări și linii
 - D-030 · Harta e și la /harta, pentru toți; „Hartă” din antet duce acolo
 - D-034 · „Aproape de mine”: cele mai apropiate 3 stații, pe o rază de maxim 1 km
 - D-039 · Tema: după sistem, cu un buton light/dark în antet, ținut în browser
 - D-041 · Numele aplicației: „Staționar — când vine autobuzul?”, scurt „Staționar”
+- D-042 · Direcția vizuală: bază ușor colorată „rece”, umbre moi și mișcare lină; orele rămân de contrast maxim
 
 ### [Orar si plecari](decisions/orar-si-plecari.md)
 - D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală
