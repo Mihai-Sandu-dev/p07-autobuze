@@ -3,6 +3,43 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · Mock-uri: stația refăcută, planificator, autentificare, hartă
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
+
+### 1. Pagina de stație refăcută
+**Ce am cerut**
+- Un mock mai puțin simplu, doar cu tokens din DESIGN.md: prima plecare din grup mare, ca
+  pe panou, celelalte două mai mici; fiecare grup un card cu o linie în culoarea liniei;
+  sensul ca săgeată + capăt de linie; o hartă mică cu stația sus; iconițe simple
+  (autobuz, ceas, stea); mock-ul înapoi pe draft. Și o verificare a barei de control.
+- Apoi: linia colorată deasupra card-ului, nu în stânga.
+
+**Ce am primit**
+- Mock-ul refăcut, cu harta ca desen schematic (fără coordonate reale ale stației).
+- Două erori găsite în bara de control: previzualizarea la 360 px folosea stilurile de
+  desktop pe un ecran lat, iar la reîncărcare selecturile și pagina nu se mai potriveau.
+  Ambele reparate.
+- Semnalarea că nu există token pentru „ora mai mică” (am folosit mărimea din `--text-lg`).
+
+### 2. Mock-uri noi: planificator, autentificare, hartă
+**Ce am cerut**
+- Exemple simple pentru planificator și autentificare, apoi pentru pagina hărții.
+- Să pot naviga între ele: linkurile din mock-uri nu duceau nicăieri.
+
+**Ce am primit**
+- `DS-autobuze-planificator`, `DS-autobuze-login` și `DS-autobuze-harta`, cu stări și
+  date de exemplu marcate ca inventate.
+- Mock-urile legate între ele din antet și din butoane, cu tema și lățimea păstrate.
+- Răspunsuri la două întrebări: pagina Acasă nu a existat niciodată ca mock; starea
+  „Utilizator logat” e doar în meniul „Stare” al paginii de stație.
+
+**Ce am făcut cu răspunsul**
+- Am amânat mock-ul paginii Acasă și comutatorul vizitator / logat până înainte de
+  build-ul ecranelor respective; sunt notate ca pași următori în `registry.yaml`.
+- Am confirmat în browser DS-autobuze-statie și DS-autobuze-harta → `approved`.
+  Planificatorul și autentificarea rămân `draft`.
+- Am aprobat commit-ul și push-ul.
+
 ## 2026-11-19 · Pagina de stație: răspunsurile la mock, D-028, confirmarea în browser
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
 

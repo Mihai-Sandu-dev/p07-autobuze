@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DS-autobuze-login · mock</title>
+<!-- Mock simplu, cerut de autor ca exemplu (2026-11-19), status draft.
+     Reguli: autentificare cu email și parolă (D-011); legătura spre cont nou
+     (DS-autobuze-inregistrare). Fără „am uitat parola” și fără alte metode de login:
+     nu sunt cerute. Același stil ca DS-autobuze-statie. -->
+<style>
+/* ===== Tokens — copiate din docs/design/DESIGN.md (D-027) ===== */
+:root {
+  --color-bg: #ffffff; --color-surface: #f4f5f7; --color-text: #1a1d21;
+  --color-text-muted: #5a6270; --color-border: #868e99; --color-divider: #d6d9de;
+  --color-accent: #1d5fd1; --color-on-accent: #ffffff; --color-danger: #b42318;
+  --color-success: #1a7f37; --color-warning: #986600;
+  --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --text-xs: 12px/16px; --text-sm: 14px/20px; --text-md: 16px/24px; --text-lg: 20px/28px;
+  --text-xl: 24px/32px; --text-2xl: 32px/40px; --text-time: 28px/32px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px;
+  --radius-sm: 4px; --radius-md: 8px; --radius-pill: 999px;
+  --motion-fast: 150ms; --motion-base: 250ms;
+}
+:root[data-theme="dark"] {
+  --color-bg: #121417; --color-surface: #1c1f24; --color-text: #e8eaed;
+  --color-text-muted: #a3abb7; --color-border: #626a76; --color-divider: #2b3037;
+  --color-accent: #6ea2ff; --color-on-accent: #0b1b33; --color-danger: #ff7b72;
+  --color-success: #56d364; --color-warning: #e3b341;
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ===== Mock chrome (nu face parte din design) ===== */
+.mock-bar { font: 13px/1.4 var(--font-text); background: #2d2a4a; color: #fff; padding: 8px 16px;
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.mock-bar label { display: inline-flex; gap: 6px; align-items: center; }
+.mock-bar select { font: inherit; }
+.mock-note { font: 12px/1.4 var(--font-text); background: #fff4cc; color: #3d3000; padding: 6px 16px; }
+.frame { margin: 0 auto; container-type: inline-size; transition: max-width var(--motion-base); }
+.frame[data-width="360"] { max-width: 360px; border-inline: 1px dashed #999; }
+.frame[data-width="full"] { max-width: none; }
+
+/* ===== Pagina ===== */
+html, body { margin: 0; }
+body { background: #e9e9ee; }
+.page { background: var(--color-bg); color: var(--color-text); font: var(--text-md) var(--font-text);
+  min-height: 100vh; display: flex; flex-direction: column; }
+a { color: var(--color-accent); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.ic { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.25em; }
+
+/* DS-autobuze-antet */
+.antet { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap;
+  padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider); }
+.antet .brand { font-weight: 700; color: var(--color-text); text-decoration: none; display: inline-flex; gap: var(--space-2); align-items: center; }
+.antet nav { display: flex; gap: var(--space-1); flex-wrap: wrap; }
+.antet nav a { color: var(--color-text); text-decoration: none; padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm); font: var(--text-sm) var(--font-text); }
+.antet nav a:hover { background: var(--color-surface); }
+.antet nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 calc(-1 * var(--space-1) / 2) 0 var(--color-text); }
+
+main { flex: 1; width: 100%; max-width: 440px; margin: 0 auto; padding: var(--space-6) var(--space-4); box-sizing: border-box; }
+h1 { font: 600 var(--text-xl) var(--font-text); margin: 0; }
+.intro { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); margin: var(--space-1) 0 0; }
+
+.card { margin-top: var(--space-5); background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-5) var(--space-4);
+  display: grid; gap: var(--space-4); }
+.camp { display: grid; gap: var(--space-1); }
+.camp label { font: 600 var(--text-sm) var(--font-text); }
+input { font: var(--text-md) var(--font-text); color: var(--color-text); background: var(--color-bg);
+  border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3);
+  min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box; width: 100%; }
+input[aria-invalid="true"] { border-color: var(--color-danger); }
+.eroare-camp { color: var(--color-danger); font: var(--text-sm) var(--font-text); margin: 0; }
+.alerta { border: 1px solid var(--color-danger); border-radius: var(--radius-sm); padding: var(--space-3);
+  font: var(--text-sm) var(--font-text); background: var(--color-bg); display: flex; gap: var(--space-2); }
+.alerta .ic { color: var(--color-danger); }
+.alerta strong { display: block; color: var(--color-danger); }
+.btn { font: 600 var(--text-sm) var(--font-text); padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
+  border: 1px solid var(--color-accent); background: var(--color-accent); color: var(--color-on-accent);
+  cursor: pointer; min-height: calc(var(--space-7) - var(--space-1)); width: 100%; transition: filter var(--motion-fast); }
+.btn:hover { filter: brightness(1.08); }
+.btn[disabled] { cursor: progress; opacity: 0.7; }
+.alt { text-align: center; font: var(--text-sm) var(--font-text); color: var(--color-text-muted); margin: var(--space-4) 0 0; }
+
+/* DS-autobuze-subsol */
+.subsol { border-top: 1px solid var(--color-divider); padding: var(--space-4); font: var(--text-xs) var(--font-text);
+  color: var(--color-text-muted); text-align: center; }
+
+@container (min-width: 600px) {
+  .card { padding: var(--space-5); }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/><circle cx="8" cy="14.5" r="0.5"/><circle cx="16" cy="14.5" r="0.5"/></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></symbol>
+</svg>
+
+<div class="mock-bar" role="region" aria-label="Controale mock">
+  <b>DS-autobuze-login</b> · mock, nu e aplicația
+  <label>Stare
+    <select id="stare" autocomplete="off">
+      <option value="gol">Formular gol</option>
+      <option value="validare">Câmpuri lipsă</option>
+      <option value="gresit">Email sau parolă greșită</option>
+      <option value="trimite">Se trimite</option>
+    </select>
+  </label>
+  <label>Temă
+    <select id="tema" autocomplete="off"><option value="light">Light</option><option value="dark">Dark</option></select>
+  </label>
+  <label>Lățime
+    <select id="latime" autocomplete="off"><option value="360">360 px (mobil)</option><option value="full">Toată fereastra</option></select>
+  </label>
+</div>
+<div class="mock-note">Adresa de email din formular e un exemplu. Linkuri active: numele aplicației și Hartă (pagina hărții), Planificator. „Autentifică-te” cu orice email și parolă te duce la pagina de stație, logat; un câmp gol arată eroarea. Starea „parolă greșită” se alege din bara de sus. „Creează unul” nu are încă mock.</div>
+
+<div class="frame" id="frame" data-width="360">
+<div class="page">
+  <header class="antet">
+    <a class="brand" href="DS-autobuze-harta.html" data-mock><svg class="ic" aria-hidden="true"><use href="#i-bus"/></svg>Când vine autobuzul?</a>
+    <nav aria-label="Navigare principală">
+      <a href="DS-autobuze-harta.html" data-mock>Hartă</a>
+      <a href="DS-autobuze-planificator.html" data-mock>Planificator</a>
+      <a href="DS-autobuze-login.html" data-mock aria-current="page">Autentificare</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Autentificare</h1>
+    <p class="intro">Cu un cont salvezi stații la favorite și raportezi abateri.</p>
+
+    <form class="card" id="form" novalidate>
+      <div class="alerta" id="alerta" role="alert" hidden>
+        <svg class="ic" aria-hidden="true"><use href="#i-alerta"/></svg>
+        <span><strong>Emailul sau parola nu sunt corecte.</strong>Verifică-le și încearcă din nou.</span>
+      </div>
+      <div class="camp">
+        <label for="email">Email</label>
+        <input type="email" id="email" autocomplete="email" aria-describedby="eroare-email">
+        <p class="eroare-camp" id="eroare-email" hidden>Scrie adresa de email.</p>
+      </div>
+      <div class="camp">
+        <label for="parola">Parolă</label>
+        <input type="password" id="parola" autocomplete="current-password" aria-describedby="eroare-parola">
+        <p class="eroare-camp" id="eroare-parola" hidden>Scrie parola.</p>
+      </div>
+      <button class="btn" type="submit" id="trimite">Autentifică-te</button>
+    </form>
+    <p class="alt">Nu ai cont? <a href="#">Creează unul</a></p>
+  </main>
+
+  <footer class="subsol">Date de transport: Tursib S.A.</footer>
+</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+function randeaza() {
+  const stare = $("stare").value;
+  const validare = stare === "validare";
+  $("email").value = stare === "gresit" || stare === "trimite" ? "nume@exemplu.ro" : "";
+  $("parola").value = stare === "gresit" || stare === "trimite" ? "parola-exemplu" : "";
+  $("alerta").hidden = stare !== "gresit";
+  for (const id of ["email", "parola"]) {
+    $("eroare-" + id).hidden = !validare;
+    $(id).setAttribute("aria-invalid", validare || stare === "gresit");
+  }
+  $("trimite").disabled = stare === "trimite";
+  $("trimite").textContent = stare === "trimite" ? "Se verifică…" : "Autentifică-te";
+}
+$("form").onsubmit = e => {
+  e.preventDefault();
+  // Trimiterea din mock: marchează doar câmpurile goale, fără să șteargă ce s-a scris.
+  let complet = true;
+  for (const id of ["email", "parola"]) {
+    const lipsa = !$(id).value;
+    $("eroare-" + id).hidden = !lipsa;
+    $(id).setAttribute("aria-invalid", lipsa);
+    if (lipsa) complet = false;
+  }
+  $("alerta").hidden = true;
+  if (complet) mergi("DS-autobuze-statie.html", { stare: "logat" });
+};
+const aplicaTema = () => document.documentElement.dataset.theme = $("tema").value;
+const aplicaLatime = () => $("frame").dataset.width = $("latime").value;
+$("stare").onchange = randeaza;
+$("tema").onchange = aplicaTema;
+$("latime").onchange = aplicaLatime;
+// Navigarea între mock-uri: linkurile cu data-mock duc la alt mock și păstrează tema și lățimea.
+const q = new URLSearchParams(location.search);
+for (const k of ["stare", "tema", "latime"]) {
+  const v = q.get(k);
+  if (v && [...$(k).options].some(o => o.value === v)) $(k).value = v;
+}
+function mergi(href, extra = {}) {
+  const u = new URL(href, location.href);
+  u.searchParams.set("tema", $("tema").value);
+  u.searchParams.set("latime", $("latime").value);
+  for (const [k, v] of Object.entries(extra)) u.searchParams.set(k, v);
+  location.href = u;
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-mock]");
+  if (!a || a.getAttribute("href") === "#") return;
+  e.preventDefault();
+  mergi(a.getAttribute("href"));
+});
+aplicaTema(); aplicaLatime(); randeaza();
+</script>
+</body>
+</html>

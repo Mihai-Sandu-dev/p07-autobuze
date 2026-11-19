@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DS-autobuze-planificator · mock</title>
+<!-- Mock simplu, cerut de autor ca exemplu (2026-11-19), status draft.
+     Reguli: de la stația A la stația B, acum sau la o oră dată (SCOPE.md → Ecrane);
+     maxim un transfer (D-002); transfer la cel mult 150 m, 2 min + mersul pe jos (D-012);
+     primele 3 itinerarii, ordonate după sosire (D-013): plecare, sosire, linii,
+     stația de transfer, timpul de așteptare. Același stil ca DS-autobuze-statie. -->
+<style>
+/* ===== Tokens — copiate din docs/design/DESIGN.md (D-027) ===== */
+:root {
+  --color-bg: #ffffff; --color-surface: #f4f5f7; --color-text: #1a1d21;
+  --color-text-muted: #5a6270; --color-border: #868e99; --color-divider: #d6d9de;
+  --color-accent: #1d5fd1; --color-on-accent: #ffffff; --color-danger: #b42318;
+  --color-success: #1a7f37; --color-warning: #986600;
+  --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --text-xs: 12px/16px; --text-sm: 14px/20px; --text-md: 16px/24px; --text-lg: 20px/28px;
+  --text-xl: 24px/32px; --text-2xl: 32px/40px; --text-time: 28px/32px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px;
+  --radius-sm: 4px; --radius-md: 8px; --radius-pill: 999px;
+  --motion-fast: 150ms; --motion-base: 250ms;
+}
+:root[data-theme="dark"] {
+  --color-bg: #121417; --color-surface: #1c1f24; --color-text: #e8eaed;
+  --color-text-muted: #a3abb7; --color-border: #626a76; --color-divider: #2b3037;
+  --color-accent: #6ea2ff; --color-on-accent: #0b1b33; --color-danger: #ff7b72;
+  --color-success: #56d364; --color-warning: #e3b341;
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ===== Mock chrome (nu face parte din design) ===== */
+.mock-bar { font: 13px/1.4 var(--font-text); background: #2d2a4a; color: #fff; padding: 8px 16px;
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.mock-bar label { display: inline-flex; gap: 6px; align-items: center; }
+.mock-bar select { font: inherit; }
+.mock-note { font: 12px/1.4 var(--font-text); background: #fff4cc; color: #3d3000; padding: 6px 16px; }
+.frame { margin: 0 auto; container-type: inline-size; transition: max-width var(--motion-base); }
+.frame[data-width="360"] { max-width: 360px; border-inline: 1px dashed #999; }
+.frame[data-width="full"] { max-width: none; }
+
+/* ===== Pagina ===== */
+html, body { margin: 0; }
+body { background: #e9e9ee; }
+.page { background: var(--color-bg); color: var(--color-text); font: var(--text-md) var(--font-text);
+  min-height: 100vh; display: flex; flex-direction: column; }
+a { color: var(--color-accent); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.ic { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.25em; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* DS-autobuze-antet */
+.antet { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap;
+  padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider); }
+.antet .brand { font-weight: 700; color: var(--color-text); text-decoration: none; display: inline-flex; gap: var(--space-2); align-items: center; }
+.antet nav { display: flex; gap: var(--space-1); flex-wrap: wrap; }
+.antet nav a { color: var(--color-text); text-decoration: none; padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm); font: var(--text-sm) var(--font-text); }
+.antet nav a:hover { background: var(--color-surface); }
+.antet nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 calc(-1 * var(--space-1) / 2) 0 var(--color-text); }
+
+main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: var(--space-4); box-sizing: border-box; }
+h1 { font: 600 var(--text-xl) var(--font-text); margin: 0; }
+
+/* Formularul */
+.cautare { margin-top: var(--space-4); background: var(--color-surface); border-radius: var(--radius-md);
+  padding: var(--space-4); display: grid; gap: var(--space-3); }
+.camp { display: grid; gap: var(--space-1); }
+.camp label, fieldset legend { font: 600 var(--text-sm) var(--font-text); }
+input[type="text"], input[type="time"] { font: var(--text-md) var(--font-text); color: var(--color-text);
+  background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3); min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box; width: 100%; }
+fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: center; }
+fieldset legend { margin-bottom: var(--space-1); padding: 0; }
+.optiune { display: inline-flex; gap: var(--space-2); align-items: center; min-height: calc(var(--space-7) - var(--space-1)); }
+.optiune input[type="radio"] { width: var(--space-5); height: var(--space-5); margin: 0; accent-color: var(--color-accent); }
+#ora-data { width: auto; }
+.btn { font: var(--text-sm) var(--font-text); padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text);
+  cursor: pointer; min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  text-decoration: none; transition: background var(--motion-fast); }
+.btn-primar { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-on-accent); font-weight: 600; }
+.btn-primar:hover { filter: brightness(1.08); }
+
+/* Rezultatele */
+.rezultate { margin-top: var(--space-5); }
+.rezultate h2 { font: 600 var(--text-lg) var(--font-text); margin: 0; }
+.rezultate .sub { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); margin: var(--space-1) 0 0; }
+.itinerarii { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; gap: var(--space-3); }
+.itin { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); }
+.ore { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.ore .ora { font: 700 var(--text-time) var(--font-mono); font-variant-numeric: tabular-nums; }
+.ore .ic { color: var(--color-text-muted); }
+.ore .tip { margin-inline-start: auto; font: 600 var(--text-xs) var(--font-text); color: var(--color-text-muted);
+  border: 1px solid var(--color-border); border-radius: var(--radius-pill); padding: 0 var(--space-2); }
+.pasi { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; gap: var(--space-2); }
+.pas { display: flex; gap: var(--space-3); align-items: flex-start; }
+.pas .text { min-width: 0; overflow-wrap: anywhere; }
+.pas .detaliu { display: block; font: var(--text-sm) var(--font-text); color: var(--color-text-muted); }
+.pas.transfer { padding-inline-start: var(--space-2); font: var(--text-sm) var(--font-text); color: var(--color-text-muted); align-items: center; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* DS-autobuze-eticheta-linie */
+.eticheta { font: 700 var(--text-md) var(--font-text); padding: 0 var(--space-3); min-width: var(--space-5); text-align: center;
+  border-radius: var(--radius-pill); flex: none; border: 1px solid transparent; }
+
+/* Stări */
+.stare { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-5) var(--space-4); margin-top: var(--space-5); }
+.stare h2 { font: 600 var(--text-lg) var(--font-text); margin: 0; }
+.stare p { margin: var(--space-2) 0 0; color: var(--color-text-muted); }
+.stare.eroare h2 { color: var(--color-danger); }
+.stare .btn { margin-top: var(--space-4); }
+.eroare-camp { color: var(--color-danger); font: var(--text-sm) var(--font-text); margin: 0; }
+.schelet { background: var(--color-surface); border-radius: var(--radius-md); height: calc(var(--space-7) * 3); position: relative; overflow: hidden; }
+.schelet::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.25), transparent); animation: puls 1.2s infinite; }
+:root[data-theme="dark"] .schelet::after { background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.06), transparent); }
+@keyframes puls { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+/* DS-autobuze-subsol */
+.subsol { border-top: 1px solid var(--color-divider); padding: var(--space-4); font: var(--text-xs) var(--font-text);
+  color: var(--color-text-muted); text-align: center; }
+
+@container (min-width: 600px) {
+  main { padding: var(--space-5); }
+  h1 { font: 700 var(--text-2xl) var(--font-text); }
+  .cautare { grid-template-columns: 1fr 1fr; }
+  .cautare fieldset, .cautare .trimite, .cautare .eroare-camp { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/><circle cx="8" cy="14.5" r="0.5"/><circle cx="16" cy="14.5" r="0.5"/></symbol>
+  <symbol id="i-ceas" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-sageata" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-transfer" viewBox="0 0 24 24"><path d="M7 4v13M3 13l4 4 4-4M17 20V7M13 11l4-4 4 4"/></symbol>
+</svg>
+
+<div class="mock-bar" role="region" aria-label="Controale mock">
+  <b>DS-autobuze-planificator</b> · mock, nu e aplicația
+  <label>Stare
+    <select id="stare" autocomplete="off">
+      <option value="gol">Formular gol</option>
+      <option value="rezultate">Rezultate (acum)</option>
+      <option value="ora">Rezultate la o oră dată</option>
+      <option value="validare">Lipsește o stație</option>
+      <option value="nimic">Nicio rută găsită</option>
+      <option value="incarcare">Se caută</option>
+      <option value="eroare">Eroare</option>
+    </select>
+  </label>
+  <label>Temă
+    <select id="tema" autocomplete="off"><option value="light">Light</option><option value="dark">Dark</option></select>
+  </label>
+  <label>Lățime
+    <select id="latime" autocomplete="off"><option value="360">360 px (mobil)</option><option value="full">Toată fereastra</option></select>
+  </label>
+</div>
+<div class="mock-note">
+  Date de exemplu, nu din feed. Numele stațiilor vin din fișa de teren; liniile, orele, traseele și transferurile sunt inventate pentru desen.<br>Linkuri active: numele aplicației și Hartă (pagina hărții), Planificator, Autentificare. „Caută itinerarii” arată rezultatele de exemplu.
+</div>
+
+<div class="frame" id="frame" data-width="360">
+<div class="page">
+  <header class="antet">
+    <a class="brand" href="DS-autobuze-harta.html" data-mock><svg class="ic" aria-hidden="true"><use href="#i-bus"/></svg>Când vine autobuzul?</a>
+    <nav aria-label="Navigare principală">
+      <a href="DS-autobuze-harta.html" data-mock>Hartă</a>
+      <a href="DS-autobuze-planificator.html" data-mock aria-current="page">Planificator</a>
+      <a href="DS-autobuze-login.html" data-mock>Autentificare</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Planificator</h1>
+    <form class="cautare" id="form" novalidate>
+      <div class="camp">
+        <label for="de-la">De la stația</label>
+        <input type="text" id="de-la" list="statii" autocomplete="off" placeholder="ex. Turnișor">
+      </div>
+      <div class="camp">
+        <label for="pana-la">Până la stația</label>
+        <input type="text" id="pana-la" list="statii" autocomplete="off" placeholder="ex. Piața Cibin 3">
+      </div>
+      <p class="eroare-camp" id="eroare-camp" hidden></p>
+      <fieldset>
+        <legend>Când pleci</legend>
+        <label class="optiune"><input type="radio" name="cand" value="acum" id="r-acum" checked> Acum</label>
+        <label class="optiune"><input type="radio" name="cand" value="ora" id="r-ora"> La ora</label>
+        <label class="sr" for="ora-data">Ora plecării</label>
+        <input type="time" id="ora-data" value="07:30" disabled>
+      </fieldset>
+      <div class="trimite"><button class="btn btn-primar" type="submit">Caută itinerarii</button></div>
+    </form>
+    <datalist id="statii">
+      <option value="Metro"><option value="Teatru"><option value="Piața Cibin 3"><option value="Zidul Cetății">
+      <option value="Turnișor"><option value="Ambient 1"><option value="Casa Armatei"><option value="Andrei Șaguna"><option value="Poliție">
+    </datalist>
+    <div id="continut" aria-live="polite"></div>
+  </main>
+
+  <footer class="subsol">Date de transport: Tursib S.A.</footer>
+</div>
+</div>
+
+<script>
+const LINII = {
+  "11": { bg: "#0057a8", fg: "#ffffff" },
+  "19": { bg: "#f2c500", fg: "#000000" },
+  "21": { bg: "#00843d", fg: "#ffffff" },
+  "2":  { bg: "#6a2c91", fg: "#ffffff" }
+};
+const $ = id => document.getElementById(id);
+const icon = id => `<svg class="ic" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+const eticheta = l => `<span class="eticheta" style="background:${LINII[l].bg};color:${LINII[l].fg}" aria-label="Linia ${l}">${l}</span>`;
+
+// Ordonate după sosire (D-013). Un pas = o linie; între doi pași, transferul (D-012).
+const ITIN = {
+  rezultate: [
+    { plecare: "16:47", sosire: "17:02", pasi: [
+      { linie: "21", sens: "Marquardt", urca: "Turnișor", coboara: "Piața Cibin 3", ore: "16:47 – 17:02" }]},
+    { plecare: "16:44", sosire: "17:05", pasi: [
+      { linie: "19", sens: "Cartier Magnolia - Marquardt", urca: "Turnișor", coboara: "Teatru", ore: "16:44 – 16:52" },
+      { transfer: "Transfer la Teatru: aștepți 4 min" },
+      { linie: "2", sens: "Piața Cibin", urca: "Teatru", coboara: "Piața Cibin 3", ore: "16:56 – 17:05" }]},
+    { plecare: "16:51", sosire: "17:12", pasi: [
+      { linie: "11", sens: "Aumovio", urca: "Turnișor", coboara: "Zidul Cetății", ore: "16:51 – 17:00" },
+      { transfer: "Transfer: mergi 120 m pe jos până la Andrei Șaguna (2 min), apoi aștepți 3 min" },
+      { linie: "2", sens: "Piața Cibin", urca: "Andrei Șaguna", coboara: "Piața Cibin 3", ore: "17:05 – 17:12" }]}
+  ]
+};
+ITIN.ora = ITIN.rezultate.map(it => ({ ...it,
+  plecare: it.plecare.replace("16:", "07:").replace("17:", "08:"),
+  sosire: it.sosire.replace("16:", "07:").replace("17:", "08:"),
+  pasi: it.pasi.map(p => p.ore ? { ...p, ore: p.ore.replaceAll("16:", "07:").replaceAll("17:", "08:") } : p) }));
+
+function itinerariu(it, i) {
+  const transferuri = it.pasi.filter(p => p.transfer).length;
+  return `<li class="itin" aria-label="Itinerariul ${i + 1}: plecare ${it.plecare}, sosire ${it.sosire}">
+    <div class="ore"><span class="ora">${it.plecare}</span>${icon("sageata")}<span class="ora">${it.sosire}</span>
+      <span class="tip">${transferuri ? "1 transfer" : "direct"}</span></div>
+    <ol class="pasi">${it.pasi.map(p => p.transfer
+      ? `<li class="pas transfer">${icon("transfer")}<span>${p.transfer}</span></li>`
+      : `<li class="pas">${eticheta(p.linie)}<span class="text">${icon("sageata")}<span class="sr">spre </span>${p.sens}
+           <span class="detaliu"><span class="mono">${p.ore}</span> · urci la ${p.urca}, cobori la ${p.coboara}</span></span></li>`).join("")}
+    </ol></li>`;
+}
+
+function randeaza() {
+  const stare = $("stare").value;
+  const cuDate = stare !== "gol";
+  $("de-la").value = cuDate ? "Turnișor" : "";
+  $("pana-la").value = cuDate && stare !== "validare" ? "Piața Cibin 3" : "";
+  const laOra = stare === "ora";
+  $("r-ora").checked = laOra; $("r-acum").checked = !laOra; $("ora-data").disabled = !laOra;
+  const ec = $("eroare-camp");
+  ec.hidden = stare !== "validare";
+  ec.textContent = "Alege stația de sosire.";
+  $("pana-la").setAttribute("aria-invalid", stare === "validare");
+
+  const c = $("continut");
+  const titlu = laOra ? "azi, plecare după 07:30" : "acum, după 16:40";
+  if (stare === "rezultate" || stare === "ora") {
+    c.innerHTML = `<section class="rezultate"><h2>Turnișor → Piața Cibin 3</h2>
+      <p class="sub">Marți, 17 noiembrie · ${titlu} · primele 3, după ora sosirii</p>
+      <ol class="itinerarii">${ITIN[stare].map(itinerariu).join("")}</ol></section>`;
+  } else if (stare === "nimic") {
+    c.innerHTML = `<div class="stare"><h2>Niciun itinerariu cu cel mult un transfer</h2>
+      <p>Între aceste stații nu circulă azi nicio linie directă și nici o legătură cu un singur transfer. Încearcă altă oră sau o stație apropiată.</p>
+      <a class="btn" href="DS-autobuze-harta.html" data-mock>Caută o stație pe hartă</a></div>`;
+  } else if (stare === "incarcare") {
+    c.innerHTML = `<div class="rezultate" aria-busy="true"><span class="sr">Se caută itinerarii…</span>
+      <div class="itinerarii"><div class="schelet"></div><div class="schelet"></div><div class="schelet"></div></div></div>`;
+  } else if (stare === "eroare") {
+    c.innerHTML = `<div class="stare eroare" role="alert"><h2>Nu am putut căuta itinerariile</h2>
+      <p>Verifică conexiunea și încearcă din nou. Dacă nu merge, revino peste câteva minute.</p>
+      <button class="btn btn-primar" type="button">Reîncearcă</button></div>`;
+  } else {
+    c.innerHTML = "";
+  }
+}
+document.querySelectorAll('input[name="cand"]').forEach(r => r.onchange = () => $("ora-data").disabled = !$("r-ora").checked);
+$("form").onsubmit = e => { e.preventDefault(); $("stare").value = $("pana-la").value ? "rezultate" : "validare"; randeaza(); };
+const aplicaTema = () => document.documentElement.dataset.theme = $("tema").value;
+const aplicaLatime = () => $("frame").dataset.width = $("latime").value;
+$("stare").onchange = randeaza;
+$("tema").onchange = aplicaTema;
+$("latime").onchange = aplicaLatime;
+// Navigarea între mock-uri: linkurile cu data-mock duc la alt mock și păstrează tema și lățimea.
+const q = new URLSearchParams(location.search);
+for (const k of ["stare", "tema", "latime"]) {
+  const v = q.get(k);
+  if (v && [...$(k).options].some(o => o.value === v)) $(k).value = v;
+}
+function mergi(href, extra = {}) {
+  const u = new URL(href, location.href);
+  u.searchParams.set("tema", $("tema").value);
+  u.searchParams.set("latime", $("latime").value);
+  for (const [k, v] of Object.entries(extra)) u.searchParams.set(k, v);
+  location.href = u;
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-mock]");
+  if (!a || a.getAttribute("href") === "#") return;
+  e.preventDefault();
+  mergi(a.getAttribute("href"));
+});
+aplicaTema(); aplicaLatime(); randeaza();
+</script>
+</body>
+</html>

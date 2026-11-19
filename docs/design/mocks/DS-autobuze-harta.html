@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DS-autobuze-harta · mock</title>
+<!-- Mock simplu, cerut de autor (2026-11-19); confirmat de autor în browser, 2026-11-19 (status approved).
+     Reguli: „/” pentru vizitator = harta cu stații, căutare după nume și „aproape de mine”
+     (geolocația din browser) (D-022, SCOPE.md → Ecrane); tile-uri OSM cu atribuire (D-005).
+     Componente: DS-autobuze-harta-leaflet, DS-autobuze-cautare-statii.
+     Harta e un desen schematic; în aplicație e Leaflet, cu zoom și tile-uri OSM. -->
+<style>
+/* ===== Tokens — copiate din docs/design/DESIGN.md (D-027) ===== */
+:root {
+  --color-bg: #ffffff; --color-surface: #f4f5f7; --color-text: #1a1d21;
+  --color-text-muted: #5a6270; --color-border: #868e99; --color-divider: #d6d9de;
+  --color-accent: #1d5fd1; --color-on-accent: #ffffff; --color-danger: #b42318;
+  --color-success: #1a7f37; --color-warning: #986600;
+  --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --text-xs: 12px/16px; --text-sm: 14px/20px; --text-md: 16px/24px; --text-lg: 20px/28px;
+  --text-xl: 24px/32px; --text-2xl: 32px/40px; --text-time: 28px/32px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px;
+  --radius-sm: 4px; --radius-md: 8px; --radius-pill: 999px;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.12);
+  --motion-fast: 150ms; --motion-base: 250ms;
+}
+:root[data-theme="dark"] {
+  --color-bg: #121417; --color-surface: #1c1f24; --color-text: #e8eaed;
+  --color-text-muted: #a3abb7; --color-border: #626a76; --color-divider: #2b3037;
+  --color-accent: #6ea2ff; --color-on-accent: #0b1b33; --color-danger: #ff7b72;
+  --color-success: #56d364; --color-warning: #e3b341;
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ===== Mock chrome (nu face parte din design) ===== */
+.mock-bar { font: 13px/1.4 var(--font-text); background: #2d2a4a; color: #fff; padding: 8px 16px;
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.mock-bar label { display: inline-flex; gap: 6px; align-items: center; }
+.mock-bar select { font: inherit; }
+.mock-note { font: 12px/1.4 var(--font-text); background: #fff4cc; color: #3d3000; padding: 6px 16px; }
+.frame { margin: 0 auto; container-type: inline-size; transition: max-width var(--motion-base); }
+.frame[data-width="360"] { max-width: 360px; border-inline: 1px dashed #999; }
+.frame[data-width="full"] { max-width: none; }
+
+/* ===== Pagina ===== */
+html, body { margin: 0; }
+body { background: #e9e9ee; }
+.page { background: var(--color-bg); color: var(--color-text); font: var(--text-md) var(--font-text);
+  min-height: 100vh; display: flex; flex-direction: column; }
+a { color: var(--color-accent); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.ic { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.25em; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* DS-autobuze-antet */
+.antet { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap;
+  padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider); }
+.antet .brand { font-weight: 700; color: var(--color-text); text-decoration: none; display: inline-flex; gap: var(--space-2); align-items: center; }
+.antet nav { display: flex; gap: var(--space-1); flex-wrap: wrap; }
+.antet nav a { color: var(--color-text); text-decoration: none; padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm); font: var(--text-sm) var(--font-text); }
+.antet nav a:hover { background: var(--color-surface); }
+.antet nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 calc(-1 * var(--space-1) / 2) 0 var(--color-text); }
+
+main { flex: 1; display: grid; grid-template-rows: auto 1fr; }
+h1 { font: 600 var(--text-xl) var(--font-text); margin: 0; }
+
+/* DS-autobuze-cautare-statii */
+.panou { padding: var(--space-4); display: grid; gap: var(--space-3); align-content: start; }
+.camp { display: grid; gap: var(--space-1); }
+.camp label { font: 600 var(--text-sm) var(--font-text); }
+.rand-cautare { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+input[type="search"] { flex: 1 1 calc(var(--space-7) * 3); font: var(--text-md) var(--font-text); color: var(--color-text);
+  background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3); min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box; min-width: 0; }
+.btn { font: var(--text-sm) var(--font-text); padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text);
+  cursor: pointer; min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  text-decoration: none; transition: background var(--motion-fast); }
+.btn:hover { background: var(--color-surface); }
+.btn[disabled] { cursor: progress; opacity: 0.7; }
+.btn-primar { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-on-accent); font-weight: 600; }
+.btn-primar:hover { background: var(--color-accent); filter: brightness(1.08); }
+.rezultate h2 { font: 600 var(--text-sm) var(--font-text); color: var(--color-text-muted); margin: 0 0 var(--space-1); }
+.lista { list-style: none; margin: 0; padding: 0; display: grid; }
+.lista button { width: 100%; text-align: start; font: var(--text-md) var(--font-text); color: var(--color-text);
+  background: none; border: 0; border-top: 1px solid var(--color-divider); padding: var(--space-2) var(--space-1);
+  min-height: calc(var(--space-7) - var(--space-1)); cursor: pointer; display: flex; gap: var(--space-2); align-items: center; }
+.lista li:first-child button { border-top: 0; }
+.lista button:hover { background: var(--color-surface); }
+.lista button[aria-current="true"] { font-weight: 600; }
+.lista .dist { margin-inline-start: auto; font: var(--text-sm) var(--font-mono); color: var(--color-text-muted); }
+.lista .ic { color: var(--color-text-muted); }
+.mesaj { margin: 0; font: var(--text-sm) var(--font-text); color: var(--color-text-muted); }
+.mesaj.eroare { color: var(--color-danger); }
+
+/* DS-autobuze-harta-leaflet (desen schematic) */
+.harta { position: relative; overflow: hidden; background: var(--color-surface); min-height: calc(var(--space-7) * 8);
+  border-top: 1px solid var(--color-divider); }
+.harta svg.fundal { position: absolute; inset: 0; width: 100%; height: 100%; }
+.harta .strada { stroke: var(--color-divider); fill: none; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.harta .strada.mare { stroke-width: 10; }
+.harta .strada.mica { stroke-width: 5; }
+.marker { position: absolute; transform: translate(-50%, -50%); width: calc(var(--space-7) - var(--space-1));
+  height: calc(var(--space-7) - var(--space-1)); border: 0; background: none; padding: 0; cursor: pointer;
+  display: grid; place-items: center; border-radius: var(--radius-pill); }
+.marker .punct { width: var(--space-4); height: var(--space-4); border-radius: var(--radius-pill);
+  background: var(--color-text); border: 2px solid var(--color-bg); box-sizing: border-box; transition: transform var(--motion-fast); }
+.marker:hover .punct { transform: scale(1.25); }
+.marker[aria-pressed="true"] .punct { width: var(--space-5); height: var(--space-5); background: var(--color-accent); }
+.marker .nume { position: absolute; top: 100%; left: 50%; transform: translate(-50%, calc(-1 * var(--space-2)));
+  white-space: nowrap; font: 600 var(--text-xs) var(--font-text); color: var(--color-text);
+  background: var(--color-bg); border-radius: var(--radius-sm); padding: 0 var(--space-1); box-shadow: var(--shadow-1); pointer-events: none; }
+.eu { position: absolute; transform: translate(-50%, -50%); width: var(--space-4); height: var(--space-4);
+  border-radius: var(--radius-pill); background: var(--color-bg); border: var(--space-1) solid var(--color-text); box-sizing: border-box; }
+.eu::after { content: ""; position: absolute; inset: calc(-1 * var(--space-3)); border-radius: var(--radius-pill);
+  border: 1px dashed var(--color-text-muted); }
+.atribuire { position: absolute; right: 0; bottom: 0; font: var(--text-xs) var(--font-text);
+  background: var(--color-bg); color: var(--color-text-muted); padding: 0 var(--space-1); border-top-left-radius: var(--radius-sm); }
+.popup { position: absolute; left: var(--space-3); right: var(--space-3); bottom: var(--space-6); max-width: calc(var(--space-7) * 7);
+  margin-inline: auto; background: var(--color-bg); border-radius: var(--radius-md); box-shadow: var(--shadow-1);
+  border: 1px solid var(--color-divider); padding: var(--space-3) var(--space-4); display: grid; gap: var(--space-3); }
+.popup-cap { display: flex; gap: var(--space-2); align-items: flex-start; }
+.popup h2 { font: 600 var(--text-lg) var(--font-text); margin: 0; flex: 1; overflow-wrap: anywhere; display: flex; gap: var(--space-2); align-items: center; }
+.popup h2 .ic { color: var(--color-text-muted); }
+.inchide { border: 0; background: none; color: var(--color-text-muted); cursor: pointer; border-radius: var(--radius-sm);
+  width: calc(var(--space-7) - var(--space-1)); height: calc(var(--space-7) - var(--space-1)); margin: calc(-1 * var(--space-2)); display: grid; place-items: center; }
+.inchide:hover { background: var(--color-surface); }
+.stare-harta { position: absolute; inset: 0; display: grid; place-items: center; padding: var(--space-4); text-align: center; }
+.stare-harta div { background: var(--color-bg); border-radius: var(--radius-md); box-shadow: var(--shadow-1); padding: var(--space-5) var(--space-4); max-width: calc(var(--space-7) * 7); }
+.stare-harta h2 { font: 600 var(--text-lg) var(--font-text); margin: 0; color: var(--color-danger); }
+.stare-harta p { margin: var(--space-2) 0 var(--space-4); color: var(--color-text-muted); }
+
+/* DS-autobuze-subsol */
+.subsol { border-top: 1px solid var(--color-divider); padding: var(--space-4); font: var(--text-xs) var(--font-text);
+  color: var(--color-text-muted); text-align: center; }
+
+@container (min-width: 600px) {
+  main { grid-template-rows: none; grid-template-columns: calc(var(--space-7) * 7) 1fr; }
+  .panou { padding: var(--space-5); border-inline-end: 1px solid var(--color-divider); }
+  .harta { border-top: 0; min-height: calc(var(--space-7) * 12); }
+  h1 { font: 700 var(--text-2xl) var(--font-text); }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/><circle cx="8" cy="14.5" r="0.5"/><circle cx="16" cy="14.5" r="0.5"/></symbol>
+  <symbol id="i-locatie" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></symbol>
+  <symbol id="i-cauta" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+</svg>
+
+<div class="mock-bar" role="region" aria-label="Controale mock">
+  <b>DS-autobuze-harta</b> · mock, nu e aplicația
+  <label>Stare
+    <select id="stare" autocomplete="off">
+      <option value="normal">Harta, fără căutare</option>
+      <option value="cautare">Căutare: „te”</option>
+      <option value="selectat">Stație aleasă (Turnișor)</option>
+      <option value="nimic">Căutare fără rezultat</option>
+      <option value="localizare">Se caută locația</option>
+      <option value="aproape">Aproape de mine</option>
+      <option value="refuzat">Locația refuzată</option>
+      <option value="eroare">Eroare la încărcarea stațiilor</option>
+    </select>
+  </label>
+  <label>Temă
+    <select id="tema" autocomplete="off"><option value="light">Light</option><option value="dark">Dark</option></select>
+  </label>
+  <label>Lățime
+    <select id="latime" autocomplete="off"><option value="360">360 px (mobil)</option><option value="full">Toată fereastra</option></select>
+  </label>
+</div>
+<div class="mock-note">
+  Harta e un desen schematic: pozițiile stațiilor și distanțele sunt inventate; numele stațiilor vin din fișa de teren. În aplicație: Leaflet cu tile-uri OSM, zoom și pozițiile reale din feed. „Aproape de mine” e simulat, nu cere locația.<br>
+  Linkuri active: Hartă, Planificator, Autentificare, „Vezi plecările” (pagina de stație). Căutarea filtrează cele 9 stații pe măsură ce scrii.
+</div>
+
+<div class="frame" id="frame" data-width="360">
+<div class="page">
+  <header class="antet">
+    <a class="brand" href="DS-autobuze-harta.html" data-mock><svg class="ic" aria-hidden="true"><use href="#i-bus"/></svg>Când vine autobuzul?</a>
+    <nav aria-label="Navigare principală">
+      <a href="DS-autobuze-harta.html" data-mock aria-current="page">Hartă</a>
+      <a href="DS-autobuze-planificator.html" data-mock>Planificator</a>
+      <a href="DS-autobuze-login.html" data-mock>Autentificare</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="panou" aria-label="Căutare stații">
+      <h1>Stații</h1>
+      <div class="camp">
+        <label for="cauta">Caută o stație după nume</label>
+        <div class="rand-cautare">
+          <input type="search" id="cauta" autocomplete="off" placeholder="ex. Turnișor">
+          <button class="btn" type="button" id="aproape"><svg class="ic" aria-hidden="true"><use href="#i-locatie"/></svg>Aproape de mine</button>
+        </div>
+      </div>
+      <div id="rezultate" class="rezultate" aria-live="polite"></div>
+    </section>
+
+    <section class="harta" id="harta" aria-label="Harta stațiilor">
+      <svg class="fundal" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path class="strada mare" d="M-5 70 C 25 66, 50 50, 105 44"/>
+        <path class="strada mare" d="M46 -5 L 54 105"/>
+        <path class="strada mica" d="M-5 20 L 35 30 L 60 24 L 105 30"/>
+        <path class="strada mica" d="M15 105 L 28 50 L 22 -5"/>
+        <path class="strada mica" d="M64 -5 L 74 105"/>
+        <path class="strada mica" d="M54 62 L 105 82"/>
+        <path class="strada mica" d="M-5 88 L 50 80"/>
+      </svg>
+      <div id="markere"></div>
+      <div id="popup-loc"></div>
+      <span class="atribuire">© OpenStreetMap contributors</span>
+    </section>
+  </main>
+
+  <footer class="subsol">Date de transport: Tursib S.A.</footer>
+</div>
+</div>
+
+<script>
+// Poziții schematice (procente din hartă), inventate pentru desen.
+const STATII = [
+  { nume: "Metro", x: 18, y: 26 },          { nume: "Piața Cibin 3", x: 38, y: 18 },
+  { nume: "Teatru", x: 48, y: 36 },         { nume: "Zidul Cetății", x: 62, y: 26 },
+  { nume: "Turnișor", x: 24, y: 64 },       { nume: "Casa Armatei", x: 66, y: 48 },
+  { nume: "Andrei Șaguna", x: 52, y: 62 },  { nume: "Ambient 1", x: 84, y: 60 },
+  { nume: "Poliție", x: 72, y: 82 }
+];
+const EU = { x: 32, y: 56 };
+const APROAPE = [["Turnișor", "180 m"], ["Andrei Șaguna", "640 m"], ["Teatru", "820 m"]];
+
+const $ = id => document.getElementById(id);
+const icon = id => `<svg class="ic" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+const fara = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+let ales = null, cuEu = false;
+
+function markere() {
+  $("markere").innerHTML = STATII.map(s => `
+    <button class="marker" type="button" style="left:${s.x}%;top:${s.y}%" aria-pressed="${s.nume === ales}"
+      aria-label="Stația ${s.nume}" data-statie="${s.nume}"><span class="punct"></span>${s.nume === ales ? `<span class="nume">${s.nume}</span>` : ""}</button>`).join("")
+    + (cuEu ? `<span class="eu" style="left:${EU.x}%;top:${EU.y}%" role="img" aria-label="Locația ta"></span>` : "");
+  $("popup-loc").innerHTML = ales ? `
+    <div class="popup" role="dialog" aria-label="Stația ${ales}">
+      <div class="popup-cap"><h2>${icon("pin")}${ales}</h2>
+        <button class="inchide" type="button" id="inchide" aria-label="Închide">${icon("x")}</button></div>
+      <a class="btn btn-primar" href="DS-autobuze-statie.html" data-mock>Vezi plecările</a>
+    </div>` : "";
+  const x = $("inchide"); if (x) x.onclick = () => { ales = null; markere(); listaCautare(); };
+}
+function lista(titlu, randuri) {
+  return `<h2>${titlu}</h2><ul class="lista">${randuri.map(([nume, dist]) =>
+    `<li><button type="button" data-statie="${nume}" aria-current="${nume === ales}">${icon(dist ? "locatie" : "pin")}${nume}${dist ? `<span class="dist">${dist}</span>` : ""}</button></li>`).join("")}</ul>`;
+}
+function listaCautare() {
+  const t = $("cauta").value.trim();
+  const r = $("rezultate");
+  if (cuEu) { r.innerHTML = lista("Cele mai apropiate stații", APROAPE); return; }
+  if (!t) { r.innerHTML = `<p class="mesaj">Scrie numele unei stații sau atinge o stație pe hartă.</p>`; return; }
+  const gasite = STATII.filter(s => fara(s.nume).includes(fara(t)));
+  r.innerHTML = gasite.length
+    ? lista(`${gasite.length === 1 ? "O stație" : gasite.length + " stații"}`, gasite.map(s => [s.nume]))
+    : `<p class="mesaj">Nicio stație nu se potrivește cu „${t.replace(/[<&"]/g, "")}”. Verifică numele sau caut-o pe hartă.</p>`;
+}
+function alege(nume) { ales = nume; markere(); listaCautare(); }
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-statie]");
+  if (b) alege(b.dataset.statie);
+});
+$("cauta").oninput = () => { cuEu = false; listaCautare(); markere(); };
+$("aproape").onclick = () => { $("stare").value = "localizare"; randeaza();
+  setTimeout(() => { $("stare").value = "aproape"; randeaza(); }, 800); };
+
+function randeaza() {
+  const stare = $("stare").value;
+  $("cauta").value = { cautare: "te", selectat: "Turnișor", nimic: "Gara Mare" }[stare] || "";
+  ales = stare === "selectat" ? "Turnișor" : null;
+  cuEu = stare === "aproape";
+  const ap = $("aproape");
+  ap.disabled = stare === "localizare";
+  ap.lastChild.textContent = stare === "localizare" ? "Se caută locația…" : "Aproape de mine";
+  $("harta").querySelector(".stare-harta")?.remove();
+  if (stare === "eroare") {
+    $("markere").innerHTML = ""; $("popup-loc").innerHTML = "";
+    $("rezultate").innerHTML = "";
+    $("harta").insertAdjacentHTML("beforeend", `<div class="stare-harta" role="alert"><div>
+      <h2>Nu am putut încărca stațiile</h2>
+      <p>Verifică conexiunea și încearcă din nou. Dacă nu merge, revino peste câteva minute.</p>
+      <button class="btn btn-primar" type="button">Reîncearcă</button></div></div>`);
+    return;
+  }
+  markere();
+  if (stare === "refuzat") {
+    $("rezultate").innerHTML = `<p class="mesaj eroare" role="alert">Nu am acces la locația ta. Permite accesul din setările browserului sau caută stația după nume.</p>`;
+  } else if (stare === "localizare") {
+    $("rezultate").innerHTML = `<p class="mesaj">Se caută locația ta…</p>`;
+  } else {
+    listaCautare();
+  }
+}
+
+// Navigarea între mock-uri: linkurile cu data-mock duc la alt mock și păstrează tema și lățimea.
+const q = new URLSearchParams(location.search);
+for (const k of ["stare", "tema", "latime"]) {
+  const v = q.get(k);
+  if (v && [...$(k).options].some(o => o.value === v)) $(k).value = v;
+}
+function mergi(href, extra = {}) {
+  const u = new URL(href, location.href);
+  u.searchParams.set("tema", $("tema").value);
+  u.searchParams.set("latime", $("latime").value);
+  for (const [k, v] of Object.entries(extra)) u.searchParams.set(k, v);
+  location.href = u;
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-mock]");
+  if (!a || a.getAttribute("href") === "#") return;
+  e.preventDefault();
+  mergi(a.getAttribute("href"));
+});
+const aplicaTema = () => document.documentElement.dataset.theme = $("tema").value;
+const aplicaLatime = () => $("frame").dataset.width = $("latime").value;
+$("stare").onchange = randeaza;
+$("tema").onchange = aplicaTema;
+$("latime").onchange = aplicaLatime;
+aplicaTema(); aplicaLatime(); randeaza();
+</script>
+</body>
+</html>
