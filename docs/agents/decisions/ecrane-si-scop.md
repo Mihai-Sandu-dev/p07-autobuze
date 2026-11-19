@@ -78,3 +78,14 @@
 - **Evidence:** răspunsul utilizatorului, 2026-11-19
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-19
+
+## D-041 · Numele aplicației: „Staționar — când vine autobuzul?”, scurt „Staționar”
+- **Status:** approved
+- **Date:** 2026-11-19
+- **Rule:** Numele aplicației e „Staționar — când vine autobuzul?”; numele scurt, „Staționar”, se folosește unde e loc puțin. Antetul arată mereu „Staționar”; `<title>`, `<h1>` și README folosesc numele complet. Titlul proiectului din catalog, P07 „Când vine autobuzul?”, rămâne acolo unde e numit proiectul. Mock-urile confirmate rămân `approved`: se schimbă doar textul aprobat prin această decizie, nu designul.
+- **Why:** Alegerea autorului; „Staționar” e un joc de cuvinte voit (stație + „-ar”). Numele complet nu încape în antet la 360 px lângă iconiță și butonul de temă.
+- **Rejected:** antetul cu numele complet de la 600 px în sus și scurt pe mobil; păstrarea numelui „Când vine autobuzul?”.
+- **Evidence:** răspunsul autorului, 2026-11-19 (înlocuiește răspunsul 1 la mock-ul DS-autobuze-statie: „Numele rămâne «Când vine autobuzul?»”)
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
+

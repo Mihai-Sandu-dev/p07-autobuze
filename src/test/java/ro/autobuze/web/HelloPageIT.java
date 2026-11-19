@@ -29,8 +29,12 @@ class HelloPageIT {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith("text/html"))
                 .andExpect(content().string(containsString("<html lang=\"ro\"")))
-                // DS-autobuze-antet: doar numele aplicației și butonul de temă (D-039)
-                .andExpect(content().string(containsString("Când vine autobuzul?")))
+                // Numele (D-041): antetul arată mereu „Staționar”; <title> și <h1> numele complet
+                .andExpect(content().string(containsString("<title>Staționar — când vine autobuzul?</title>")))
+                .andExpect(content().string(containsString("<h1>Staționar — când vine autobuzul?</h1>")))
+                .andExpect(content().string(containsString("</svg>Staționar</a>")))
+                .andExpect(content().string(not(containsString("Când vine autobuzul?"))))
+                // DS-autobuze-antet: numele și butonul de temă (D-039)
                 .andExpect(content().string(containsString("aria-label=\"Temă întunecată\"")))
                 .andExpect(content().string(not(containsString("Planificator"))))
                 // textul aprobat în plan
