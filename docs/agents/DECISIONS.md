@@ -12,7 +12,7 @@
 - D-010 · Datele de teren: FIELD.md în root, observațiile în field/observations.csv
 - D-016 · Abaterea medie pe linie: pe intervale de o oră, separat pe tip de zi
 - D-017 · Raportul de abatere: utilizatorul alege o plecare din orar și scrie ora reală
-- D-028 · Raportul de abatere pornește din grupul de linie și sens; doar plecări din ultimele 60 de minute · _proposed_
+- D-028 · Raportul de abatere pornește din grupul de linie și sens; doar plecări din ultimele 60 de minute
 - D-021 · Corespondența dintre datele de teren și feed: un tabel completat de autor
 - D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn
 - D-025 · Observațiile de teren intră ca rapoarte de abatere cu sursa „teren”

@@ -1,9 +1,9 @@
 # docs/design/registry.yaml — every screen and shared component, by DS- ID.
 # Plans, commits, mocks and board files use the ID (tickets don't). kind: foundation | component | screen
-# status: draft (mock drawn) | approved (confirmed on the board) | implemented | deprecated (never delete an entry)
+# status: draft (mock drawn) | approved (confirmed by the author in the browser; no board) | implemented | deprecated (never delete an entry)
 #
-# Aprobat 2026-11-19, din SCOPE.md → Ecrane (plus DS-autobuze-eroare; fără pagină „Despre”). Niciun mock nu e desenat încă:
-# design_ref: none și fără status până la primul mock (devine draft când mockul există).
+# Aprobat 2026-11-19, din SCOPE.md → Ecrane (plus DS-autobuze-eroare; fără pagină „Despre”). Un ecran fără mock are
+# design_ref: none și nu are status (devine draft când mockul există).
 # Ordinea mock-urilor: întâi DS-autobuze-statie.
 designs:
   # --- foundation ---
@@ -20,7 +20,7 @@ designs:
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-statie.html
-    status: draft
+    status: approved
   - id: DS-autobuze-harta
     kind: screen
     note: "„/” pentru vizitator — harta cu stații, căutare după nume și „aproape de mine” (D-022)"

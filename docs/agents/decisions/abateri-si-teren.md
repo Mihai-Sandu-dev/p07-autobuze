@@ -41,13 +41,14 @@
 - **Confirmed:** 2026-11-19
 
 ## D-028 · Raportul de abatere pornește din grupul de linie și sens; doar plecări din ultimele 60 de minute
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-19
 - **Rule:** Completează D-017. Pe pagina stației, utilizatorul logat vede un singur buton „Raportează o abatere” pe fiecare grup de linie și sens, nu un link pe fiecare plecare. Vizitatorul nu vede butonul, doar rândul cu autentificarea (D-009). Formularul arată plecările acelei linii și acelui sens din stație, cu ora din feed în ultimele 60 de minute; utilizatorul alege una și scrie ora reală. Plecările viitoare nu se pot raporta.
 - **Why:** Răspunsul utilizatorului la mock-ul DS-autobuze-statie; înlocuiește răspunsul anterior (link pe fiecare plecare), care permitea raportarea unor plecări care nu au avut loc încă.
 - **Rejected:** link „Raportează” pe fiecare plecare.
 - **Evidence:** răspunsul utilizatorului, 2026-11-19; docs/design/mocks/DS-autobuze-statie.html
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
 
 ## D-021 · Corespondența dintre datele de teren și feed: un tabel completat de autor
 - **Status:** approved

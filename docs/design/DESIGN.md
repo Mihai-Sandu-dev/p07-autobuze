@@ -23,8 +23,9 @@ board or Figma.
 
 1. **Find the design.** Resolve the screen's `DS-` ID in `registry.yaml` and open
    its mock (`mocks/`) and screenshots (`screens/`). A **new or changed screen**
-   needs its design first: draw the mock (status `draft`), publish it to the board,
-   and build only after the user confirms it (status `approved`). Team addon: the
+   needs its design first: draw the mock (status `draft`), the author opens it in
+   the browser and confirms it (status `approved`); build only after that. There is
+   no design board (lab procedure). Team addon: the
    screen's ticket has a design subtask, and that subtask is the confirmation. Never
    extrapolate a screen.
 2. **Reuse first.** Use an existing component from `registry.yaml` (kind
@@ -37,7 +38,7 @@ board or Figma.
    light and dark, at the smallest and largest supported size. Save as
    `screens/<DS-id>.<light|dark>.png`. Look at each one before you report.
 6. **Record.** Update `registry.yaml` (new DS- ID, status `implemented`, source
-   file). Republish the changed screens to the board. A reusable UI practice becomes
+   file). A reusable UI practice becomes
    a `candidate` pattern.
 
 ## Guardrails
@@ -75,6 +76,7 @@ board or Figma.
 - Destructive actions ask for confirmation or offer undo.
 
 ## Publishing to the board
+Not used in this repo: there is no board; mocks are confirmed in the browser (see Source).
 Say **"publish the board"**. Publishing goes one way, repo → board; nothing is
 pulled back. The session:
 1. Reads the board link from Source. The board must be shared with the claude.ai
@@ -96,7 +98,7 @@ them; a ticket with UI has a design subtask instead (team addon).
 <!-- graffino-agentic:end -->
 
 ## Source
-- Design board: niciunul încă (publicat din `mocks/`, niciodată preluat înapoi)
+- Design board: niciunul. Conform laboratorului, autorul confirmă mock-ul deschizându-l în browser (aprobat 2026-11-19).
 - Figma: niciunul
 - Token source in code: `src/main/resources/static/css/tokens.css` (se creează la primul /build cu UI)
 - Direcția vizuală: D-027

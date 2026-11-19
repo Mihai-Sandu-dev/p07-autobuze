@@ -3,6 +3,44 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · Pagina de stație: răspunsurile la mock, D-028, confirmarea în browser
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
+
+### 1. Răspunsurile la cele 4 întrebări din mock
+**Ce am cerut**
+- Actualizarea mock-ului DS-autobuze-statie cu răspunsurile mele: numele rămâne
+  „Când vine autobuzul?”; ora exactă mare, „în X min” mic dedesubt; 24:41 apare ca
+  „00:41”, fără altă notă; link „Raportează” la fiecare plecare. Plus intrarea din
+  AI_LOG pentru sesiunea de design.
+
+**Ce am primit**
+- Constatarea că 3 din 4 răspunsuri erau deja în mock; singura schimbare de aranjare a
+  fost „în X min” sub oră. O corectură necerută: linkul de raport mărit la 44 × 44 px
+  (regula de țintă din DESIGN.md).
+- Intrarea din AI_LOG, reconstituită din commit-uri și D-027, cu avertismentul că partea
+  „Ce am cerut” trebuie verificată de mine.
+- Două semnalări: dacă vizitatorii văd „Raportează” și faptul că un link pe fiecare
+  plecare permitea raportarea unor plecări care nu au avut loc încă.
+
+**Ce am făcut cu răspunsul**
+- Am confirmat că vizitatorii nu văd „Raportează”, doar rândul cu autentificarea (D-009).
+- Am schimbat răspunsul 4: un singur buton „Raportează o abatere” pe fiecare grup de
+  linie și sens; formularul arată plecările din ultimele 60 de minute; plecările viitoare
+  nu se pot raporta → propus ca D-028, care completează D-017.
+- Am păstrat data intrării din AI_LOG; partea „Ce am cerut” o verific eu.
+
+### 2. Aprobări
+**Ce am primit**
+- Propunerea D-028 (cu întrebarea dacă formularul se limitează la sensul grupului) și o
+  propunere de schimbare în DESIGN.md: fără board de design, confirmarea în browser.
+
+**Ce am făcut cu răspunsul**
+- Am aprobat D-028, cu sensul limitat la grup.
+- Am aprobat schimbarea din DESIGN.md și registry.yaml: nu avem board, conform
+  laboratorului confirm mock-ul din browser.
+- Am confirmat mock-ul paginii de stație → DS-autobuze-statie are status `approved`.
+- Am aprobat fiecare commit și push.
+
 ## 2026-11-19 · Design: direcția vizuală, tokens, registrul de ecrane, primul mock
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
 
