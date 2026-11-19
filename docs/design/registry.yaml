@@ -101,7 +101,7 @@ designs:
     note: "antetul cu navigarea (hartă, planificator; Autentificare pentru vizitator; Acasă și Ieșire pentru utilizatorul logat; admin pentru ADMIN)"
     source: none
     design_ref: mocks/DS-autobuze-antet.html
-    status: draft
+    status: approved  # confirmat de autor în browser, 2026-11-19
   - id: DS-autobuze-subsol
     kind: component
     note: "subsolul cu „Date de transport: Tursib S.A.” pe fiecare pagină (D-008)"
