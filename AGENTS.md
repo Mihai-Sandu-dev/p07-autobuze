@@ -103,7 +103,8 @@ docker compose up -d --build     # pornește aplicația (http://localhost:8080) 
 python3 docs/agents/tools/ledger-lint.py   # lint-ul registrului (rulează și în CI)
 ```
 Screenshot-urile se salvează în `docs/design/screens/<nume>.<light|dark>.<360|1280>.png`.
-La prima rulare, Playwright descarcă Chromium (~100–200 MB).
+La prima rulare, Playwright descarcă Chromium (~100–200 MB). Dacă descărcarea nu merge, testele de UI rulează în imaginea
+oficială Playwright (PATTERN-001, candidate).
 
 ## 3. Structură
 - `docs/agents/` — registrul (decizii, pattern-uri, contracte, întrebări) și arhitectura.
