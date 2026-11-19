@@ -25,14 +25,14 @@ designs:
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-statie.html
-    status: draft  # actualizat la D-042 (2026-11-19), de reconfirmat în browser
+    status: approved  # confirmat de autor în browser cu D-042, 2026-11-19
   - id: DS-autobuze-harta
     kind: screen
     note: "„/” pentru vizitator și /harta pentru toți — harta cu stații, căutare după nume și „aproape de mine” (D-022, D-030, D-034)"
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-harta.html
-    status: draft  # actualizat la D-042 (2026-11-19), de reconfirmat în browser
+    status: approved  # confirmat de autor în browser cu D-042, 2026-11-19
   - id: DS-autobuze-acasa
     kind: screen
     note: "„/” pentru utilizator logat — plecările de la favorite, harta dedesubt (D-022)"
@@ -51,7 +51,7 @@ designs:
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-planificator.html
-    status: draft  # actualizat la D-042 (2026-11-19), de reconfirmat în browser
+    status: approved  # confirmat de autor în browser cu D-042, 2026-11-19
   - id: DS-autobuze-raport-abatere
     kind: screen
     note: "formularul de raport, deschis din pagina de stație — plecarea aleasă + ora reală (D-017)"
@@ -64,7 +64,7 @@ designs:
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-login.html
-    status: draft  # actualizat la D-042 (2026-11-19), de reconfirmat în browser
+    status: approved  # confirmat de autor în browser cu D-042, 2026-11-19
   - id: DS-autobuze-inregistrare
     kind: screen
     note: "cont nou cu email și parolă, rol USER (D-011)"
@@ -102,7 +102,7 @@ designs:
     note: "antetul cu navigarea (hartă, planificator; Autentificare pentru vizitator; Acasă și Ieșire pentru utilizatorul logat; admin pentru ADMIN)"
     source: src/main/resources/templates/fragments/antet.html
     design_ref: mocks/DS-autobuze-antet.html
-    status: draft  # actualizat la D-042 (2026-11-19), de reconfirmat în browser
+    status: approved  # D-042 confirmat 2026-11-19; codul are încă culorile D-027 până la /plan-ul care aplică D-042
   - id: DS-autobuze-subsol
     kind: component
     note: "subsolul cu „Date de transport: Tursib S.A.” pe fiecare pagină (D-008)"
