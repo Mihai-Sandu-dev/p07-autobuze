@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="ro" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head(titlu)">
+<head th:fragment="head(titlu, robots)">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title th:text="${titlu}">Când vine autobuzul?</title>
+  <meta name="robots" th:if="${robots}" th:content="${robots}">
   <!-- Alegerea de temă salvată (D-039) se aplică înainte de afișare, ca pagina să nu clipească. -->
   <script>try { var t = localStorage.getItem("tema"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}</script>
   <link rel="stylesheet" th:href="@{/css/tokens.css}" href="/css/tokens.css">

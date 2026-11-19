@@ -30,7 +30,7 @@ pe Render, din `Dockerfile`, și baza pe Neon (D-037).
 | stiluri | `src/main/resources/static/css/` | `tokens.css` (copia tokenilor din DESIGN.md, verificată de `TokensTest`), `app.css` | — |
 | tema | `src/main/resources/static/js/tema.js` + scriptul din `fragments/head` | butonul light/dark, alegerea în `localStorage` (D-039) | — |
 | db | `src/main/resources/db/migration/` | schema doar prin Flyway; V1 goală | — |
-| teste | `src/test/java/ro/autobuze/` | `*Test` unitare, `*IT` cu Testcontainers (PostGIS 17), `ui/*UiTest` cu Playwright pe Compose (D-029) | db, app |
+| teste | `src/test/java/ro/autobuze/` | `*Test` unitare, `*IT` cu Testcontainers (PostGIS 17); `ui/*UiTest` cu Playwright pe Compose (D-029), compilate și rulate doar cu profilul Maven `ui` | db, app |
 
 ## Data flow
 Acum: browser → `GET /` → `HelloController` → `hello.html` (antet, text, subsol).
@@ -51,8 +51,8 @@ Plan, din deciziile aprobate:
 | `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` | `.env` (niciodată în git; model: `.env.example`) | docker-compose.yml | baza locală |
 | `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD` | Compose (din `.env`); Render (`render.yaml`, `sync: false`) | app | Neon: conexiunea directă, `sslmode=require` |
 | `PORT` | Render | app (`server.port`) | local 8080 |
-| `JAVA_TOOL_OPTIONS` | `Dockerfile` | JVM | `-Xmx300m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m -Xss512k` |
-| `spring.datasource.hikari.maximum-pool-size` | `application.properties` | app | 3 |
+| `JAVA_TOOL_OPTIONS` | `Dockerfile` | JVM | `-Xmx300m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=48m -XX:MaxDirectMemorySize=32m -Xss512k` |
+| `spring.datasource.hikari.*` | `application.properties` | app | maxim 3 conexiuni; `minimum-idle=0`, `idle-timeout=60000`, ca Neon să poată adormi |
 | datele primului admin | variabile de mediu | pornirea aplicației | nume: la planul autentificării (D-011) |
 <!-- names only, never values -->
 

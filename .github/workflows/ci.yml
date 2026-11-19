@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+# Tokenul GitHub doar citește: build-ul rulează plugin-uri Maven și imagini Testcontainers.
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,6 +18,11 @@ jobs:
           distribution: temurin
           java-version: "21"
           cache: maven
+      # Distribuția Maven descărcată de ./mvnw (un run a picat la descărcarea ei, 2026-11-19).
+      - uses: actions/cache@v6.0.0
+        with:
+          path: ~/.m2/wrapper
+          key: maven-wrapper-${{ hashFiles('.mvn/wrapper/maven-wrapper.properties') }}
       # Build și toate testele, inclusiv Testcontainers (Docker e pe runner). Fără testele „ui”.
       - name: Build and test
         run: ./mvnw -B verify

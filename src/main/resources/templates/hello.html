@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="ro" xmlns:th="http://www.thymeleaf.org">
 <!-- Pagina „hello” de la „/”: temporară, până la DS-autobuze-harta (D-022). Fără DS-ID. -->
-<head th:replace="~{fragments/head :: head('Când vine autobuzul?')}"></head>
+<!-- noindex: pagina e temporară; se scoate odată cu harta (DS-autobuze-harta, D-022). -->
+<head th:replace="~{fragments/head :: head('Când vine autobuzul?', 'noindex')}"></head>
 <body>
 <header th:replace="~{fragments/antet :: antet}"></header>
 <main>

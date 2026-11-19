@@ -27,6 +27,9 @@
 - Q-010 · Feed-ul Tursib conține shapes.txt?
 - Q-019 · Ce identificator stabil folosim pentru stații: stop_code sau stop_id?
 
+### [Ecrane si scop](questions/ecrane-si-scop.md)
+- Q-022 · Cum spun paginile reale că aplicația nu e oficială Tursib?
+
 ### [Infrastructura](questions/infrastructura.md)
 - Q-004 · Ce furnizor de tile-uri folosește harta? · _answered_
 - Q-006 · Maven sau Gradle, și cu ce rulăm testele? · _answered_

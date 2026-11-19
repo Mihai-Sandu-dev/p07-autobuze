@@ -74,12 +74,6 @@
       <artifactId>testcontainers-postgresql</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.microsoft.playwright</groupId>
-      <artifactId>playwright</artifactId>
-      <version>${playwright.version}</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>
@@ -88,6 +82,17 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <!-- Testele de UI (src/test/java/ro/autobuze/ui) și Playwright (~200 MB) intră doar în
+             profilul „ui”: build-ul obișnuit, CI-ul și imaginea Docker nu le descarcă. -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <testExcludes>
+            <testExclude>ro/autobuze/ui/**</testExclude>
+          </testExcludes>
+        </configuration>
       </plugin>
       <plugin>
         <!-- Testele unitare (*Test). Cele de UI (tag „ui”) rulează doar cu profilul „ui”. -->
@@ -110,8 +115,23 @@
       <!-- ./mvnw test -Pui — testele de UI și screenshot-urile, pe aplicația pornită în
            Docker Compose (D-029). Adresa: -Dbase.url=... (implicit http://localhost:8080). -->
       <id>ui</id>
+      <dependencies>
+        <dependency>
+          <groupId>com.microsoft.playwright</groupId>
+          <artifactId>playwright</artifactId>
+          <version>${playwright.version}</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <testExcludes combine.self="override"/>
+            </configuration>
+          </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
