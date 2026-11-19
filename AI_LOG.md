@@ -3,6 +3,31 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · Redenumirea aplicației: „Staționar — când vine autobuzul?”
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
+`feat/nume-stationar`.
+
+**Ce am cerut**
+- Schimbarea numelui aplicației din „Când vine autobuzul?” în „Staționar — când vine autobuzul?”,
+  cu numele scurt „Staționar” unde e loc puțin; titlul proiectului din catalog (P07) rămâne.
+  Întâi ca PROPOSAL; după aprobare, schimbarea peste tot, teste, push pe branch și PR.
+
+**Ce am primit**
+- Propunerea D-041, cu lista celor 13 fișiere în care apare numele, și trei întrebări: unde
+  apare numele scurt (numele complet nu încape în antet la 360 px), dacă mock-urile trec pe
+  draft și semnalarea că „staționar” înseamnă și „care nu se mișcă”.
+- După aprobare: testul schimbat întâi (`HelloPageIT`, la cererea mea) și văzut picând; apoi
+  antetul, `<title>`, `<h1>`, cele 5 mock-uri, README.md, SCOPE.md, `pom.xml`; screenshot-uri
+  refăcute și verificate; `./mvnw clean verify` (5 teste), 7 teste UI și lint-ul verzi;
+  PR-ul #2, cu CI-ul verde.
+
+**Ce am făcut cu răspunsul**
+- Am aprobat D-041 și am ales: antetul arată mereu „Staționar”; `<title>`, `<h1>` și README au
+  numele complet; mock-urile rămân `approved`, pentru că se schimbă doar textul aprobat;
+  numele e un joc de cuvinte voit (stație + „-ar”).
+- Am cerut merge-ul PR-ului #2 prin fast-forward și ștergerea branch-ului, cu comenzile
+  arătate înainte.
+
 ## 2026-11-19 · Review-ul PR-ului #1 și reparațiile
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
 `chore/schelet-proiect`.
