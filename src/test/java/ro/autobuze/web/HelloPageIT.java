@@ -42,6 +42,14 @@ class HelloPageIT {
     }
 
     @Test
+    void temporaryHelloPageIsNotIndexed() throws Exception {
+        // Pagina „hello” e temporară; noindex se scoate odată cu harta (D-022).
+        mvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("<meta name=\"robots\" content=\"noindex\">")));
+    }
+
+    @Test
     void tokensStylesheetIsServed() throws Exception {
         mvc.perform(get("/css/tokens.css"))
                 .andExpect(status().isOk())
