@@ -1,4 +1,6 @@
-# Când vine autobuzul?
+# Staționar — când vine autobuzul?
+
+Nume scurt: **Staționar**. Proiectul P07 din catalog: „Când vine autobuzul?”.
 
 Aplicație web pentru transportul public din Sibiu, construită pe orarul GTFS publicat de
 Tursib S.A. Proiect educațional (P07), necomercial.

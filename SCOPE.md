@@ -6,6 +6,9 @@
 > pe el până atunci.
 
 ## Pe scurt
+Numele aplicației: „Staționar — când vine autobuzul?”, scurt „Staționar” (D-041). Titlul proiectului din catalog
+rămâne P07 „Când vine autobuzul?”.
+
 Aplicație web pentru transportul public din Sibiu, pe feed-ul GTFS al Tursib S.A.
 (`DATA.md`): import complet, căutare de stații pe hartă, următoarele plecări,
 vizualizarea traseelor, un planificator cu maxim un transfer, favorite și abateri

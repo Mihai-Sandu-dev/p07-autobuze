@@ -14,7 +14,7 @@
   <artifactId>autobuze</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>autobuze</name>
-  <description>Când vine autobuzul? — transport public în Sibiu, pe feed-ul GTFS Tursib</description>
+  <description>Staționar — când vine autobuzul? Transport public în Sibiu, pe feed-ul GTFS Tursib (proiectul P07)</description>
 
   <properties>
     <java.version>21</java.version>
