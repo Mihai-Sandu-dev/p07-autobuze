@@ -72,14 +72,14 @@ h1 { font: 600 var(--text-xl) var(--font-text); margin: 0; }
   padding: var(--space-4); display: grid; gap: var(--space-3); }
 .camp { display: grid; gap: var(--space-1); }
 .camp label, fieldset legend { font: 600 var(--text-sm) var(--font-text); }
-input[type="text"], input[type="time"] { font: var(--text-md) var(--font-text); color: var(--color-text);
+input[type="text"], input[type="time"], input[type="date"] { font: var(--text-md) var(--font-text); color: var(--color-text);
   background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm);
   padding: var(--space-2) var(--space-3); min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box; width: 100%; }
 fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: center; }
 fieldset legend { margin-bottom: var(--space-1); padding: 0; }
 .optiune { display: inline-flex; gap: var(--space-2); align-items: center; min-height: calc(var(--space-7) - var(--space-1)); }
 .optiune input[type="radio"] { width: var(--space-5); height: var(--space-5); margin: 0; accent-color: var(--color-accent); }
-#ora-data { width: auto; }
+#ora-data, #zi-data { width: auto; }
 .btn { font: var(--text-sm) var(--font-text); padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
   border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text);
   cursor: pointer; min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box;
@@ -109,6 +109,8 @@ fieldset legend { margin-bottom: var(--space-1); padding: 0; }
 /* DS-autobuze-eticheta-linie */
 .eticheta { font: 700 var(--text-md) var(--font-text); padding: 0 var(--space-3); min-width: var(--space-5); text-align: center;
   border-radius: var(--radius-pill); flex: none; border: 1px solid transparent; }
+a.eticheta { text-decoration: none; position: relative; }
+a.eticheta::after { content: ""; position: absolute; inset: calc(-1 * var(--space-3)); }
 
 /* Stări */
 .stare { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-5) var(--space-4); margin-top: var(--space-5); }
@@ -150,9 +152,9 @@ fieldset legend { margin-bottom: var(--space-1); padding: 0; }
     <select id="stare" autocomplete="off">
       <option value="gol">Formular gol</option>
       <option value="rezultate">Rezultate (acum)</option>
-      <option value="ora">Rezultate la o oră dată</option>
+      <option value="ora">Rezultate la o dată și oră alese</option>
       <option value="validare">Lipsește o stație</option>
-      <option value="nimic">Nicio rută găsită</option>
+      <option value="nimic">Niciun itinerariu găsit</option>
       <option value="incarcare">Se caută</option>
       <option value="eroare">Eroare</option>
     </select>
@@ -165,7 +167,7 @@ fieldset legend { margin-bottom: var(--space-1); padding: 0; }
   </label>
 </div>
 <div class="mock-note">
-  Date de exemplu, nu din feed. Numele stațiilor vin din fișa de teren; liniile, orele, traseele și transferurile sunt inventate pentru desen.<br>Linkuri active: numele aplicației și Hartă (pagina hărții), Planificator, Autentificare. „Caută itinerarii” arată rezultatele de exemplu.
+  Date de exemplu, nu din feed. Numele stațiilor vin din fișa de teren; liniile, orele, traseele și transferurile sunt inventate pentru desen.<br>Linkuri active: numele aplicației și Hartă (pagina hărții), Planificator, Autentificare. „Caută itinerarii” arată rezultatele de exemplu. Data se alege în perioada de valabilitate a feed-ului (aici 2026-11-01 – 2027-01-31, inventată; D-033, propus). Eticheta liniei duce la pagina liniei (fără mock încă).
 </div>
 
 <div class="frame" id="frame" data-width="360">
@@ -194,7 +196,9 @@ fieldset legend { margin-bottom: var(--space-1); padding: 0; }
       <fieldset>
         <legend>Când pleci</legend>
         <label class="optiune"><input type="radio" name="cand" value="acum" id="r-acum" checked> Acum</label>
-        <label class="optiune"><input type="radio" name="cand" value="ora" id="r-ora"> La ora</label>
+        <label class="optiune"><input type="radio" name="cand" value="ora" id="r-ora"> La data și ora</label>
+        <label class="sr" for="zi-data">Data plecării</label>
+        <input type="date" id="zi-data" value="2026-11-17" min="2026-11-01" max="2027-01-31" disabled>
         <label class="sr" for="ora-data">Ora plecării</label>
         <input type="time" id="ora-data" value="07:30" disabled>
       </fieldset>
@@ -220,7 +224,7 @@ const LINII = {
 };
 const $ = id => document.getElementById(id);
 const icon = id => `<svg class="ic" aria-hidden="true"><use href="#i-${id}"/></svg>`;
-const eticheta = l => `<span class="eticheta" style="background:${LINII[l].bg};color:${LINII[l].fg}" aria-label="Linia ${l}">${l}</span>`;
+const eticheta = l => `<a class="eticheta" href="#" style="background:${LINII[l].bg};color:${LINII[l].fg}" aria-label="Linia ${l}, pagina liniei">${l}</a>`;
 
 // Ordonate după sosire (D-013). Un pas = o linie; între doi pași, transferul (D-012).
 const ITIN = {
@@ -260,14 +264,14 @@ function randeaza() {
   $("de-la").value = cuDate ? "Turnișor" : "";
   $("pana-la").value = cuDate && stare !== "validare" ? "Piața Cibin 3" : "";
   const laOra = stare === "ora";
-  $("r-ora").checked = laOra; $("r-acum").checked = !laOra; $("ora-data").disabled = !laOra;
+  $("r-ora").checked = laOra; $("r-acum").checked = !laOra; $("ora-data").disabled = !laOra; $("zi-data").disabled = !laOra;
   const ec = $("eroare-camp");
   ec.hidden = stare !== "validare";
   ec.textContent = "Alege stația de sosire.";
   $("pana-la").setAttribute("aria-invalid", stare === "validare");
 
   const c = $("continut");
-  const titlu = laOra ? "azi, plecare după 07:30" : "acum, după 16:40";
+  const titlu = laOra ? "plecare după 07:30" : "acum, după 16:40";
   if (stare === "rezultate" || stare === "ora") {
     c.innerHTML = `<section class="rezultate"><h2>Turnișor → Piața Cibin 3</h2>
       <p class="sub">Marți, 17 noiembrie · ${titlu} · primele 3, după ora sosirii</p>
@@ -287,7 +291,7 @@ function randeaza() {
     c.innerHTML = "";
   }
 }
-document.querySelectorAll('input[name="cand"]').forEach(r => r.onchange = () => $("ora-data").disabled = !$("r-ora").checked);
+document.querySelectorAll('input[name="cand"]').forEach(r => r.onchange = () => { $("ora-data").disabled = $("zi-data").disabled = !$("r-ora").checked; });
 $("form").onsubmit = e => { e.preventDefault(); $("stare").value = $("pana-la").value ? "rezultate" : "validare"; randeaza(); };
 const aplicaTema = () => document.documentElement.dataset.theme = $("tema").value;
 const aplicaLatime = () => $("frame").dataset.width = $("latime").value;

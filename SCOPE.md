@@ -31,7 +31,7 @@ raportate de utilizatori. Fișa: categoria B, dificultate ★★★★★, ~45 h
 |---|---|---|
 | `/` pentru vizitator | harta cu stații, căutare după nume și „aproape de mine” (geolocația din browser) | D-022, D-005 |
 | `/` pentru utilizator logat („Acasă”) | plecările de la stațiile favorite, harta dedesubt | D-022 |
-| Pagina de stație | următoarele 3 plecări pe fiecare linie și sens, cu excepțiile de calendar; buton de raportare a unei abateri | D-018, D-017 |
+| Pagina de stație | următoarele 3 plecări pe fiecare linie și sens, cu excepțiile de calendar; un buton de raport de abatere pe fiecare grup de linie și sens | D-018, D-017, D-028 |
 | Pagina de linie | traseul pe hartă, stațiile în ordine, orarul complet pe tipuri de zi, abaterea medie pe intervale de o oră | D-014, D-016; Q-010 (shapes) |
 | Planificator | de la stația A la stația B, acum sau la o oră dată; primele 3 itinerarii: plecare, sosire, linii, stația de transfer, timpul de așteptare | D-002, D-012, D-013 |
 | Înregistrare, login | email și parolă | D-011 |
@@ -51,7 +51,7 @@ Designul fiecărui ecran se face în pasul următor (`docs/design/`).
   (D-003, D-019).
 - **Date ale utilizatorilor** (rapoarte, favorite): legate de identificatori stabili,
   nu de o versiune (D-020; Q-019).
-- **Tipuri de zi:** lucrătoare, sâmbătă, duminică și sărbătoare legală. Lista
+- **Tipuri de zi:** lucrătoare, sâmbătă, duminică sau sărbătoare legală (D-014). Lista
   sărbătorilor din DB dă doar eticheta zilei și intră în media abaterilor; plecările
   vin numai din calendar.txt și calendar_dates.txt (D-014, D-015).
 - **Seed din teren:** observațiile din `field/observations.csv` intră în rapoartele de
@@ -106,6 +106,7 @@ importat 200.000 de rânduri și cât a durat.
   (D-023).
 
 ## Încă deschis
-Q-007 (screenshot-uri), Q-009 (licența Tursib), Q-010 (shapes.txt), Q-012 (găzduire,
-la /plan, înainte de 2026-11-22), Q-017 (poze), Q-018 (interviuri), Q-019
-(identificatorul stabil al stațiilor), Q-020 (tabelul de corespondență).
+Q-009 (licența Tursib), Q-010 (shapes.txt), Q-012 (găzduire: Render + Neon propus, la
+/plan, înainte de 2026-11-22), Q-017 (poze), Q-018 (interviuri), Q-019 (identificatorul
+stabil al stațiilor), Q-020 (tabelul de corespondență). Propuse, neaprobate încă:
+D-029 – D-036.

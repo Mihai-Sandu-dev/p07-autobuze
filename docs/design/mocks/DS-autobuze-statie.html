@@ -14,7 +14,8 @@
      mare, ca pe panou, celelalte două mai mici; fiecare grup e un card cu bordura de sus
      (inițial stânga, mutată la cererea autorului) în culoarea liniei; sensul ca săgeată + capăt de linie; hartă mică cu stația sus;
      iconițe simple (autobuz, ceas, stea). Doar tokens din DESIGN.md.
-     Mock confirmat de autor în browser, 2026-11-19 (status approved). -->
+     Mock confirmat de autor în browser, 2026-11-19; înapoi pe draft după schimbările din aceeași zi:
+     „Ieșire” în antet, eticheta liniei duce la pagina liniei, starea „00:30, luni, sărbătoare legală”. -->
 <style>
 /* ===== Tokens — copiate din docs/design/DESIGN.md (D-027) ===== */
 :root {
@@ -120,6 +121,9 @@ main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: var(--sp
 .eticheta { font: 700 var(--text-md) var(--font-text); padding: 0 var(--space-3); min-width: var(--space-5); text-align: center;
   border-radius: var(--radius-pill); flex: none; border: 1px solid transparent; }
 .eticheta.fara-culoare { background: #ffffff; color: #000000; border-color: var(--color-border); }
+/* Eticheta e link spre pagina liniei; ținta de atingere crește fără să mărească eticheta. */
+a.eticheta { text-decoration: none; position: relative; }
+a.eticheta::after { content: ""; position: absolute; inset: calc(-1 * var(--space-3)); }
 
 /* DS-autobuze-rand-plecare: prima plecare mare, ca pe panou */
 .urmatoarea { margin-top: var(--space-3); background: var(--color-bg); border-radius: var(--radius-sm);
@@ -176,6 +180,7 @@ main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: var(--sp
       <option value="logat">Utilizator logat</option>
       <option value="maine">Seara: completat cu „mâine”</option>
       <option value="noapte">00:30: curse de după miezul nopții</option>
+      <option value="sarbatoare">00:30, luni, sărbătoare legală</option>
       <option value="lung">Text lung, multe linii</option>
       <option value="gol">Fără plecări</option>
       <option value="incarcare">Se încarcă</option>
@@ -190,7 +195,7 @@ main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: var(--sp
   </label>
 </div>
 <div class="mock-note">
-  Date de exemplu, nu din feed. Stația Turnișor și sensurile vin din fișa de teren; primele ore la 11, 19 și 21 sunt „ora din feed” din fișa de teren (17.11.2026); celelalte ore, culorile liniilor și numele lungi sunt inventate pentru desen. Harta e un desen schematic, nu locul real al stației: în aplicație e Leaflet cu tile-uri OSM.<br>Linkuri active: numele aplicației și Hartă (pagina hărții), harta mică, „Vezi pe hartă”, Planificator, Autentificare / „Autentifică-te”. Acasă și „Raportează o abatere” nu au încă mock.
+  Date de exemplu, nu din feed. Stația Turnișor și sensurile vin din fișa de teren; primele ore la 11, 19 și 21 sunt „ora din feed” din fișa de teren (17.11.2026); celelalte ore, culorile liniilor și numele lungi sunt inventate pentru desen. Harta e un desen schematic, nu locul real al stației: în aplicație e Leaflet cu tile-uri OSM.<br>Linkuri active: numele aplicației și Hartă (pagina hărții), harta mică, „Vezi pe hartă”, Planificator, Autentificare / „Autentifică-te”. „Ieșire” (logat) duce la hartă. Acasă, eticheta liniei (pagina liniei) și „Raportează o abatere” nu au încă mock. Starea „sărbătoare legală”: date inventate, 1 iunie 2026 (luni, Rusalii).
 </div>
 
 <div class="frame" id="frame" data-width="360">
@@ -201,6 +206,7 @@ main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: var(--sp
       <a href="DS-autobuze-harta.html" data-mock>Hartă</a>
       <a href="DS-autobuze-planificator.html" data-mock>Planificator</a>
       <a href="DS-autobuze-login.html" data-mock id="nav-cont">Autentificare</a>
+      <a href="DS-autobuze-harta.html" data-mock id="nav-iesire" hidden>Ieșire</a>
     </nav>
   </header>
 
@@ -259,6 +265,12 @@ const DATE = {
   noapte: [
     g("11", "Aumovio", "", [p("00:41","în 11 min"), p("05:21","în 4 h 51 min"), p("05:51","în 5 h 21 min")])
   ],
+  // Luni, sărbătoare legală, 00:30: cursa de 00:41 e din ziua de serviciu de duminică (oră ≥ 24:00 în feed);
+  // restul vin din calendarul zilei de luni (calendar_dates). Eticheta „sărbătoare legală” vine din lista din DB (D-015).
+  sarbatoare: [
+    g("11", "Aumovio", "", [p("00:41","în 11 min"), p("07:21","în 6 h 51 min"), p("07:51","în 7 h 21 min")]),
+    g("19", "Cartier Magnolia - Marquardt", "", [p("06:44","în 6 h 14 min"), p("07:44","în 7 h 14 min"), p("08:44","în 8 h 14 min")])
+  ],
   lung: [
     g("19", "Cartier Magnolia - Marquardt", "", [p("16:44","în 4 min"), p("17:04","în 24 min"), p("17:24","în 44 min")]),
     g("21", "Marquardt", "", [p("16:47","în 7 min"), p("17:17","în 37 min"), p("17:47","în 1 h 7 min")]),
@@ -276,8 +288,8 @@ let logat = false;
 function eticheta(linie) {
   const c = LINII[linie];
   return c
-    ? `<span class="eticheta" style="background:${c.bg};color:${c.fg}" aria-label="Linia ${linie}">${linie}</span>`
-    : `<span class="eticheta fara-culoare" aria-label="Linia ${linie}">${linie}</span>`;
+    ? `<a class="eticheta" href="#" style="background:${c.bg};color:${c.fg}" aria-label="Linia ${linie}, pagina liniei">${linie}</a>`
+    : `<a class="eticheta fara-culoare" href="#" aria-label="Linia ${linie}, pagina liniei">${linie}</a>`;
 }
 function cand(x) {
   return x.maine
@@ -305,11 +317,13 @@ function randeaza() {
   logat = stare === "logat";
   $("nav-cont").textContent = logat ? "Acasă" : "Autentificare";
   $("nav-cont").setAttribute("href", logat ? "#" : "DS-autobuze-login.html");
+  $("nav-iesire").hidden = !logat;
   $("titlu").textContent = stare === "lung"
     ? "Turnișor (Calea Turnișorului, lângă Biserica Sfântul Ioan — nume lung de exemplu)" : "Turnișor";
   $("meta").textContent = {
     maine: "Marți, 17 noiembrie · zi lucrătoare · acum 22:25",
-    noapte: "Miercuri, 18 noiembrie · zi lucrătoare · acum 00:30"
+    noapte: "Miercuri, 18 noiembrie · zi lucrătoare · acum 00:30",
+    sarbatoare: "Luni, 1 iunie · sărbătoare legală · acum 00:30"
   }[stare] || "Marți, 17 noiembrie · zi lucrătoare · acum 16:40";
 
   $("actiuni").innerHTML = logat

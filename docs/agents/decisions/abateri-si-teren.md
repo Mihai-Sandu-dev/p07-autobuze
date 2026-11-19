@@ -90,3 +90,19 @@
 - **Source:** user · confidence high
 - **Owner note:** 2026-11-19: pozele rămân în subfolderul zilei (D-010), nu direct în `field/photos/`.
 - **Confirmed:** 2026-11-19
+
+## D-035 · Abaterile vizibile pe pagina liniei: media pe ore și ultimele 20 de rapoarte, cu sursa
+- **Status:** proposed
+- **Date:** 2026-11-19
+- **Rule:** Completează D-016 și D-025. Pagina liniei arată media abaterilor pe ore (D-016) și o listă cu ultimele 20 de rapoarte de abatere ale liniei, fiecare cu sursa marcată: „teren” sau „utilizator”.
+- **Why:** Răspunsul utilizatorului; Definition of done cere ca observațiile de teren să fie vizibile ca abateri în aplicație.
+- **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
+- **Source:** user · confidence high
+
+## D-036 · Raportul fără plecări în ultimele 60 de minute: butonul rămâne, formularul o spune
+- **Status:** proposed
+- **Date:** 2026-11-19
+- **Rule:** Completează D-028. Butonul „Raportează o abatere” rămâne vizibil pe fiecare grup. Dacă grupul nu are nicio plecare în ultimele 60 de minute, formularul arată „Nicio plecare în ultimele 60 de minute”.
+- **Why:** Răspunsul utilizatorului.
+- **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
+- **Source:** user · confidence high

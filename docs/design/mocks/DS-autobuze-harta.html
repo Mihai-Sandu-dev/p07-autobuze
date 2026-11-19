@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DS-autobuze-harta · mock</title>
-<!-- Mock simplu, cerut de autor (2026-11-19); confirmat de autor în browser, 2026-11-19 (status approved).
+<!-- Mock simplu, cerut de autor (2026-11-19); confirmat de autor în browser, 2026-11-19, apoi înapoi pe draft:
+     markerul ales pe culoarea textului (D-027: accentul doar pentru acțiuni); starea „nicio stație în 1 km” (D-034, propus);
+     pagina e și la /harta, pentru toți (D-030, propus).
      Reguli: „/” pentru vizitator = harta cu stații, căutare după nume și „aproape de mine”
      (geolocația din browser) (D-022, SCOPE.md → Ecrane); tile-uri OSM cu atribuire (D-005).
      Componente: DS-autobuze-harta-leaflet, DS-autobuze-cautare-statii.
@@ -111,7 +113,8 @@ input[type="search"] { flex: 1 1 calc(var(--space-7) * 3); font: var(--text-md) 
 .marker .punct { width: var(--space-4); height: var(--space-4); border-radius: var(--radius-pill);
   background: var(--color-text); border: 2px solid var(--color-bg); box-sizing: border-box; transition: transform var(--motion-fast); }
 .marker:hover .punct { transform: scale(1.25); }
-.marker[aria-pressed="true"] .punct { width: var(--space-5); height: var(--space-5); background: var(--color-accent); }
+.marker[aria-pressed="true"] .punct { width: var(--space-5); height: var(--space-5);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-text); }
 .marker .nume { position: absolute; top: 100%; left: 50%; transform: translate(-50%, calc(-1 * var(--space-2)));
   white-space: nowrap; font: 600 var(--text-xs) var(--font-text); color: var(--color-text);
   background: var(--color-bg); border-radius: var(--radius-sm); padding: 0 var(--space-1); box-shadow: var(--shadow-1); pointer-events: none; }
@@ -167,6 +170,7 @@ input[type="search"] { flex: 1 1 calc(var(--space-7) * 3); font: var(--text-md) 
       <option value="nimic">Căutare fără rezultat</option>
       <option value="localizare">Se caută locația</option>
       <option value="aproape">Aproape de mine</option>
+      <option value="departe">Nicio stație pe o rază de 1 km</option>
       <option value="refuzat">Locația refuzată</option>
       <option value="eroare">Eroare la încărcarea stațiilor</option>
     </select>
@@ -302,6 +306,8 @@ function randeaza() {
   markere();
   if (stare === "refuzat") {
     $("rezultate").innerHTML = `<p class="mesaj eroare" role="alert">Nu am acces la locația ta. Permite accesul din setările browserului sau caută stația după nume.</p>`;
+  } else if (stare === "departe") {
+    $("rezultate").innerHTML = `<p class="mesaj">Nicio stație pe o rază de 1 km de tine. Caută stația după nume sau mută harta.</p>`;
   } else if (stare === "localizare") {
     $("rezultate").innerHTML = `<p class="mesaj">Se caută locația ta…</p>`;
   } else {

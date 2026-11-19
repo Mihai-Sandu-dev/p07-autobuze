@@ -30,9 +30,9 @@
 ### [Infrastructura](questions/infrastructura.md)
 - Q-004 · Ce furnizor de tile-uri folosește harta? · _answered_
 - Q-006 · Maven sau Gradle, și cu ce rulăm testele? · _answered_
-- Q-007 · Cum facem screenshot-uri ale paginilor?
+- Q-007 · Cum facem screenshot-uri ale paginilor? · _answered_
 - Q-008 · Aplicația rămâne doar locală sau va fi găzduită? · _answered_
-- Q-012 · Pe ce furnizor găzduim aplicația?
+- Q-012 · Pe ce furnizor găzduim aplicația? · _investigating_
 - Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin? · _answered_
 
 ### [Planificator](questions/planificator.md)

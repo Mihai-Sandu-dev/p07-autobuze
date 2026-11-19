@@ -3,6 +3,46 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · Recapitulare: ce lipsea, ce se contrazicea; FIELD.md, README.md
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
+
+### 1. Recapitularea
+**Ce am cerut**
+- Recitirea README.md, SCOPE.md, CONTEXT.md, a întrebărilor deschise și a mock-urilor:
+  ce e neclar, ce lipsește, ce se contrazice; întrebările rămase.
+
+**Ce am primit**
+- Trei corecturi mici făcute direct (SCOPE.md și Q-005 depășite).
+- 19 întrebări: găzduirea și screenshot-urile (urgent), 3 contradicții (harta pentru
+  utilizatorul logat, accentul pe markerul hărții, definiții din CONTEXT.md), lipsuri
+  (ce e o stație, ieșirea din cont, intrarea spre pagina liniei, raportul fără plecări,
+  întoarcerea după login, regulile de înregistrare, data în planificator, „aproape de
+  mine”), plus sărbătoarea pe pagina de stație, abaterile vizibile, tokens lipsă,
+  README.md, FIELD.md și cererea către Tursib.
+
+**Ce am făcut cu răspunsul**
+- Am răspuns la toate 19 și am cerut fiecare decizie nouă ca PROPOSAL.
+
+### 2. Ce a rezultat
+**Ce am primit**
+- D-029 – D-036, toate `proposed`: screenshot-uri cu Playwright, harta la /harta, ce e o
+  stație, autentificare și înregistrare, data în planificator, „aproape de mine”,
+  abaterile vizibile pe pagina liniei, raportul fără plecări. Q-007 răspunsă; la Q-012 un
+  răspuns propus (Render + Neon), cu limitele planurilor gratuite verificate și riscurile
+  pentru /plan.
+- O propunere de tokens noi pentru DESIGN.md (nescrisă în fișier până la aprobare).
+- CONTEXT.md: două definiții corectate și termenul „Sens”.
+- Mock-urile: „Ieșire” în antet, eticheta liniei ca link, starea „luni, sărbătoare
+  legală”, markerul hărții pe culoarea textului, data în planificator, „nicio stație în
+  1 km”. Pagina de stație și harta au trecut înapoi pe `draft`.
+- `field/observations.csv` și `FIELD.md`, generate din xlsx; toate cele 20 de abateri
+  recalculate se potrivesc cu fișa. `README.md`.
+- Semnalări: limita BCrypt e de 72 de octeți, nu de caractere; jobul zilnic de import nu
+  rulează cât timp serviciul Render gratuit doarme.
+
+**Ce am făcut cu răspunsul**
+- Am aprobat commit-ul și push-ul. Cererea către Tursib (Q-009) o trimit azi.
+
 ## 2026-11-19 · Mock-uri: stația refăcută, planificator, autentificare, hartă
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
 

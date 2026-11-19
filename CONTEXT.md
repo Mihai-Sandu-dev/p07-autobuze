@@ -20,6 +20,9 @@ _Avoid_: oprire, haltă, stop
 **Linie** (substantiv) — un serviciu cu nume sau număr, de ex. „24B” (`routes.txt`).
 _Avoid_: rută, traseu
 
+**Sens** (substantiv) — încotro merge o linie, numit după capătul de linie scris pe autobuz (`direction_id` și `trip_headsign` din `trips.txt`).
+_Avoid_: direcție (pentru sensul unei linii)
+
 **Traseu** (substantiv) — drumul unei linii într-un sens: stațiile în ordine și forma de pe hartă (`shapes.txt`).
 _Avoid_: shape, itinerariu, rută
 
@@ -47,10 +50,10 @@ _Avoid_: corespondență, schimbare
 **Abatere** (substantiv) — diferența dintre ora din orar și ora reală a unei curse într-o stație, în minute.
 _Avoid_: întârziere (ca termen general), deviere
 
-**Raport de abatere** (substantiv) — o abatere trimisă de un utilizator logat: linie, stație, oră, minute.
+**Raport de abatere** (substantiv) — o abatere cu linie, stație, oră și minute; sursa e „utilizator” (trimisă de un utilizator logat) sau „teren” (o observație de teren, D-025).
 _Avoid_: sesizare, reclamație, feedback
 
-**Observație de teren** (substantiv) — o abatere notată de autor la fața locului, în FIELD.md; intră ca seed printre rapoartele de abatere.
+**Observație de teren** (substantiv) — o abatere notată de autor la fața locului, în `field/observations.csv` (descrisă în FIELD.md, D-010); intră ca seed printre rapoartele de abatere, cu sursa „teren”.
 _Avoid_: măsurătoare, notă
 
 **Versiune de feed** (substantiv) — rezultatul unui import reușit, cu checksum; una singură e activă.
