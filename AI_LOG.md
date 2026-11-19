@@ -3,6 +3,47 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · Design: direcția vizuală, tokens, registrul de ecrane, primul mock
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
+
+### 1. Direcția vizuală și tokens
+**Ce am cerut**
+- Direcția vizuală a aplicației și tokens de design (culori, fonturi, spațieri) pentru
+  `docs/design/DESIGN.md`.
+
+**Ce am primit**
+- Variante de direcție vizuală; propunerea D-027 și tabelele de tokens pentru light și
+  dark, cu contrastul fiecărei culori.
+
+**Ce am făcut cu răspunsul**
+- Am ales baza neutră cu un singur accent, cu stil de panou de stație doar la orele de
+  plecare și la eticheta liniei (culoarea din `route_color` / `route_text_color`), fără
+  culorile sau logo-ul Tursib → D-027 aprobat.
+- Am cerut o corectură: contrastul fiecărei culori verificat pe ambele fundaluri,
+  `--color-bg` și `--color-surface`; apoi am aprobat tokens.
+- Am spus că feed-ul Tursib are `route_color` / `route_text_color`; încă neverificat în feed.
+
+### 2. Registrul de ecrane
+**Ce am primit**
+- `docs/design/registry.yaml` construit din `SCOPE.md` → Ecrane: 12 ecrane, 7 componente
+  și fundația de tokens.
+
+**Ce am făcut cu răspunsul**
+- Am aprobat lista, cu pagina comună de eroare (DS-autobuze-eroare, pentru 403, 404 și
+  500) și fără pagină „Despre”. Primul mock: pagina de stație.
+
+### 3. Primul mock: pagina de stație
+**Ce am primit**
+- `docs/design/mocks/DS-autobuze-statie.html` (status `draft`): plecările pe linie și
+  sens, toate stările (vizitator, logat, „mâine”, după miezul nopții, text lung, gol,
+  încărcare, eroare), light și dark, la 360 px; date de exemplu pornind de la stația
+  Turnișor din fișa de teren.
+- 4 întrebări rămase deschise: numele aplicației, cum se afișează ora, eticheta curselor
+  de după miezul nopții și linkul de raport la fiecare plecare.
+
+**Ce am făcut cu răspunsul**
+- Am lăsat mock-ul ca draft, cu cele 4 întrebări deschise, pentru sesiunea următoare.
+
 ## 2026-11-18 – 2026-11-19 · Setup agentic + interviu de scope
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
 

@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DS-autobuze-statie · mock</title>
+<!-- Răspunsurile autorului (2026-11-19) la întrebările din draft (f1ccd7f):
+     1. Numele în antet rămâne „Când vine autobuzul?”.
+     2. Ora exactă mare; „în X min” mic, dedesubt.
+     3. O cursă cu ora 24:41 în feed apare ca „00:41”, fără altă notă.
+     4. Schimbat: un singur buton „Raportează o abatere” pe fiecare grup de linie și sens,
+        doar pentru utilizatorul logat; vizitatorul vede doar rândul cu autentificarea (D-009).
+        Formularul arată plecările din ultimele 60 de minute (D-028, propus). -->
 <style>
 /* ===== Tokens — copiate din docs/design/DESIGN.md (D-027) ===== */
 :root {
@@ -89,12 +96,12 @@ main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: var(--sp
 .rand { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) 0;
   border-top: 1px solid var(--color-divider); }
 .rand:first-child { border-top: 0; }
-.ora { font: 700 28px/32px var(--font-mono); font-variant-numeric: tabular-nums; min-width: 5ch; }
-.cand { font-size: 14px; line-height: 20px; color: var(--color-text-muted); flex: 1; }
+.timp { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.ora { font: 700 28px/32px var(--font-mono); font-variant-numeric: tabular-nums; }
+.cand { font-size: 14px; line-height: 20px; color: var(--color-text-muted); }
 .chip-maine { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--color-warning);
-  border: 1px solid currentColor; border-radius: var(--radius-pill); padding: 0 var(--space-2); margin-inline-start: var(--space-2); }
-.raporteaza { font-size: 14px; line-height: 20px; padding: var(--space-2) var(--space-2); min-height: 24px; min-width: 24px;
-  border-radius: var(--radius-sm); white-space: nowrap; }
+  border: 1px solid currentColor; border-radius: var(--radius-pill); padding: 0 var(--space-2); }
+.grup .raporteaza { margin-top: var(--space-3); }
 
 /* Stări */
 .stare { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-5) var(--space-4); margin-top: var(--space-5); }
@@ -217,13 +224,10 @@ function eticheta(linie) {
     : `<span class="eticheta fara-culoare" aria-label="Linia ${linie}">${linie}</span>`;
 }
 function rand(gr, x) {
-  const raport = logat
-    ? `<a class="raporteaza" href="#" aria-label="Raportează o abatere pentru linia ${gr.linie}, plecarea de la ${x.ora}">Raportează</a>`
-    : "";
   return `<li class="rand">
-    <span class="ora">${x.ora}</span>
-    <span class="cand">${x.cand === "mâine" ? "" : x.cand}${x.maine ? `<span class="chip-maine">mâine</span>` : ""}</span>
-    ${raport}</li>`;
+    <span class="timp"><span class="ora">${x.ora}</span>
+    <span class="cand">${x.cand === "mâine" ? "" : x.cand}${x.maine ? `<span class="chip-maine">mâine</span>` : ""}</span></span>
+    </li>`;
 }
 function grup(gr) {
   return `<section class="grup" aria-label="Linia ${gr.linie} spre ${gr.sens}">
@@ -231,6 +235,7 @@ function grup(gr) {
       <span class="sens">spre ${gr.sens}${gr.plecari.length < 3 ? `<small>doar ${gr.plecari.length === 1 ? "o plecare" : gr.plecari.length + " plecări"} azi și mâine</small>` : ""}</span>
     </div>
     <ul class="randuri">${gr.plecari.map(x => rand(gr, x)).join("")}</ul>
+    ${logat ? `<a class="btn raporteaza" href="#" aria-label="Raportează o abatere pentru linia ${gr.linie} spre ${gr.sens}">Raportează o abatere</a>` : ""}
   </section>`;
 }
 
