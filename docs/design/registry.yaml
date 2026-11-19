@@ -14,10 +14,11 @@ designs:
   - id: DS-autobuze-tokens
     kind: foundation
     note: "culori, fonturi, spațieri din DESIGN.md → Tokens (D-027)"
-    source: none
+    source: src/main/resources/static/css/tokens.css
     design_ref: none
 
   # --- screens ---
+    status: implemented
   - id: DS-autobuze-statie
     kind: screen
     note: "pagina de stație — hartă mică cu stația; următoarele 3 plecări pe linie și sens (prima mare), „mâine” marcat, buton de raport pe grup (D-018, D-017, D-028)"
@@ -99,14 +100,15 @@ designs:
   - id: DS-autobuze-antet
     kind: component
     note: "antetul cu navigarea (hartă, planificator; Autentificare pentru vizitator; Acasă și Ieșire pentru utilizatorul logat; admin pentru ADMIN)"
-    source: none
+    source: src/main/resources/templates/fragments/antet.html
     design_ref: mocks/DS-autobuze-antet.html
-    status: approved  # confirmat de autor în browser, 2026-11-19
+    status: implemented  # varianta „doar numele” + butonul de temă; navigarea vine cu paginile
   - id: DS-autobuze-subsol
     kind: component
     note: "subsolul cu „Date de transport: Tursib S.A.” pe fiecare pagină (D-008)"
-    source: none
+    source: src/main/resources/templates/fragments/subsol.html
     design_ref: none
+    status: implemented
   - id: DS-autobuze-eticheta-linie
     kind: component
     note: "numărul liniei în eticheta colorată din route_color / route_text_color, cu regula de contrast (D-027); link spre pagina liniei"

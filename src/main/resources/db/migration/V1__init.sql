@@ -1,0 +1,2 @@
+-- V1: prima migrare, goală (scheletul proiectului). Schema vine în migrările următoare.
+-- După ce ajunge pe Neon, nu se mai editează: orice schimbare e o migrare nouă.

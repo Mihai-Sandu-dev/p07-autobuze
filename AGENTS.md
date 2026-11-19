@@ -95,12 +95,15 @@ dezvoltarea locală rulează în Docker Compose.
 Build: Maven prin `./mvnw`; teste JUnit 5 + Testcontainers PostGIS (D-006).
 
 ```bash
-# Nu există cod încă: nicio comandă nu a fost rulată.
-./mvnw verify            # build + toate testele (neexecutat: nu există pom.xml)
-./mvnw test              # doar testele (neexecutat: nu există pom.xml)
-docker compose up -d     # pornește aplicația și PostGIS (neexecutat: nu există docker-compose.yml)
-# screenshot: procedura e Q-007
+./mvnw verify                    # build + teste unitare (*Test) și de integrare (*IT, Testcontainers PostGIS)
+./mvnw test                      # doar testele unitare
+cp .env.example .env             # o dată; completează POSTGRES_PASSWORD (.env nu intră în git)
+docker compose up -d --build     # pornește aplicația (http://localhost:8080) și PostGIS
+./mvnw test -Pui                 # teste de UI și screenshot-uri cu Playwright, pe aplicația din Compose (D-029)
+python3 docs/agents/tools/ledger-lint.py   # lint-ul registrului (rulează și în CI)
 ```
+Screenshot-urile se salvează în `docs/design/screens/<nume>.<light|dark>.<360|1280>.png`.
+La prima rulare, Playwright descarcă Chromium (~100–200 MB).
 
 ## 3. Structură
 - `docs/agents/` — registrul (decizii, pattern-uri, contracte, întrebări) și arhitectura.

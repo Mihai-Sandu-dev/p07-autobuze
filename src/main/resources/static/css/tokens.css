@@ -1,0 +1,82 @@
+/* Tokens — copia exactă a tabelelor din docs/design/DESIGN.md → Tokens (D-027).
+   O schimbare aici începe în DESIGN.md (PROPOSAL); TokensTest verifică să rămână la fel.
+   Tema dark (D-039): după sistem, dacă utilizatorul n-a ales light; sau după butonul din antet. */
+
+:root {
+  /* Color */
+  --color-bg: #ffffff;
+  --color-surface: #f4f5f7;
+  --color-text: #1a1d21;
+  --color-text-muted: #5a6270;
+  --color-border: #868e99;
+  --color-divider: #d6d9de;
+  --color-accent: #1d5fd1;
+  --color-on-accent: #ffffff;
+  --color-danger: #b42318;
+  --color-success: #1a7f37;
+  --color-warning: #986600;
+
+  /* Typography (mărime/înălțime de rând; greutatea se pune la folosire) */
+  --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --text-xs: 12px/16px;
+  --text-sm: 14px/20px;
+  --text-md: 16px/24px;
+  --text-lg: 20px/28px;
+  --text-xl: 24px/32px;
+  --text-2xl: 32px/40px;
+  --text-time: 28px/32px;
+  --text-time-sm: 20px/28px;
+
+  /* Sizes */
+  --size-page: 720px;
+  --size-form: 440px;
+  --size-panel: 336px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* Radius, shadow, motion */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.12);
+  --motion-fast: 150ms;
+  --motion-base: 250ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #121417;
+    --color-surface: #1c1f24;
+    --color-text: #e8eaed;
+    --color-text-muted: #a3abb7;
+    --color-border: #626a76;
+    --color-divider: #2b3037;
+    --color-accent: #6ea2ff;
+    --color-on-accent: #0b1b33;
+    --color-danger: #ff7b72;
+    --color-success: #56d364;
+    --color-warning: #e3b341;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #121417;
+  --color-surface: #1c1f24;
+  --color-text: #e8eaed;
+  --color-text-muted: #a3abb7;
+  --color-border: #626a76;
+  --color-divider: #2b3037;
+  --color-accent: #6ea2ff;
+  --color-on-accent: #0b1b33;
+  --color-danger: #ff7b72;
+  --color-success: #56d364;
+  --color-warning: #e3b341;
+}

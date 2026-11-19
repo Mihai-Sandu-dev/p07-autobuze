@@ -17,18 +17,30 @@ ce intră în proiect și ce nu: [`SCOPE.md`](SCOPE.md).
 ## Stack
 Java 21 + Spring Boot (REST API), PostgreSQL cu PostGIS, migrări Flyway, pagini Thymeleaf cu o
 hartă Leaflet care citește din API. Build cu Maven (`./mvnw`); teste cu JUnit 5 și
-Testcontainers. Dezvoltare locală în Docker Compose. Aplicația va fi găzduită public, cu HTTPS
-(furnizorul se alege la primul plan).
+Testcontainers. Dezvoltare locală în Docker Compose. Găzduire publică, cu HTTPS: aplicația pe
+Render (din `Dockerfile`), baza de date pe Neon (PostgreSQL cu PostGIS).
 
 ## Cum se pornește
-_De completat după primul build._ Nu există încă cod: nici `pom.xml`, nici
-`docker-compose.yml`.
+Ai nevoie de Java 21 și Docker (Maven vine prin wrapper-ul `./mvnw`).
+
+```bash
+cp .env.example .env            # apoi completează POSTGRES_PASSWORD
+docker compose up -d --build    # aplicația pe http://localhost:8080, cu PostgreSQL + PostGIS
+./mvnw verify                   # build și teste (Testcontainers pornește PostGIS singur)
+```
+
+Celelalte comenzi (teste de UI, screenshot-uri, lint-ul registrului) sunt în
+[`AGENTS.md`](AGENTS.md), secțiunea 2.
 
 ## Variabile de mediu
-_Numele exacte se stabilesc la primul build._ Aplicația va avea nevoie de:
-- conexiunea la baza de date PostgreSQL / PostGIS;
-- emailul și parola primului administrator, citite la pornire din `.env` (niciodată din cod
-  sau din git).
+| Variabilă | Unde | Ce |
+|---|---|---|
+| `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` | `.env` (local) | baza din Docker Compose |
+| `SPRING_DATASOURCE_URL`, `_USERNAME`, `_PASSWORD` | Compose (din `.env`), Render | conexiunea aplicației; pe Render, la Neon |
+| `PORT` | Render | portul HTTP (local: 8080) |
+
+Datele primului administrator vor veni tot din variabile de mediu, la pornire (niciodată din
+cod sau din git); numele lor se stabilesc odată cu autentificarea.
 
 Fișierul `.env` e ignorat de git.
 

@@ -1,0 +1,20 @@
+# Render Blueprint (D-037): aplicația din Dockerfile, plan gratuit, Frankfurt.
+# Valorile conexiunii la Neon (conexiunea directă, nu „pooler”; JDBC cu sslmode=require)
+# se completează în Render la crearea Blueprint-ului; nu intră în git.
+services:
+  - type: web
+    name: autobuze
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    # Deploy doar la cerere, după acordul autorului (AGENTS.md → Release).
+    autoDeployTrigger: "off"
+    healthCheckPath: /
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
