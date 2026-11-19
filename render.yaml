@@ -1,6 +1,7 @@
 # Render Blueprint (D-037): aplicația din Dockerfile, plan gratuit, Frankfurt.
-# Valorile conexiunii la Neon (conexiunea directă, nu „pooler”; JDBC cu sslmode=require)
-# se completează în Render la crearea Blueprint-ului; nu intră în git.
+# Valorile conexiunii la Neon se completează în Render la crearea Blueprint-ului; nu intră în git.
+# SPRING_DATASOURCE_URL: conexiunea directă (nu „pooler”), cu certificatul verificat (D-040):
+#   jdbc:postgresql://<host-neon>/<baza>?sslmode=verify-full&sslfactory=org.postgresql.ssl.DefaultJavaSSLFactory
 services:
   - type: web
     name: autobuze

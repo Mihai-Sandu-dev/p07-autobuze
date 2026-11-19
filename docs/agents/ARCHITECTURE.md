@@ -49,7 +49,7 @@ Plan, din deciziile aprobate:
 | Name | Where set | Used by | Notes |
 |---|---|---|---|
 | `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` | `.env` (niciodată în git; model: `.env.example`) | docker-compose.yml | baza locală |
-| `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD` | Compose (din `.env`); Render (`render.yaml`, `sync: false`) | app | Neon: conexiunea directă, `sslmode=require` |
+| `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD` | Compose (din `.env`); Render (`render.yaml`, `sync: false`) | app | Neon: conexiunea directă, `sslmode=verify-full` + `DefaultJavaSSLFactory` (D-040) |
 | `PORT` | Render | app (`server.port`) | local 8080 |
 | `JAVA_TOOL_OPTIONS` | `Dockerfile` | JVM | `-Xmx300m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=48m -XX:MaxDirectMemorySize=32m -Xss512k` |
 | `spring.datasource.hikari.*` | `application.properties` | app | maxim 3 conexiuni; `minimum-idle=0`, `idle-timeout=60000`, ca Neon să poată adormi |

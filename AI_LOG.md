@@ -3,6 +3,40 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · Review-ul PR-ului #1 și reparațiile
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
+`chore/schelet-proiect`.
+
+### 1. Pull request-ul
+**Ce am cerut**
+- Push pe branch și un pull request spre `main` cu `gh`, cu comenzile arătate înainte.
+
+**Ce am primit**
+- Comenzile și descrierea PR-ului; după aprobarea mea, PR-ul #1. Un run CI a picat la
+  descărcarea Maven pe runner (eroare de rețea trecătoare); repornit, a trecut.
+
+### 2. Review-ul cu trei sub-agenți
+**Ce am cerut**
+- Trei sub-agenți în paralel, fără să modifice fișiere: performanță, securitate, SEO și GEO;
+  doar probleme care afectează corectitudinea, cu fișier și linie.
+
+**Ce am primit**
+- Nicio problemă de prioritate mare. Constatările, verificate în cod: tokenul CI fără limită de
+  permisiuni, portul Postgres deschis pe toate interfețele, conexiunile Hikari care țin Neon
+  treaz, build-ul Docker care descărca Playwright (196 MB), memoria JVM nelimitată în afara
+  heap-ului, `sslmode=require` fără verificarea certificatului, pagina temporară indexabilă.
+  Două referințe greșite din rapoarte corectate (o linie inexistentă, Q-012 depășită).
+
+**Ce am făcut cu răspunsul**
+- Am cerut reparațiile 1–5, `noindex` doar pe pagina „hello”, cache pentru distribuția Maven în
+  CI, Q-022 pentru mențiunea „aplicație neoficială” pe paginile reale și o PROPOSAL pentru
+  `sslmode=verify-full`.
+- Am primit reparațiile, cu un test nou pentru `noindex` și o abatere explicată: Playwright și
+  testele UI mutate în profilul Maven `ui`, pentru că simpla sărire a testelor tot descărca
+  Playwright. CI verde pe ambele run-uri.
+- Am aprobat D-040 (`sslmode=verify-full` spre Neon).
+- Am cerut merge-ul PR-ului în `main` și ștergerea branch-ului, cu comanda arătată înainte.
+
 ## 2026-11-19 · /build: scheletul proiectului
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
 `chore/schelet-proiect`.

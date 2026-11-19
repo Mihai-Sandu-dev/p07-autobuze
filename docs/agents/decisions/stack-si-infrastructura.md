@@ -69,11 +69,11 @@
 - **Confirmed:** 2026-11-19
 
 ## D-040 · Conexiunea la Neon verifică certificatul serverului: sslmode=verify-full
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-19
 - **Rule:** Completează D-037. Adresa JDBC spre Neon (`SPRING_DATASOURCE_URL` din Render) folosește `sslmode=verify-full&sslfactory=org.postgresql.ssl.DefaultJavaSSLFactory`: conexiunea e criptată și certificatul Neon e verificat față de autoritățile de încredere ale JVM-ului, inclusiv numele serverului.
 - **Why:** Review-ul de securitate al PR-ului #1: cu `sslmode=require`, driverul PostgreSQL criptează conexiunea, dar nu verifică certificatul, deci cineva aflat pe drumul rețelei poate intercepta conexiunea și credențialele bazei.
 - **Rejected:** `sslmode=require` (varianta din planul scheletului).
 - **Evidence:** review-ul de securitate al PR-ului #1, 2026-11-19; documentația driverului PostgreSQL JDBC (sslmode)
 - **Source:** review · confidence medium
-
+- **Confirmed:** 2026-11-19
