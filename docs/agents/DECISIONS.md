@@ -26,6 +26,7 @@
 - D-019 · Jobul de import: zilnic și la cererea adminului; versiune nouă doar la checksum nou
 - D-020 · Rapoartele și favoritele se leagă de identificatori stabili, nu de o versiune de feed
 - D-031 · O stație = parent_station din feed; altfel, rândurile din stops.txt cu același nume la maxim 150 m
+- D-038 · Importul rulează pe Render, pornit de un cron din GitHub Actions printr-un endpoint protejat
 
 ### [Ecrane si scop](decisions/ecrane-si-scop.md)
 - D-005 · Harta folosește tile-uri OpenStreetMap, cu atribuire
@@ -35,6 +36,7 @@
 - D-027 · Direcția vizuală: bază neutră, un accent, stil de panou doar la plecări și linii
 - D-030 · Harta e și la /harta, pentru toți; „Hartă” din antet duce acolo
 - D-034 · „Aproape de mine”: cele mai apropiate 3 stații, pe o rază de maxim 1 km
+- D-039 · Tema: după sistem, cu un buton light/dark în antet, ținut în browser
 
 ### [Orar si plecari](decisions/orar-si-plecari.md)
 - D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală

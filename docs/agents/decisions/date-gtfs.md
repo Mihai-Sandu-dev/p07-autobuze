@@ -48,3 +48,14 @@
 - **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-19
+
+## D-038 · Importul rulează pe Render, pornit de un cron din GitHub Actions printr-un endpoint protejat
+- **Status:** approved
+- **Date:** 2026-11-19
+- **Rule:** Completează D-019 și D-037. Importul rulează în aplicația de pe Render. Un workflow GitHub Actions programat zilnic, noaptea, apelează un endpoint de admin protejat cu un token secret (variabilă de mediu pe Render, secret în GitHub); serviciul se trezește și pornește importul. Endpoint-ul răspunde imediat, iar workflow-ul întreabă starea importului la fiecare minut, până la final, ca serviciul să nu adoarmă în timpul importului. Butonul adminului pornește același import. Datele merg spre Neon în flux, cu COPY, fără să țină feed-ul în memorie; JVM-ul are memoria limitată explicit (`-Xmx300m`).
+- **Why:** Răspunsul utilizatorului la riscurile D-037: pe planul gratuit, Render adoarme serviciul după 15 min fără cereri și are puțin RAM; feed-ul are ~8 MB dezarhivat.
+- **Rejected:** importul în GitHub Actions, direct pe Neon (rămâne rezerva); instanța Render plătită.
+- **Risk:** dacă la primul import real, măsurat pe Render, memoria nu ajunge, importul trece în GitHub Actions (jarul în modul import, direct pe Neon).
+- **Evidence:** răspunsul utilizatorului la /plan pentru scheletul proiectului, 2026-11-19; render.com/docs/free
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-19

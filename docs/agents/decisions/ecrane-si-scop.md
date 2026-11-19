@@ -68,3 +68,13 @@
 - **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-19
+
+## D-039 · Tema: după sistem, cu un buton light/dark în antet, ținut în browser
+- **Status:** approved
+- **Date:** 2026-11-19
+- **Rule:** Tema urmează sistemul (`prefers-color-scheme`). Un buton din antet comută între light și dark; alegerea se ține în browser (`localStorage`) și are prioritate față de sistem. Butonul are două stări; nu există o opțiune „înapoi la sistem”.
+- **Why:** Răspunsul utilizatorului la /plan pentru scheletul proiectului.
+- **Rejected:** doar după sistem, fără buton; trei stări (sistem / light / dark).
+- **Evidence:** răspunsul utilizatorului, 2026-11-19
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
