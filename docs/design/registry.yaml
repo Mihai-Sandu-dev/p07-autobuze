@@ -16,9 +16,9 @@ designs:
     note: "culori, fonturi, spațieri din DESIGN.md → Tokens (D-027)"
     source: src/main/resources/static/css/tokens.css
     design_ref: none
+    status: implemented
 
   # --- screens ---
-    status: implemented
   - id: DS-autobuze-statie
     kind: screen
     note: "pagina de stație — hartă mică cu stația; următoarele 3 plecări pe linie și sens (prima mare), „mâine” marcat, buton de raport pe grup (D-018, D-017, D-028)"
