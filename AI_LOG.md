@@ -3,6 +3,43 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · /build: scheletul proiectului
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
+`chore/schelet-proiect`.
+
+### 1. Mock-ul antetului
+**Ce am cerut**
+- Rularea `/build` pe planul aprobat pentru scheletul proiectului.
+
+**Ce am primit**
+- Întâi mock-ul DS-autobuze-antet cu butonul de temă (D-039), cum cerea planul, și oprirea
+  până la confirmare.
+
+**Ce am făcut cu răspunsul**
+- L-am deschis în browser și l-am confirmat.
+
+### 2. Construcția
+**Ce am cerut**
+- Continuarea planului.
+
+**Ce am primit**
+- Versiunile alese pe Maven Central, publicate cu cel puțin 2 săptămâni în urmă: Spring Boot
+  4.1.2, Maven 3.9.16 prin wrapper-ul oficial 3.3.4, Playwright 1.64.0.
+- Testele scrise întâi și văzute picând din motivul corect (404, `tokens.css` lipsă, 0 migrări);
+  apoi codul: pagina „hello” cu antetul, textul aprobat și subsolul Tursib, `tokens.css` verificat
+  față de DESIGN.md, butonul de temă, Flyway cu V1 goală, `Dockerfile` cu `-Xmx300m`,
+  `docker-compose.yml`, `render.yaml`, CI, documentația rescrisă după cod.
+- Rezultate: `./mvnw verify` verde (4 teste), 7 teste de UI verzi, 4 screenshot-uri verificate cu
+  mock-ul; aplicația pornește în Compose în 2,4 s și folosește ~303 MB.
+- O problemă de rețea: Chromium pentru Playwright nu s-a putut descărca de pe Google Storage;
+  testele de UI au rulat în imaginea oficială Playwright (PATTERN-001, candidate). Testele de UI
+  nu au putut fi văzute picând înainte de cod.
+- O abatere de la plan: `autoDeployTrigger: "off"` în locul câmpului depreciat `autoDeploy: false`.
+
+**Ce am făcut cu răspunsul**
+- Nu am făcut merge: urmează review-ul din laborator. Am cerut push pe branch și un pull request
+  spre `main`, cu comenzile arătate înainte.
+
 ## 2026-11-19 · Aprobarea D-037 (găzduire)
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
 
