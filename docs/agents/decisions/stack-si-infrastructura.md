@@ -60,9 +60,10 @@
 - **Confirmed:** 2026-11-19
 
 ## D-037 · Găzduire: Render (aplicația din Dockerfile) + Neon (PostgreSQL cu PostGIS)
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-19
 - **Rule:** Completează D-007. Aplicația rulează pe Render, ca web service construit din `Dockerfile`; baza de date e pe Neon, PostgreSQL cu extensia PostGIS. Riscurile planurilor gratuite (jobul zilnic de import D-019 nu rulează cât serviciul doarme; RAM-ul mic la importul a 200.000+ rânduri; limita de 1 GB pentru două versiuni de feed) se rezolvă în primul /plan.
 - **Why:** Răspunsul utilizatorului la Q-012; limitele verificate pe 2026-11-19 sunt în Q-012.
 - **Evidence:** răspunsul utilizatorului la Q-012, 2026-11-19; render.com/docs/free; neon.com/docs/introduction/free-tier
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19

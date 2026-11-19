@@ -37,7 +37,7 @@
   - Neon, plan gratuit (neon.com/docs/introduction/free-tier, actualizat 2026-11-12): 1 GB stocare per proiect; 100 CU-ore de calcul per proiect pe lună; baza adoarme după 5 min (nu se poate opri); 5 GB transfer pe lună; istoric de restaurare 6 h. PostGIS se activează cu `CREATE EXTENSION postgis` (neon.com/docs/extensions/postgis); pagina nu spune nimic despre restricții pe planul gratuit.
   - Riscuri de discutat în /plan: jobul zilnic de import (D-019) nu rulează cât timp serviciul Render doarme; importul a 200.000+ rânduri pe 0,1 CPU și 512 MB poate fi lent; două versiuni de feed (D-019) trebuie să încapă în 1 GB; prima cerere după adormire durează ~1 min (cerința de 300 ms e pentru serviciul treaz).
 - **Answer:** Render (web service din Dockerfile) + Neon (PostgreSQL cu PostGIS). Riscurile (jobul zilnic cât serviciul doarme, RAM-ul mic la import, limita de 1 GB) se rezolvă în primul /plan.
-- **Recorded as:** D-037 (proposed)
+- **Recorded as:** D-037
 
 ## Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin?
 - **Status:** answered 2026-11-18

@@ -3,6 +3,18 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · Aprobarea D-037 (găzduire)
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
+
+**Ce am cerut**
+- Aprobarea D-037: Render (aplicația din Dockerfile) + Neon (PostgreSQL cu PostGIS).
+
+**Ce am primit**
+- D-037 aprobată; SCOPE.md și Q-012 actualizate.
+
+**Ce am făcut cu răspunsul**
+- Am aprobat commit-ul și push-ul. Continui cu primul /plan într-o conversație nouă.
+
 ## 2026-11-19 · Aprobarea D-029 – D-036, tokens noi, găzduirea
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
 
