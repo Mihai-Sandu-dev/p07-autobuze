@@ -14,7 +14,7 @@ _Avoid_: sincronizare, sync, update de date
 **Operator** (substantiv) — compania de transport din `agency.txt`.
 _Avoid_: agenție, regie
 
-**Stație** (substantiv) — locul unde călătorii urcă și coboară (`stops.txt`).
+**Stație** (substantiv) — locul unde călătorii urcă și coboară: unul sau mai multe rânduri din `stops.txt`, grupate după `parent_station` sau, fără el, după nume și distanța de maxim 150 m; are de obicei câte un rând pe fiecare sens (D-031).
 _Avoid_: oprire, haltă, stop
 
 **Linie** (substantiv) — un serviciu cu nume sau număr, de ex. „24B” (`routes.txt`).

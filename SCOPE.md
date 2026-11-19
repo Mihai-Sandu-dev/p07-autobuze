@@ -29,11 +29,11 @@ raportate de utilizatori. Fișa: categoria B, dificultate ★★★★★, ~45 h
 ## Ecrane
 | Ecran | Ce arată | Reguli |
 |---|---|---|
-| `/` pentru vizitator | harta cu stații, căutare după nume și „aproape de mine” (geolocația din browser) | D-022, D-005 |
+| `/` pentru vizitator; `/harta` pentru toți | harta cu stații, căutare după nume și „aproape de mine” (geolocația din browser; cele mai apropiate 3 stații în 1 km) | D-022, D-030, D-034, D-005 |
 | `/` pentru utilizator logat („Acasă”) | plecările de la stațiile favorite, harta dedesubt | D-022 |
 | Pagina de stație | următoarele 3 plecări pe fiecare linie și sens, cu excepțiile de calendar; un buton de raport de abatere pe fiecare grup de linie și sens | D-018, D-017, D-028 |
 | Pagina de linie | traseul pe hartă, stațiile în ordine, orarul complet pe tipuri de zi, abaterea medie pe intervale de o oră | D-014, D-016; Q-010 (shapes) |
-| Planificator | de la stația A la stația B, acum sau la o oră dată; primele 3 itinerarii: plecare, sosire, linii, stația de transfer, timpul de așteptare | D-002, D-012, D-013 |
+| Planificator | de la stația A la stația B, acum sau la o dată și oră alese (în perioada de valabilitate a feed-ului; continuă cu ziua următoare); primele 3 itinerarii: plecare, sosire, linii, stația de transfer, timpul de așteptare | D-002, D-012, D-013, D-033 |
 | Înregistrare, login | email și parolă | D-011 |
 | Admin: import | pornește jobul; versiuni și checksum-uri | D-003, D-019 |
 | Admin: raport de diferențe | stații noi, stații dispărute, trasee schimbate | D-003 |
@@ -106,7 +106,7 @@ importat 200.000 de rânduri și cât a durat.
   (D-023).
 
 ## Încă deschis
-Q-009 (licența Tursib), Q-010 (shapes.txt), Q-012 (găzduire: Render + Neon propus, la
-/plan, înainte de 2026-11-22), Q-017 (poze), Q-018 (interviuri), Q-019 (identificatorul
-stabil al stațiilor), Q-020 (tabelul de corespondență). Propuse, neaprobate încă:
-D-029 – D-036.
+Q-009 (licența Tursib), Q-010 (shapes.txt), Q-017 (poze), Q-018 (interviuri), Q-019
+(identificatorul stabil al stațiilor), Q-020 (tabelul de corespondență). Propusă,
+neaprobată încă: D-037 (găzduire pe Render + Neon; riscurile se rezolvă în primul /plan,
+înainte de 2026-11-22).

@@ -35,8 +35,8 @@ board or Figma.
 4. **Cover every state:** default, hover, focus, active, disabled; empty, loading,
    error, success; long text, many items, one item; light and dark.
 5. **Screenshot and compare** (command in AGENTS.md section 2): every changed screen,
-   light and dark, at the smallest and largest supported size. Save as
-   `screens/<DS-id>.<light|dark>.png`. Look at each one before you report.
+   light and dark, at 360 px and 1280 px wide, with Playwright headless (D-029). Save as
+   `screens/<DS-id>.<light|dark>.<360|1280>.png`. Look at each one before you report.
 6. **Record.** Update `registry.yaml` (new DS- ID, status `implemented`, source
    file). A reusable UI practice becomes
    a `candidate` pattern.
@@ -141,8 +141,18 @@ culoare în feed folosește valorile implicite GTFS (fundal alb, text negru) și
 | `--text-xl` | text | 24 / 32 px | 600 | titlul paginii |
 | `--text-2xl` | text | 32 / 40 px | 700 | titlu mare (rar) |
 | `--text-time` | mono | 28 / 32 px | 700 | ora de plecare |
+| `--text-time-sm` | mono | 20 / 28 px | 700 | a doua și a treia plecare dintr-un grup (aprobat 2026-11-19) |
 
 Fără fonturi descărcate.
+
+### Sizes
+Aprobate 2026-11-19.
+
+| Token | Value | Use |
+|---|---|---|
+| `--size-page` | 720 px | lățimea maximă a conținutului unei pagini |
+| `--size-form` | 440 px | lățimea maximă a unui formular (autentificare, înregistrare) |
+| `--size-panel` | 336 px | panoul de căutare de lângă hartă; cardurile peste hartă |
 
 ### Spacing
 | Token | Value |

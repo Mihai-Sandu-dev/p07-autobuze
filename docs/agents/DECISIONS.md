@@ -17,15 +17,15 @@
 - D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn
 - D-025 · Observațiile de teren intră ca rapoarte de abatere cu sursa „teren”
 - D-026 · Coloana `poza`: calea relativă a pozei cu panoul stației, sau goală
-- D-035 · Abaterile vizibile pe pagina liniei: media pe ore și ultimele 20 de rapoarte, cu sursa · _proposed_
-- D-036 · Raportul fără plecări în ultimele 60 de minute: butonul rămâne, formularul o spune · _proposed_
+- D-035 · Abaterile vizibile pe pagina liniei: media pe ore și ultimele 20 de rapoarte, cu sursa
+- D-036 · Raportul fără plecări în ultimele 60 de minute: butonul rămâne, formularul o spune
 
 ### [Date gtfs](decisions/date-gtfs.md)
 - D-003 · Re-importul creează o versiune nouă a feed-ului, atomic, cu raport de diferențe
 - D-004 · Doar orarul static GTFS; GTFS-Realtime e în afara scopului
 - D-019 · Jobul de import: zilnic și la cererea adminului; versiune nouă doar la checksum nou
 - D-020 · Rapoartele și favoritele se leagă de identificatori stabili, nu de o versiune de feed
-- D-031 · O stație = parent_station din feed; altfel, stopurile cu același nume la maxim 150 m · _proposed_
+- D-031 · O stație = parent_station din feed; altfel, rândurile din stops.txt cu același nume la maxim 150 m
 
 ### [Ecrane si scop](decisions/ecrane-si-scop.md)
 - D-005 · Harta folosește tile-uri OpenStreetMap, cu atribuire
@@ -33,8 +33,8 @@
 - D-022 · Pagina principală: hartă pentru vizitatori, „Acasă” pentru utilizatorii logați
 - D-023 · În afara scopului: alte orașe, rutare pe străzi, notificări, aplicație mobilă, bilete, alte limbi
 - D-027 · Direcția vizuală: bază neutră, un accent, stil de panou doar la plecări și linii
-- D-030 · Harta e și la /harta, pentru toți; „Hartă” din antet duce acolo · _proposed_
-- D-034 · „Aproape de mine”: cele mai apropiate 3 stații, pe o rază de maxim 1 km · _proposed_
+- D-030 · Harta e și la /harta, pentru toți; „Hartă” din antet duce acolo
+- D-034 · „Aproape de mine”: cele mai apropiate 3 stații, pe o rază de maxim 1 km
 
 ### [Orar si plecari](decisions/orar-si-plecari.md)
 - D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală
@@ -45,14 +45,15 @@
 - D-002 · Planificatorul caută itinerarii cu maxim un transfer
 - D-012 · Transfer: stații la maxim 150 m; timp minim 2 min plus mersul pe jos la 1,2 m/s
 - D-013 · Planificatorul arată primele 3 itinerarii, ordonate după sosire
-- D-033 · Planificatorul: data și ora alese în perioada de valabilitate a feed-ului; continuă cu ziua următoare · _proposed_
+- D-033 · Planificatorul: data și ora alese în perioada de valabilitate a feed-ului; continuă cu ziua următoare
 
 ### [Stack si infrastructura](decisions/stack-si-infrastructura.md)
 - D-001 · Stack: Java 21 + Spring Boot, PostgreSQL/PostGIS, Flyway, Thymeleaf + Leaflet; dezvoltare locală în Docker Compose
 - D-006 · Build cu Maven (./mvnw); teste cu JUnit 5 și Testcontainers PostGIS
 - D-007 · Aplicația e găzduită pe un URL public, cu HTTPS
 - D-011 · Autentificare cu Spring Security: email + parolă BCrypt, sesiune, roluri USER și ADMIN
-- D-029 · Screenshot-uri cu Playwright headless · _proposed_
-- D-032 · Autentificare și înregistrare: întoarcere pe pagina de origine; email unic, parolă de 8–72 de caractere · _proposed_
+- D-029 · Screenshot-uri cu Playwright headless
+- D-032 · Autentificare și înregistrare: întoarcere pe pagina de origine; email unic, parolă de minim 8 caractere și maxim 72 de octeți
+- D-037 · Găzduire: Render (aplicația din Dockerfile) + Neon (PostgreSQL cu PostGIS) · _proposed_
 
 ---

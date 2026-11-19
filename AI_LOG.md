@@ -3,6 +3,28 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-19 · Aprobarea D-029 – D-036, tokens noi, găzduirea
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
+
+**Ce am cerut**
+- Aprobarea D-029 – D-036 și a tokens-urilor noi. La D-032: limita parolei e de maxim 72 de
+  octeți UTF-8, verificată pe server, cu mesajul „Parola e prea lungă”; minimul rămâne
+  8 caractere. La D-035: lista de rapoarte e pe pagina liniei.
+- Q-012: rămâne Render + Neon; riscurile se rezolvă în /plan.
+- Confirmarea din nou a mock-urilor DS-autobuze-statie și DS-autobuze-harta.
+
+**Ce am primit**
+- D-029 – D-036 aprobate; D-032 rescrisă cu limita în octeți. La D-031, „stopurile” a
+  devenit „rândurile din stops.txt” („stop” e termen de evitat în CONTEXT.md).
+- Tokens noi în DESIGN.md (`--text-time-sm`, `--size-page`, `--size-form`, `--size-panel`),
+  folosite în cele 4 mock-uri, fără schimbări vizuale; numele screenshot-urilor după D-029.
+- SCOPE.md și definiția „Stație” din CONTEXT.md, actualizate după D-030, D-031, D-033, D-034.
+- Q-012 răspunsă și propunerea D-037 (găzduire pe Render + Neon), încă neaprobată.
+- DS-autobuze-statie și DS-autobuze-harta înapoi pe `approved`.
+
+**Ce am făcut cu răspunsul**
+- Am aprobat commit-ul și push-ul.
+
 ## 2026-11-19 · Recapitulare: ce lipsea, ce se contrazicea; FIELD.md, README.md
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`.
 

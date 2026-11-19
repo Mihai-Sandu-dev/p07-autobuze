@@ -32,7 +32,7 @@
 - Q-006 · Maven sau Gradle, și cu ce rulăm testele? · _answered_
 - Q-007 · Cum facem screenshot-uri ale paginilor? · _answered_
 - Q-008 · Aplicația rămâne doar locală sau va fi găzduită? · _answered_
-- Q-012 · Pe ce furnizor găzduim aplicația? · _investigating_
+- Q-012 · Pe ce furnizor găzduim aplicația? · _answered_
 - Q-014 · Cum se autentifică utilizatorii și cum devine cineva admin? · _answered_
 
 ### [Planificator](questions/planificator.md)

@@ -40,10 +40,11 @@
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-19
 
-## D-031 · O stație = parent_station din feed; altfel, stopurile cu același nume la maxim 150 m
-- **Status:** proposed
+## D-031 · O stație = parent_station din feed; altfel, rândurile din stops.txt cu același nume la maxim 150 m
+- **Status:** approved
 - **Date:** 2026-11-19
-- **Rule:** O stație din aplicație grupează stopurile din `stops.txt`: după `parent_station`, dacă feed-ul îl are; altfel, stopurile cu același nume aflate la cel mult 150 m unele de altele. Pagina de stație arată toate sensurile stopurilor grupate. Harta și stațiile A/B din planificator folosesc aceeași grupare. Regula se confirmă după descărcarea feed-ului (Q-019).
+- **Rule:** O stație din aplicație grupează rânduri din `stops.txt`: după `parent_station`, dacă feed-ul îl are; altfel, rândurile cu același nume aflate la cel mult 150 m unele de altele. Pagina de stație arată toate sensurile rândurilor grupate. Harta și stațiile A/B din planificator folosesc aceeași grupare. Regula se confirmă după descărcarea feed-ului (Q-019).
 - **Why:** Răspunsul utilizatorului. Aceeași stație are câte un stop pe fiecare sens (fișa de teren, foaia Instrucțiuni A11); mock-ul paginii de stație arată mai multe sensuri.
 - **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19

@@ -24,14 +24,14 @@ designs:
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-statie.html
-    status: draft  # aprobat 2026-11-19, apoi schimbat: Ieșire, eticheta → pagina liniei, starea sărbătoare legală
+    status: approved  # confirmat din nou 2026-11-19, după: Ieșire, eticheta → pagina liniei, starea sărbătoare legală
   - id: DS-autobuze-harta
     kind: screen
     note: "„/” pentru vizitator și /harta pentru toți — harta cu stații, căutare după nume și „aproape de mine” (D-022, D-030, D-034)"
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-harta.html
-    status: draft  # aprobat 2026-11-19, apoi schimbat: markerul ales pe culoarea textului, nicio stație în 1 km
+    status: approved  # confirmat din nou 2026-11-19, după: markerul pe culoarea textului, nicio stație în 1 km
   - id: DS-autobuze-acasa
     kind: screen
     note: "„/” pentru utilizator logat — plecările de la favorite, harta dedesubt (D-022)"

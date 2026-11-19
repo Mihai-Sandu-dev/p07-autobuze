@@ -42,17 +42,27 @@
 - **Confirmed:** 2026-11-18
 
 ## D-029 · Screenshot-uri cu Playwright headless
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-19
 - **Rule:** Screenshot-urile ecranelor (DESIGN.md, pasul 5) se fac cu Playwright headless (Chromium), pe aplicația pornită în Docker Compose și pe mock-urile din `docs/design/mocks/`. Fiecare ecran schimbat: light și dark, la 360 px și la 1280 px lățime, salvate în `docs/design/screens/` ca `<DS-id>.<light|dark>.<360|1280>.png`. Varianta de Playwright (pentru Java, ca dependență de test în Maven, sau Node) se alege în /plan.
 - **Why:** Răspunsul utilizatorului la Q-007. Definition of done cere screenshot-uri light și dark; nu există altă unealtă în repo.
 - **Evidence:** răspunsul utilizatorului la Q-007, 2026-11-19
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
 
-## D-032 · Autentificare și înregistrare: întoarcere pe pagina de origine; email unic, parolă de 8–72 de caractere
+## D-032 · Autentificare și înregistrare: întoarcere pe pagina de origine; email unic, parolă de minim 8 caractere și maxim 72 de octeți
+- **Status:** approved
+- **Date:** 2026-11-19
+- **Rule:** Completează D-011. După autentificare, utilizatorul ajunge înapoi pe pagina de unde a venit; dacă nu există una, pe „Acasă”. La înregistrare: emailul e unic, fără diferență între litere mari și mici; parola are minim 8 caractere și maxim 72 de octeți UTF-8 (cât folosește BCrypt), se introduce de două ori, iar limita de octeți se verifică pe server, cu mesajul „Parola e prea lungă”. Emailul nu se verifică (în afara scopului).
+- **Why:** Răspunsul utilizatorului. BCrypt folosește doar primii 72 de octeți; o parolă cu diacritice poate depăși 72 de octeți sub 72 de caractere.
+- **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
+
+## D-037 · Găzduire: Render (aplicația din Dockerfile) + Neon (PostgreSQL cu PostGIS)
 - **Status:** proposed
 - **Date:** 2026-11-19
-- **Rule:** Completează D-011. După autentificare, utilizatorul ajunge înapoi pe pagina de unde a venit; dacă nu există una, pe „Acasă”. La înregistrare: emailul e unic, fără diferență între litere mari și mici; parola are 8–72 de caractere (72 = limita BCrypt) și se introduce de două ori. Emailul nu se verifică (în afara scopului).
-- **Why:** Răspunsul utilizatorului. Atenție: limita BCrypt e de 72 de octeți (UTF-8), nu de caractere; o parolă cu diacritice poate depăși 72 de octeți sub 72 de caractere.
-- **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
+- **Rule:** Completează D-007. Aplicația rulează pe Render, ca web service construit din `Dockerfile`; baza de date e pe Neon, PostgreSQL cu extensia PostGIS. Riscurile planurilor gratuite (jobul zilnic de import D-019 nu rulează cât serviciul doarme; RAM-ul mic la importul a 200.000+ rânduri; limita de 1 GB pentru două versiuni de feed) se rezolvă în primul /plan.
+- **Why:** Răspunsul utilizatorului la Q-012; limitele verificate pe 2026-11-19 sunt în Q-012.
+- **Evidence:** răspunsul utilizatorului la Q-012, 2026-11-19; render.com/docs/free; neon.com/docs/introduction/free-tier
 - **Source:** user · confidence high

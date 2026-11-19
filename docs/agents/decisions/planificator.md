@@ -32,9 +32,10 @@
 - **Confirmed:** 2026-11-19
 
 ## D-033 · Planificatorul: data și ora alese în perioada de valabilitate a feed-ului; continuă cu ziua următoare
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-19
 - **Rule:** Completează D-002 și D-013. Utilizatorul alege data și ora plecării (implicit: acum), în perioada de valabilitate a versiunii active a feed-ului. Dacă în ziua aleasă nu mai e niciun itinerariu, căutarea continuă cu ziua următoare, ca la D-018.
 - **Why:** Răspunsul utilizatorului; SCOPE.md spunea doar „acum sau la o oră dată”.
 - **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19

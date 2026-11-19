@@ -52,17 +52,19 @@
 - **Confirmed:** 2026-11-19
 
 ## D-030 · Harta e și la /harta, pentru toți; „Hartă” din antet duce acolo
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-19
 - **Rule:** Completează D-022. Pagina hărții (stații, căutare, „aproape de mine”) există și la `/harta`, pentru vizitatori și pentru utilizatorii logați. Linkul „Hartă” din antet duce la `/harta`. Pagina „/” rămâne ca în D-022.
 - **Why:** Răspunsul utilizatorului: un utilizator logat vede „Acasă” la „/” și avea nevoie de o cale spre hartă.
 - **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
 
 ## D-034 · „Aproape de mine”: cele mai apropiate 3 stații, pe o rază de maxim 1 km
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-19
 - **Rule:** Butonul „aproape de mine” de pe hartă arată cele mai apropiate 3 stații (D-031) aflate la cel mult 1 km de locația utilizatorului. Dacă nu e niciuna, pagina arată un mesaj.
 - **Why:** Răspunsul utilizatorului; mock-ul DS-autobuze-harta arăta deja 3 stații.
 - **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-19
