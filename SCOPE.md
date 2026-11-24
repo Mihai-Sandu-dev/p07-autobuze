@@ -109,7 +109,7 @@ importat 200.000 de rânduri și cât a durat.
   (D-023).
 
 ## Încă deschis
-Q-009 (licența Tursib), Q-010 (shapes.txt), Q-017 (poze), Q-018 (interviuri), Q-019
+Q-010 (shapes.txt), Q-017 (poze), Q-018 (interviuri), Q-019
 (identificatorul stabil al stațiilor), Q-020 (tabelul de corespondență). Găzduirea e
 Render + Neon (D-037); riscurile planurilor gratuite se rezolvă în primul /plan, înainte
 de 2026-11-22.

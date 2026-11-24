@@ -22,9 +22,11 @@
 - **Recorded as:** D-004
 
 ## Q-009 · Confirmă Tursib folosirea datelor GTFS în acest proiect?
-- **Status:** open
+- **Status:** answered 2026-11-24
 - **Blocks:** statutul licenței în DATA.md
-- **Who answers:** utilizatorul, după răspunsul Tursib la cererea către office@tursib.ro (data trimiterii: de completat)
+- **Who answers:** utilizatorul
+- **Answer:** Nu se mai cere confirmarea: autorul a renunțat la emailul către Tursib, pentru că nu e cerut de catalog. Licența rămâne cum e descrisă în DATA.md: nedeclarată în feed, folosire necomercială, educațională, cu atribuire „Tursib S.A.” (D-008).
+- **Recorded as:** DATA.md → Licență
 
 ## Q-010 · Feed-ul Tursib conține shapes.txt?
 - **Status:** open

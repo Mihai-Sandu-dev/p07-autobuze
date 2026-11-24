@@ -51,8 +51,7 @@ Fișierul `.env` e ignorat de git.
 
 ## Date și atribuire
 - **Date de transport: Tursib S.A.** Feed-ul GTFS oficial: https://tursib.ro/trasee/gtfs .
-  Licența și condițiile de folosire sunt descrise în [`DATA.md`](DATA.md); confirmarea de la
-  Tursib e încă în așteptare.
+  Licența și condițiile de folosire sunt descrise în [`DATA.md`](DATA.md).
 - **Hartă: © OpenStreetMap contributors.** Tile-uri OpenStreetMap, folosite cu atribuire și
   conform politicii lor de utilizare.
 - **Date de teren:** 20 de observații făcute de autor în Sibiu, în

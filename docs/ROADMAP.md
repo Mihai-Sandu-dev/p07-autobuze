@@ -15,7 +15,7 @@
 ## Checkpoint 1 · du 22.11 (oficial)
 1. Deploy „hello” pe Render + Neon, pe HTTPS.
 2. Schema DB: migrarea cu tabelele GTFS + utilizatori, favorite, rapoarte, versiuni de feed + diagramă.
-3. FIELD.md + field/observations.csv + pozele panourilor; cei 3 navetiști; emailul către Tursib.
+3. FIELD.md + field/observations.csv + pozele panourilor; cei 3 navetiști.
 4. README: scope, stack, variabile personale; TODO.md.
 
 ## Checkpoint 2 · du 29.11 (intern)

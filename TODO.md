@@ -27,7 +27,6 @@
   - [x] Interviul 1 (L.B.)
   - [ ] **Autor:** interviurile 2 și 3 (inițiale și rol) (Q-018)
   - [ ] **Autor:** secțiunea „De ce aceste linii și stații” din FIELD.md
-  - [ ] **Autor:** emailul către Tursib (office@tursib.ro) și data trimiterii → DATA.md, Q-009
 - [ ] **4. README și TODO.md**
   - [x] README: scope
   - [x] README: stack
