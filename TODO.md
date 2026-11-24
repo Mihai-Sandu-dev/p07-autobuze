@@ -17,8 +17,9 @@
         V1 aplicată pe Neon, `verify-full` acceptat, pornire în ~57 s pe Render; memoria: rulează pe planul
         de 512 MB fără să cadă, consumul exact nemăsurat
 - [ ] **2. Schema DB**: migrarea cu tabelele GTFS + utilizatori, favorite, rapoarte, versiuni de feed; diagramă
-  - [ ] Migrarea Flyway cu tabelele (V1 e încă goală; V1 nu se mai editează după Neon)
-  - [ ] Diagrama schemei
+  - [x] Migrarea Flyway `V2__schema.sql` cu cele 12 tabele și PostGIS (D-043, D-044); `SchemaIT` trece local
+  - [x] Diagrama schemei: `docs/schema.md` (Mermaid)
+  - [ ] V2 aplicată pe Neon (deploy, apoi `flyway_schema_history`)
 - [ ] **3. Date de teren și Tursib** (D-010, D-024, D-026)
   - [x] `FIELD.md` cu cele 20 de observații
   - [x] `field/observations.csv` cu 20 de rânduri
@@ -61,11 +62,11 @@
   - [ ] Seed-ul din observațiile de teren (tabelul de corespondență: Q-020)
   - [ ] Admin: import, raportul de diferențe, moderare
 - [ ] **14. (mi 02.12) Teste, documentație, predare scrisă**
-  - [ ] Minim 10 teste, minim 4 pe twist (acum: 5 în `./mvnw verify` + 3 de UI, toate pe scheletul „hello”, niciunul pe twist)
+  - [ ] Minim 10 teste, minim 4 pe twist (acum: 11 în `./mvnw verify`, dintre care 6 pe schemă, + 3 de UI; niciunul pe twist)
   - [x] CI verde (ultimul run pe `main`: success)
   - [ ] API docs + intrările C- în CONTRACTS.md (încă niciun contract „Provided”)
   - [ ] README final
-  - [x] AI_LOG ≥ 10 intrări (12)
+  - [x] AI_LOG ≥ 10 intrări (13)
   - [ ] `SUBMISSION.md`
 - [ ] **15. (jo 03.12) Final**: video demo, verificare pe o clonă nouă, căutare de secrete, predare
 

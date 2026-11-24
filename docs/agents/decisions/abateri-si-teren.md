@@ -60,15 +60,15 @@
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-19
 
-## D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn
+## D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM (în DB: D-043), abatere întreg cu semn
 - **Status:** approved
 - **Date:** 2026-11-19
-- **Rule:** În `field/observations.csv` și în DB, data se scrie YYYY-MM-DD și ora HH:MM. Abaterea e un întreg cu semn, în minute (+4, -1, 0). Formatul românesc (17.11.2026) rămâne doar în `field/Date_Teren_Autobuze.xlsx`.
+- **Rule:** În `field/observations.csv` și în DB, data se scrie YYYY-MM-DD. Ora se scrie HH:MM în CSV și pe ecran; în DB, orele se țin în secunde de la începutul zilei de serviciu (D-043). Abaterea e un întreg cu semn, în minute (+4, -1, 0). Formatul românesc (17.11.2026) rămâne doar în `field/Date_Teren_Autobuze.xlsx`.
 - **Why:** Răspunsul la Q-015: un format neambiguu, ușor de citit de seed.
 - **Rejected:** formatul românesc din xlsx și în CSV.
-- **Evidence:** răspunsul utilizatorului la Q-015, 2026-11-19
+- **Evidence:** răspunsul utilizatorului la Q-015, 2026-11-19; partea „DB” schimbată la /plan pentru schema DB, 2026-11-24
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-24
 
 ## D-025 · Observațiile de teren intră ca rapoarte de abatere cu sursa „teren”
 - **Status:** approved
@@ -108,3 +108,12 @@
 - **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-19
+
+## D-045 · Adminul șterge un raport de abatere definitiv (DELETE), fără marcare
+- **Status:** proposed
+- **Date:** 2026-11-24
+- **Rule:** Completează D-016. Când adminul șterge un raport de abatere, rândul se șterge din `deviation_reports` (DELETE). Nu există coloană de marcare (`deleted_at`) și nici istoric al rapoartelor șterse.
+- **Why:** Răspunsul utilizatorului la Q-023.
+- **Rejected:** marcarea cu `deleted_at` și `deleted_by`.
+- **Evidence:** răspunsul utilizatorului la /plan pentru schema DB, 2026-11-24
+- **Source:** user · confidence high

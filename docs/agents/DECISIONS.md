@@ -14,11 +14,12 @@
 - D-017 · Raportul de abatere: utilizatorul alege o plecare din orar și scrie ora reală
 - D-028 · Raportul de abatere pornește din grupul de linie și sens; doar plecări din ultimele 60 de minute
 - D-021 · Corespondența dintre datele de teren și feed: un tabel completat de autor
-- D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM, abatere întreg cu semn
+- D-024 · Formatul datelor de teren în CSV și DB: dată YYYY-MM-DD, oră HH:MM (în DB: D-043), abatere întreg cu semn
 - D-025 · Observațiile de teren intră ca rapoarte de abatere cu sursa „teren”
 - D-026 · Coloana `poza`: calea relativă a pozei cu panoul stației, sau goală
 - D-035 · Abaterile vizibile pe pagina liniei: media pe ore și ultimele 20 de rapoarte, cu sursa
 - D-036 · Raportul fără plecări în ultimele 60 de minute: butonul rămâne, formularul o spune
+- D-045 · Adminul șterge un raport de abatere definitiv (DELETE), fără marcare · _proposed_
 
 ### [Date gtfs](decisions/date-gtfs.md)
 - D-003 · Re-importul creează o versiune nouă a feed-ului, atomic, cu raport de diferențe
@@ -27,6 +28,8 @@
 - D-020 · Rapoartele și favoritele se leagă de identificatori stabili, nu de o versiune de feed
 - D-031 · O stație = parent_station din feed; altfel, rândurile din stops.txt cu același nume la maxim 150 m
 - D-038 · Importul rulează pe Render, pornit de un cron din GitHub Actions printr-un endpoint protejat
+- D-043 · Orele din feed se țin în DB ca int, secunde de la începutul zilei de serviciu
+- D-044 · Schema: tabele GTFS pe versiune de feed, datele utilizatorilor fără chei spre GTFS
 
 ### [Ecrane si scop](decisions/ecrane-si-scop.md)
 - D-005 · Harta folosește tile-uri OpenStreetMap, cu atribuire

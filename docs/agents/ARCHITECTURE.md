@@ -29,7 +29,7 @@ pe Render, din `Dockerfile`, și baza pe Neon (D-037).
 | pagini | `src/main/resources/templates/` | Thymeleaf; fragmentele comune `fragments/head`, `antet` (DS-autobuze-antet), `subsol` (DS-autobuze-subsol, D-008) | — |
 | stiluri | `src/main/resources/static/css/` | `tokens.css` (copia tokenilor din DESIGN.md, verificată de `TokensTest`), `app.css` | — |
 | tema | `src/main/resources/static/js/tema.js` + scriptul din `fragments/head` | butonul light/dark, alegerea în `localStorage` (D-039) | — |
-| db | `src/main/resources/db/migration/` | schema doar prin Flyway; V1 goală | — |
+| db | `src/main/resources/db/migration/` | schema doar prin Flyway; V1 goală; V2: PostGIS, tabelele GTFS pe versiune de feed, utilizatori, favorite, rapoarte de abatere (`docs/schema.md`, D-043, D-044) | — |
 | teste | `src/test/java/ro/autobuze/` | `*Test` unitare, `*IT` cu Testcontainers (PostGIS 17); `ui/*UiTest` cu Playwright pe Compose (D-029), compilate și rulate doar cu profilul Maven `ui` | db, app |
 
 ## Data flow
@@ -42,7 +42,7 @@ Plan, din deciziile aprobate:
 ## State and storage
 | What | Where | Owner | Notes |
 |---|---|---|---|
-| Schema și date | PostgreSQL 17 + PostGIS (Compose local; Neon public) | app | doar prin Flyway (D-001); Neon gratuit: 1 GB (D-037) |
+| Schema și date | PostgreSQL 17 + PostGIS (Compose local; Neon public) | app | doar prin Flyway (D-001); diagrama în `docs/schema.md`; Neon gratuit: 1 GB (D-037) |
 | Alegerea de temă | `localStorage` în browser, cheia `tema` | tema.js | `light` sau `dark` (D-039) |
 
 ## Configuration

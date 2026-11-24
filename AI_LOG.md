@@ -3,6 +3,34 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-24 · Schema DB: V2, diagrama, D-043 și D-044 (punctul 2)
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
+`feat/schema-db`, apoi pe `main`.
+
+**Ce am cerut**
+- `/plan` pentru punctul 2: tabelele GTFS legate de o versiune de feed, plus utilizatori,
+  favorite și rapoarte de abatere; o migrare Flyway nouă (V1 rămâne), PostGIS activat în migrare
+  și pentru Neon, diagramă Mermaid în `docs/schema.md`, test că migrarea se aplică. Doar schema.
+
+**Ce am primit**
+- Patru întrebări înainte de plan: identificatorul stației cât timp Q-019 e deschisă, cum se țin
+  orele ≥ 24:00, ștergerea rapoartelor, limba numelor de tabele.
+- Planul (12 tabele, 6 teste de schemă) și două propuneri: D-043 (orele în secunde de la începutul
+  zilei de serviciu) și D-044 (tabele GTFS pe versiune, datele utilizatorilor fără chei spre GTFS).
+- Build-ul: `V2__schema.sql`, `SchemaIT` (scris întâi, picat pe „relation does not exist”, apoi
+  verde), `docs/schema.md`; `./mvnw verify` cu 11 teste trecute.
+- Testele n-au mers din prima: WSL nu avea JDK, iar Docker Desktop era oprit. După ce l-am pornit,
+  `./mvnw` a rulat în imaginea `eclipse-temurin:21-jdk`, cu socket-ul Docker montat pentru
+  Testcontainers.
+
+**Ce am făcut cu răspunsul**
+- La întrebarea despre ștergerea rapoartelor am răspuns de fapt despre versiunile vechi de feed
+  (trebuie să rămână cea anterioară, pentru raportul de diferențe: era deja D-019). Agentul a
+  notat întrebarea ca Q-023; am răspuns apoi: ștergere definitivă → D-045, propusă.
+- Am cerut corectura „11 tabele” → 12 în plan; am aprobat planul, D-043, D-044, schimbarea lui
+  D-024 (partea „DB” trimite la D-043) și cele două presupuneri.
+- Am dat acordul pentru merge pe `main` și deploy pe Neon după ce testele trec local.
+
 ## 2026-11-24 · Deploy-ul „hello” pe Render + Neon (punctul 1)
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe `main`
 (doar documentație; deploy-ul l-am făcut eu, din consolele Render și Neon).

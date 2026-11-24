@@ -76,4 +76,4 @@
 - **Rejected:** `sslmode=require` (varianta din planul scheletului).
 - **Evidence:** review-ul de securitate al PR-ului #1, 2026-11-19; documentația driverului PostgreSQL JDBC (sslmode)
 - **Source:** review · confidence medium
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-24

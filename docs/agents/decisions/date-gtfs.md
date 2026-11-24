@@ -28,7 +28,7 @@
 - **Rejected:** doar import manual; săptămânal; păstrarea tuturor versiunilor; activare manuală de către admin.
 - **Evidence:** interviul de scope, 2026-11-19
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-24
 
 ## D-020 · Rapoartele și favoritele se leagă de identificatori stabili, nu de o versiune de feed
 - **Status:** approved
@@ -59,3 +59,24 @@
 - **Evidence:** răspunsul utilizatorului la /plan pentru scheletul proiectului, 2026-11-19; render.com/docs/free
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-19
+
+## D-043 · Orele din feed se țin în DB ca int, secunde de la începutul zilei de serviciu
+- **Status:** approved
+- **Date:** 2026-11-24
+- **Rule:** În DB, orele din feed se țin ca `integer`, secunde de la începutul zilei de serviciu (25:10:00 → 90600): `arrival_sec` și `departure_sec` în `stop_times`, `feed_time_sec` și `actual_time_sec` în `deviation_reports`. HH:MM rămâne formatul din `field/observations.csv` și de pe ecran (D-024).
+- **Why:** Tipul `time` din PostgreSQL nu acceptă ore ≥ 24:00, iar GTFS le folosește pentru cursele de după miezul nopții (twist 2). Răspunsul utilizatorului.
+- **Rejected:** textul `HH:MM:SS` din GTFS; `interval`.
+- **Evidence:** răspunsul utilizatorului la /plan pentru schema DB, 2026-11-24; `V2__schema.sql`
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-24
+
+## D-044 · Schema: tabele GTFS pe versiune de feed, datele utilizatorilor fără chei spre GTFS
+- **Status:** approved
+- **Date:** 2026-11-24
+- **Rule:** Completează D-003, D-019 și D-020. Tabelele GTFS au numele și coloanele din specificația GTFS Schedule și cheia `(feed_version_id, id-ul din GTFS)`; se șterg în cascadă odată cu versiunea de feed. Datele utilizatorilor (`users`, `favorites`, `deviation_reports`) au nume în engleză și se leagă de feed doar prin `route_short_name` și `stop_key` (conținutul lui `stop_key`: Q-019), fără chei străine spre tabelele GTFS. O favorită ține cheia unui rând al stației; gruparea (D-031) se face la citire.
+- **Why:** Două versiuni trebuie să stea una lângă alta pentru raportul de diferențe; datele utilizatorilor nu se pierd la ștergerea unei versiuni. Răspunsurile utilizatorului la /plan.
+- **Rejected:** tabele GTFS fără versiune, înlocuite la fiecare import; nume de tabele în română.
+- **Evidence:** răspunsul utilizatorului la /plan pentru schema DB, 2026-11-24; `V2__schema.sql`, `docs/schema.md`
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-24
+

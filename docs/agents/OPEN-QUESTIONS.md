@@ -18,6 +18,7 @@
 - Q-018 · Când sunt gata celelalte 2 interviuri cu navetiști?
 - Q-020 · Unde stă tabelul de corespondență teren → feed și ce coloane are?
 - Q-021 · Ce conține coloana `poza` din field/observations.csv? · _answered_
+- Q-023 · Când adminul șterge un raport de abatere, rândul dispare sau se marchează ca șters? · _answered_
 
 ### [Date gtfs](questions/date-gtfs.md)
 - Q-001 · Ce oraș și ce feed GTFS (URL, licență, conține shapes.txt)? · _answered_

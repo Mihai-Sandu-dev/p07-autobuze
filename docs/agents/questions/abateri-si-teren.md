@@ -49,3 +49,11 @@
 - **Who answers:** utilizatorul
 - **Answer:** Calea relativă a pozei cu panoul (ex. `field/photos/2026-11-17/2026-11-17_metro_panou.jpg`, în subfolderul zilei din D-010) sau gol dacă observația nu are poză.
 - **Recorded as:** D-026
+
+## Q-023 · Când adminul șterge un raport de abatere, rândul dispare sau se marchează ca șters?
+- **Status:** answered 2026-11-24
+- **Blocks:** moderarea rapoartelor (D-016)
+- **Who answers:** utilizatorul
+- **Answer:** Ștergere definitivă (DELETE), fără marcare.
+- **Recorded as:** D-045 (proposed)
+
