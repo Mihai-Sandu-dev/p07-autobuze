@@ -5,6 +5,9 @@ Nume scurt: **Staționar**. Proiectul P07 din catalog: „Când vine autobuzul?�
 Aplicație web pentru transportul public din Sibiu, construită pe orarul GTFS publicat de
 Tursib S.A. Proiect educațional (P07), necomercial.
 
+**Live:** https://autobuze.onrender.com (deocamdată pagina „hello”; pe planul gratuit Render,
+prima cerere după o pauză poate dura până la un minut).
+
 - Caută stațiile pe hartă, după nume sau „aproape de mine”.
 - Arată următoarele 3 plecări pe fiecare linie și sens dintr-o stație, inclusiv cursele de
   după miezul nopții și excepțiile de calendar (sărbători).

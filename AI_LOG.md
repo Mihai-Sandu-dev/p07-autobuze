@@ -3,6 +3,37 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-24 · Deploy-ul „hello” pe Render + Neon (punctul 1)
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe `main`
+(doar documentație; deploy-ul l-am făcut eu, din consolele Render și Neon).
+
+**Ce am făcut eu**
+- Proiectul Neon: PostgreSQL 17.12, Frankfurt, baza `main_db`, conexiunea directă.
+- Render → Blueprint din repo (`render.yaml`: Docker, Frankfurt, plan gratuit), cu cele trei
+  variabile `SPRING_DATASOURCE_*` completate în Render, nu în git.
+- **Greșeala:** prima încercare a picat. În `SPRING_DATASOURCE_URL` rămăsese `HOST` din exemplul
+  din `render.yaml` (`jdbc:postgresql://<host-neon>/...`) în locul host-ului real de la Neon, deci
+  aplicația nu avea la ce server să se conecteze.
+- **Cum am reparat-o:** am corectat variabila în Render, cu host-ul din conexiunea directă Neon,
+  și am pornit din nou deploy-ul manual. A doua încercare a mers: în log, conexiunea cu
+  `sslmode=verify-full` (D-040), Flyway a aplicat V1, pornire în ~57 s.
+
+**Ce am cerut**
+- Verificarea paginii pe HTTPS, URL-ul în README, intrarea asta în AI_LOG, punctul 1 bifat în
+  TODO.md, commit și push.
+
+**Ce am primit**
+- Verificarea: https://autobuze.onrender.com răspunde 200 pe HTTPS, cu pagina „hello”
+  (certificat Google Trust Services, valabil până la 17.02.2027); HTTP face 301 spre HTTPS.
+- Întrebarea despre ce nu avea dovadă: regiunea Neon și conexiunea directă (confirmate de mine)
+  și memoria pe Render (nemăsurată; serviciul rulează pe planul de 512 MB fără să cadă).
+- URL-ul live în README, punctul 1 bifat în TODO.md, cu ce s-a verificat și ce nu.
+
+**Ce am făcut cu răspunsul**
+- Am acceptat bifarea cu nota despre memorie și am cerut un singur commit, împreună cu
+  `docs/ROADMAP.md` și TODO.md rescris după el.
+- De reținut: înainte de deploy, verific că în variabile nu a rămas niciun placeholder din exemplu.
+
 ## 2026-11-19 · Design mai viu: variante de culoare, D-042, mock-urile actualizate
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe `main`
 (doar documentație).
