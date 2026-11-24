@@ -21,10 +21,10 @@
 - Verificarea: https://autobuze.onrender.com răspunde 200 pe HTTPS după deploy; HTTP face 301.
 - D-045 aprobată; Q-023 trimite la ea. Punctul 2 bifat în TODO.md, cu dovada de pe Neon.
 - Semnalarea că rândul meu despre diagramă a rămas necompletat (am lipit textul cu ambele
-  variante), deci nu e confirmat că diagrama Mermaid se vede corect pe GitHub.
+  variante), deci diagrama nu era încă confirmată.
 
 **Ce am făcut cu răspunsul**
-- De completat de mine: dacă diagrama din `docs/schema.md` se vede corect pe GitHub.
+- Am verificat pe GitHub: diagrama Mermaid din `docs/schema.md` se vede corect.
 
 ## 2026-11-24 · Schema DB: V2, diagrama, D-043 și D-044 (punctul 2)
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
