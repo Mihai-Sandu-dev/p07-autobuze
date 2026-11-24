@@ -110,10 +110,11 @@
 - **Confirmed:** 2026-11-19
 
 ## D-045 · Adminul șterge un raport de abatere definitiv (DELETE), fără marcare
-- **Status:** proposed
+- **Status:** approved
 - **Date:** 2026-11-24
 - **Rule:** Completează D-016. Când adminul șterge un raport de abatere, rândul se șterge din `deviation_reports` (DELETE). Nu există coloană de marcare (`deleted_at`) și nici istoric al rapoartelor șterse.
 - **Why:** Răspunsul utilizatorului la Q-023.
 - **Rejected:** marcarea cu `deleted_at` și `deleted_by`.
 - **Evidence:** răspunsul utilizatorului la /plan pentru schema DB, 2026-11-24
 - **Source:** user · confidence high
+- **Confirmed:** 2026-11-24

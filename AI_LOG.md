@@ -3,6 +3,29 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-24 · V2 pe Neon (punctul 2 încheiat), D-045
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe `main`
+(doar documentație; deploy-ul l-am făcut eu, din consola Render).
+
+**Ce am făcut eu**
+- Deploy manual pe Render al commit-ului `c863401`. În log: „Migrating schema "public" to version
+  "2 - schema"” și „Successfully applied 1 migration ... now at version v2” (1,1 s).
+- În Neon (SQL Editor, `main_db`): `flyway_schema_history` are 1 `init` și 2 `schema`, ambele
+  `success = t`; PostGIS 3.5.7. Agentul nu are acces la Render sau Neon, deci aceste date vin de la mine.
+
+**Ce am cerut**
+- Verificarea paginii pe HTTPS, punctul 2 bifat, intrarea asta, commit și push; ștergerea
+  branch-ului local `feat/schema-db`. Am aprobat D-045 (raportul șters de admin: DELETE definitiv).
+
+**Ce am primit**
+- Verificarea: https://autobuze.onrender.com răspunde 200 pe HTTPS după deploy; HTTP face 301.
+- D-045 aprobată; Q-023 trimite la ea. Punctul 2 bifat în TODO.md, cu dovada de pe Neon.
+- Semnalarea că rândul meu despre diagramă a rămas necompletat (am lipit textul cu ambele
+  variante), deci nu e confirmat că diagrama Mermaid se vede corect pe GitHub.
+
+**Ce am făcut cu răspunsul**
+- De completat de mine: dacă diagrama din `docs/schema.md` se vede corect pe GitHub.
+
 ## 2026-11-24 · Schema DB: V2, diagrama, D-043 și D-044 (punctul 2)
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
 `feat/schema-db`, apoi pe `main`.

@@ -16,10 +16,10 @@
   - [x] Deploy manual (făcut de autor, 2026-11-24; AI_LOG); verificare: pagina pe HTTPS (200, HTTP → 301 la HTTPS),
         V1 aplicată pe Neon, `verify-full` acceptat, pornire în ~57 s pe Render; memoria: rulează pe planul
         de 512 MB fără să cadă, consumul exact nemăsurat
-- [ ] **2. Schema DB**: migrarea cu tabelele GTFS + utilizatori, favorite, rapoarte, versiuni de feed; diagramă
+- [x] **2. Schema DB**: migrarea cu tabelele GTFS + utilizatori, favorite, rapoarte, versiuni de feed; diagramă
   - [x] Migrarea Flyway `V2__schema.sql` cu cele 12 tabele și PostGIS (D-043, D-044); `SchemaIT` trece local
   - [x] Diagrama schemei: `docs/schema.md` (Mermaid)
-  - [ ] V2 aplicată pe Neon (deploy, apoi `flyway_schema_history`)
+  - [x] V2 aplicată pe Neon (deploy 2026-11-24: `flyway_schema_history` cu 1 init și 2 schema, ambele reușite; PostGIS 3.5.7)
 - [ ] **3. Date de teren și Tursib** (D-010, D-024, D-026)
   - [x] `FIELD.md` cu cele 20 de observații
   - [x] `field/observations.csv` cu 20 de rânduri
@@ -66,7 +66,7 @@
   - [x] CI verde (ultimul run pe `main`: success)
   - [ ] API docs + intrările C- în CONTRACTS.md (încă niciun contract „Provided”)
   - [ ] README final
-  - [x] AI_LOG ≥ 10 intrări (13)
+  - [x] AI_LOG ≥ 10 intrări (14)
   - [ ] `SUBMISSION.md`
 - [ ] **15. (jo 03.12) Final**: video demo, verificare pe o clonă nouă, căutare de secrete, predare
 

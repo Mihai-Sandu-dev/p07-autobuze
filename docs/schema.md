@@ -137,7 +137,7 @@ erDiagram
   din stație; gruparea în stații (D-031) se face la citire.
 - **Rapoartele de abatere (D-009, D-025).** Sursa „utilizator” are `user_id`; sursa „teren”
   (observațiile din `field/observations.csv`) nu are. Un raport șters de admin se șterge definitiv
-  (D-045, propusă).
+  (D-045).
 - **Ce nu e încă în schemă:** sărbătorile legale (D-015, punctul 7 din ROADMAP), tabelul de
   corespondență teren → feed (Q-020), raportul de diferențe (D-003).
 - **Termenii:** `stops` = rânduri din `stops.txt` (o stație le grupează), `routes` = linii,

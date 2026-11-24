@@ -19,7 +19,7 @@
 - D-026 · Coloana `poza`: calea relativă a pozei cu panoul stației, sau goală
 - D-035 · Abaterile vizibile pe pagina liniei: media pe ore și ultimele 20 de rapoarte, cu sursa
 - D-036 · Raportul fără plecări în ultimele 60 de minute: butonul rămâne, formularul o spune
-- D-045 · Adminul șterge un raport de abatere definitiv (DELETE), fără marcare · _proposed_
+- D-045 · Adminul șterge un raport de abatere definitiv (DELETE), fără marcare
 
 ### [Date gtfs](decisions/date-gtfs.md)
 - D-003 · Re-importul creează o versiune nouă a feed-ului, atomic, cu raport de diferențe

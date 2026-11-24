@@ -55,5 +55,5 @@
 - **Blocks:** moderarea rapoartelor (D-016)
 - **Who answers:** utilizatorul
 - **Answer:** Ștergere definitivă (DELETE), fără marcare.
-- **Recorded as:** D-045 (proposed)
+- **Recorded as:** D-045
 
