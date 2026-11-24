@@ -11,9 +11,8 @@
 - Proiectul Neon: PostgreSQL 17.12, Frankfurt, baza `main_db`, conexiunea directă.
 - Render → Blueprint din repo (`render.yaml`: Docker, Frankfurt, plan gratuit), cu cele trei
   variabile `SPRING_DATASOURCE_*` completate în Render, nu în git.
-- **Greșeala:** prima încercare a picat. În `SPRING_DATASOURCE_URL` rămăsese `HOST` din exemplul
-  din `render.yaml` (`jdbc:postgresql://<host-neon>/...`) în locul host-ului real de la Neon, deci
-  aplicația nu avea la ce server să se conecteze.
+- **Greșeala:** prima încercare a picat. În `SPRING_DATASOURCE_URL` rămăsese `HOST` din exemplu
+  în locul host-ului real de la Neon, deci aplicația nu avea la ce server să se conecteze.
 - **Cum am reparat-o:** am corectat variabila în Render, cu host-ul din conexiunea directă Neon,
   și am pornit din nou deploy-ul manual. A doua încercare a mers: în log, conexiunea cu
   `sslmode=verify-full` (D-040), Flyway a aplicat V1, pornire în ~57 s.
