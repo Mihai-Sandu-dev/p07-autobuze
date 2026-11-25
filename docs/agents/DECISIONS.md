@@ -41,6 +41,8 @@
 - D-039 · Tema: după sistem, cu un buton light/dark în antet, ținut în browser
 - D-041 · Numele aplicației: „Staționar — când vine autobuzul?”, scurt „Staționar”
 - D-042 · Direcția vizuală: bază ușor colorată „rece”, umbre moi și mișcare lină; orele rămân de contrast maxim
+- D-049 · Subsolul spune că aplicația e neoficială, lângă atribuirea Tursib
+- D-050 · Paginile cu plecări se randează pe server; același serviciu dă endpoint-ul JSON
 
 ### [Orar si plecari](decisions/orar-si-plecari.md)
 - D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală
@@ -48,6 +50,7 @@
 - D-018 · Următoarele plecări: primele 3 pe fiecare linie și sens, completate cu ziua următoare
 - D-047 · Orele din feed sunt ora de pe ceas, ca pe panoul din stație
 - D-048 · Următoarele plecări nu arată cursele care se termină în stație
+- D-051 · Un grup din „Următoarele plecări” = linie + capăt (trip_headsign)
 
 ### [Planificator](decisions/planificator.md)
 - D-002 · Planificatorul caută itinerarii cu maxim un transfer

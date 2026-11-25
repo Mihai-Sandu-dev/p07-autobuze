@@ -50,3 +50,13 @@
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-25
 
+
+## D-051 · Un grup din „Următoarele plecări” = linie + capăt (trip_headsign)
+- **Status:** approved
+- **Date:** 2026-11-25
+- **Rule:** Completează D-018. Un grup din lista „Următoarele plecări” e o linie (`route_short_name`) cu un capăt (`trip_headsign`), ca pe autobuz (CONTEXT.md → Sens). O cursă scurtată, cu alt capăt pe același `direction_id`, are grupul ei, cu primele 3 plecări ale lui.
+- **Why:** Răspunsul utilizatorului la /plan pentru punctul 8.
+- **Rejected:** un grup pe linie și `direction_id`, cu capătul cel mai des întâlnit ca titlu.
+- **Evidence:** răspunsul utilizatorului la /plan pentru punctul 8, 2026-11-25
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-25

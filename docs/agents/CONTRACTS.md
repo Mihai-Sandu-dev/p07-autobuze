@@ -10,6 +10,7 @@
 
 ## Index
 - C-001 · Endpoint-ul de import al feed-ului GTFS · provided
+- C-002 · Următoarele plecări dintr-o stație, în JSON · provided
 
 ---
 
@@ -28,8 +29,15 @@
 - **Evidence:** planul importului GTFS, aprobat de utilizator 2026-11-25
 - **Confirmed:** 2026-11-25
 
-REST API-ul aplicației (consumat de harta Leaflet) primește o intrare C- separată când
-primul endpoint e planificat.
+### C-002 · Următoarele plecări dintr-o stație, în JSON
+- **Status:** approved
+- **Date:** 2026-11-25
+- **Interface:** `GET /api/statii/{stopId}/plecari`, public. `stopId` e orice `stop_id` al stației (Q-019); răspunsul e pentru toată stația (D-031). Ora curentă e cea de pe ceas, Europe/Bucharest (D-047). Aceleași date ca pagina `/statie/{stopId}` (D-050).
+- **Responses:** `200` + JSON; `404` pentru un `stopId` necunoscut în versiunea de feed activă. Fără versiune de feed activă: `200` cu `feedImported: false`, `station: null` și `groups` gol.
+- **Body (JSON):** `station` {`name`, `stopIds[]`}, `now` (ISO-8601, ora locală), `dayLabel` (de ex. „Miercuri, 25 noiembrie · zi lucrătoare”), `feedImported` (bool), `groups[]` {`line`, `headsign`, `color`, `textColor` (hex fără `#`, după regula de contrast din DESIGN.md), `departures[]` {`time` („HH:mm”), `at` (ISO-8601, ora locală), `tomorrow` (bool), `minutes` (int, de acum)}}. Regulile listei: D-018, D-048, D-051.
+- **Consumers:** niciunul încă; harta (punctul 9) și „Acasă” (punctul 10).
+- **Evidence:** planul punctului 8, aprobat de utilizator 2026-11-25
+- **Confirmed:** 2026-11-25
 
 ## Consumed
 Niciunul.

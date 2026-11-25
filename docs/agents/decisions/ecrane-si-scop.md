@@ -99,3 +99,23 @@
 - **Owner note:** 2026-11-19: aprobată și propunerea de tokens (culorile variantei „rece”, `--color-time`, `--shadow-card`, `--shadow-card-hover`, `--shadow-button`, `--shadow-button-hover`, `--ease-out` și regulile de mișcare). Până la /plan-ul care le aplică, DESIGN.md și `tokens.css` rămân neschimbate (altfel pică TokensTest); valorile sunt în mock-ul de mai sus.
 - **Confirmed:** 2026-11-19
 
+
+## D-049 · Subsolul spune că aplicația e neoficială, lângă atribuirea Tursib
+- **Status:** approved
+- **Date:** 2026-11-25
+- **Rule:** Completează D-008. Subsolul fiecărei pagini afișează, lângă „Date de transport: Tursib S.A.”, textul „Aplicație neoficială. Nu este afiliată cu Tursib S.A.”. Cu el, paginile reale nu mai au nevoie de `noindex`; pagina temporară „hello” îl păstrează până la hartă (D-022).
+- **Why:** Răspunsul utilizatorului la Q-022: un motor de căutare sau un asistent AI nu trebuie să prezinte aplicația drept serviciul Tursib.
+- **Rejected:** `noindex` pe paginile reale până la un răspuns.
+- **Evidence:** răspunsul utilizatorului la /plan pentru punctul 8, 2026-11-25
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-25
+
+## D-050 · Paginile cu plecări se randează pe server; același serviciu dă endpoint-ul JSON
+- **Status:** approved
+- **Date:** 2026-11-25
+- **Rule:** Completează D-001. Paginile cu plecări (pagina de stație; mai târziu „Acasă”) se randează pe server, cu Thymeleaf, fără JS pentru date. Același serviciu dă și endpoint-ul JSON (C-002), pentru hartă și alți consumatori. Stările „se încarcă” și „eroare cu Reîncearcă” din mock nu se aplică acestor pagini.
+- **Why:** Răspunsul utilizatorului la /plan pentru punctul 8: mai puțin cod și mai puține teste decât o pagină care citește JSON-ul din browser.
+- **Rejected:** pagina goală care citește endpoint-ul JSON cu JS.
+- **Evidence:** răspunsul utilizatorului la /plan pentru punctul 8, 2026-11-25
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-25
