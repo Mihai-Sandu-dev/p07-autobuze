@@ -53,6 +53,7 @@
 - [x] **7. Twist 1+2**: serviciile active într-o zi (`calendar` + `calendar_dates`) și orele ≥ 24:00; teste pe mini-feed
       (D-014, D-015: sărbătorile 2026–2027 în DB)
   - [x] `ServiceCalendar`, `Departures`, `DayType`; V3 cu 33 de sărbători (16 în 2026, 17 în 2027); D-047 (ora de pe ceas)
+  - [x] V3 aplicată pe Neon (deploy `fd5bfbe`, 2026-11-25: „Successfully applied 1 migration ... now at version v3”, 0,354 s)
   - [x] Teste pe mini-feed: `ServiceCalendarIT` (8), `DeparturesIT` (6, inclusiv „luni, sărbătoare, 00:30”), `DayTypeTest` (3)
 - [ ] **8. Pagina de stație**: „următoarele plecări”, sub 300 ms pe feed-ul real, măsurat și documentat
       (D-018, D-028, D-036, D-041)

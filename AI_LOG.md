@@ -25,6 +25,12 @@
   la 24:35:00, și testul care răspunde la întrebarea din fișă: „următoarele plecări la 00:30 într-o
   zi de luni, sărbătoare legală”. Luni 30.11.2026, 00:30: pleacă doar cursa de duminică de la 00:35;
   nimic din serviciul luni–vineri, scos pe 30.11.
+- La Q-024 (punctul 8) am răspuns: „Următoarele plecări” nu arată cursele în stația în care se termină,
+  ca la panoul din stație → D-048. Am aprobat merge-ul în `main` și push-ul.
+- Deploy manual pe Render al commit-ului `fd5bfbe` (făcut de mine). În log: „Migrating schema "public"
+  to version "3 - public holidays"” și „Successfully applied 1 migration ... now at version v3”
+  (0,354 s); aplicația a pornit în 79 s. Numărul de rânduri din `public_holidays` pe Neon nu l-am
+  verificat separat cu SQL.
 
 ## 2026-11-25 · Primul import real, pe live și local (punctul 6)
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe `main`
