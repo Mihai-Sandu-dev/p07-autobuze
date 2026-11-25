@@ -7,7 +7,9 @@
 - **Evidence:** review-ul SEO/GEO al PR-ului #1, 2026-11-19
 
 ## Q-024 · Următoarele plecări arată și cursele care se termină în stația aceea?
-- **Status:** open
+- **Status:** answered 2026-11-25
 - **Blocks:** lista „Următoarele plecări” (punctul 8, D-018). În `stop_times`, ultima stație a unei curse are și ea o oră de plecare, deși din capăt cursa nu mai pleacă nicăieri. `Departures` (punctul 7) le întoarce pe toate, cu ordinea din cursă; punctul 8 decide dacă le arată.
 - **Who answers:** utilizatorul, la /plan pentru punctul 8
 - **Evidence:** build-ul punctului 7, 2026-11-25
+- **Answer:** Nu. „Următoarele plecări” nu arată o cursă în stația în care se termină (ultimul `stop_sequence` al cursei), ca la panoul din stație.
+- **Recorded as:** D-048

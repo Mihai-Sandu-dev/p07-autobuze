@@ -47,6 +47,7 @@
 - D-015 · Lista sărbătorilor legale e în DB, doar pentru eticheta zilei și media abaterilor
 - D-018 · Următoarele plecări: primele 3 pe fiecare linie și sens, completate cu ziua următoare
 - D-047 · Orele din feed sunt ora de pe ceas, ca pe panoul din stație
+- D-048 · Următoarele plecări nu arată cursele care se termină în stație
 
 ### [Planificator](decisions/planificator.md)
 - D-002 · Planificatorul caută itinerarii cu maxim un transfer

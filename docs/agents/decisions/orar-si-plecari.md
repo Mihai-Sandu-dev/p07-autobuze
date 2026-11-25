@@ -39,3 +39,14 @@
 - **Evidence:** răspunsul utilizatorului la /plan pentru punctul 7, 2026-11-25
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-25
+
+## D-048 · Următoarele plecări nu arată cursele care se termină în stație
+- **Status:** approved
+- **Date:** 2026-11-25
+- **Rule:** Completează D-018. Lista „Următoarele plecări” a unei stații nu conține o cursă în stația în care cursa se termină, adică la ultimul `stop_sequence` al cursei, chiar dacă `stop_times` îi dă o oră de plecare acolo. Regula se aplică la pagina de stație (punctul 8). `Departures` (punctul 7) rămâne neschimbat; filtrul se adaugă la punctul 8.
+- **Why:** Răspunsul utilizatorului la Q-024: așa arată panoul din stație; din capăt, cursa nu mai pleacă nicăieri.
+- **Rejected:** afișarea tuturor rândurilor din `stop_times`, inclusiv capătul cursei.
+- **Evidence:** răspunsul utilizatorului la Q-024, 2026-11-25
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-25
+
