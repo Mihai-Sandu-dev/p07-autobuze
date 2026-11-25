@@ -1,0 +1,9 @@
+stop_id,stop_name,stop_lat,stop_lon,location_type,parent_station
+S_GARA,Gară,45.799500,24.161700,0,
+S_A,Piața Mică,45.792000,24.152000,0,
+S_HORNBACH,Hornbach,45.770400,24.138400,0,
+S_B,Turnul Sfatului,45.792900,24.152000,0,
+S_NOAPTE,Strada Noaptea,45.801900,24.152000,0,
+S_CIBIN,"Piața Cibin, peron 2",45.800300,24.147500,0,
+S_C,Bulevardul Victoriei,45.790200,24.152000,0,
+S_TURNISOR,Turnișor,45.800000,24.120000,0,

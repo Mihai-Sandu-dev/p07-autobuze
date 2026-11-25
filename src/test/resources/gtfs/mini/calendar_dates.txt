@@ -1,0 +1,4 @@
+service_id,date,exception_type
+LV,20261130,2
+LV,20261201,2
+EXTRA,20261205,1

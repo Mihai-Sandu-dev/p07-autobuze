@@ -1,0 +1,5 @@
+route_id,service_id,trip_id,trip_headsign,direction_id,shape_id
+R1,LV,T1_LV,Hornbach,0,SH1
+R2,LV,T2_LV,Piața Cibin,0,
+R2,LV,T2_NOAPTE,Piața Cibin,0,
+R3,EXTRA,T3_EXTRA,Turnișor,0,
