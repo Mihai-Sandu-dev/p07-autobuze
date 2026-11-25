@@ -73,7 +73,7 @@ class ImportControllerIT {
                 .andExpect(jsonPath("$.state").value("DONE"))
                 .andExpect(jsonPath("$.feedVersionId").isNumber())
                 .andExpect(jsonPath("$.checksum").isNotEmpty())
-                .andExpect(jsonPath("$.rows.stop_times").value(10))
+                .andExpect(jsonPath("$.rows.stop_times").value(12))
                 .andExpect(jsonPath("$.finishedAt").isNotEmpty())
                 .andExpect(jsonPath("$.durationMs").isNumber());
     }

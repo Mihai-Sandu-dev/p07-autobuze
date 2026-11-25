@@ -32,7 +32,9 @@ import ro.autobuze.gtfs.ImportStatus.State;
  *       (~1 km, nu e capăt) la 24:40:00 și ajunge în {@code S_CIBIN} la 25:10:00;</li>
  *   <li>d) stațiile {@code S_A} (linia 1) și {@code S_B} (linia 2), la ~100 m: transfer;</li>
  *   <li>e) stația {@code S_C} (linia 3), la ~200 m de {@code S_A}: NU contează ca transfer;</li>
- *   <li>f) stația {@code S_CIBIN}, cu virgulă în nume: „Piața Cibin, peron 2”.</li>
+ *   <li>f) stația {@code S_CIBIN}, cu virgulă în nume: „Piața Cibin, peron 2”;</li>
+ *   <li>g) serviciul {@code DUM}, doar duminica, cu cursa de noapte {@code T2_DUM_NOAPTE}: pleacă din
+ *       {@code S_NOAPTE} la 24:35:00 (folosit în {@code DeparturesIT}).</li>
  * </ul>
  */
 @SpringBootTest
@@ -64,8 +66,8 @@ class GtfsImportIT {
 
         assertThat(status.state()).isEqualTo(State.DONE);
         assertThat(status.rows()).containsOnly(
-                entry("agency", 1L), entry("stops", 8L), entry("routes", 3L), entry("calendar", 1L),
-                entry("calendar_dates", 3L), entry("shapes", 3L), entry("trips", 4L), entry("stop_times", 10L));
+                entry("agency", 1L), entry("stops", 8L), entry("routes", 3L), entry("calendar", 2L),
+                entry("calendar_dates", 3L), entry("shapes", 3L), entry("trips", 5L), entry("stop_times", 12L));
         for (Map.Entry<String, Long> table : status.rows().entrySet()) {
             assertThat(jdbc.queryForObject("select count(*) from " + table.getKey(), Long.class))
                     .as(table.getKey()).isEqualTo(table.getValue());
@@ -163,7 +165,7 @@ class GtfsImportIT {
         assertThat(second.state()).isEqualTo(State.UNCHANGED);
         assertThat(second.checksum()).isEqualTo(first.checksum());
         assertThat(jdbc.queryForObject("select count(*) from feed_versions", Integer.class)).isEqualTo(1);
-        assertThat(jdbc.queryForObject("select count(*) from stop_times", Integer.class)).isEqualTo(10);
+        assertThat(jdbc.queryForObject("select count(*) from stop_times", Integer.class)).isEqualTo(12);
     }
 
     @Test
@@ -184,7 +186,7 @@ class GtfsImportIT {
         assertThat(jdbc.queryForObject("select count(*) from stop_times where feed_version_id = ?", Integer.class, v1))
                 .isZero();
         assertThat(jdbc.queryForObject("select count(*) from stop_times where feed_version_id = ?", Integer.class, v2))
-                .isEqualTo(10);
+                .isEqualTo(12);
     }
 
     @Test
@@ -200,7 +202,7 @@ class GtfsImportIT {
         assertThat(status.message()).isNotBlank();
         assertThat(jdbc.queryForList("select id from feed_versions", Long.class)).containsExactly(v1);
         assertThat(activeVersions()).containsExactly(v1);
-        assertThat(jdbc.queryForObject("select count(*) from stop_times", Integer.class)).isEqualTo(10);
+        assertThat(jdbc.queryForObject("select count(*) from stop_times", Integer.class)).isEqualTo(12);
     }
 
     @Test
