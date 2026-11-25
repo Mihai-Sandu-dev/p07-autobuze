@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<!-- DS-autobuze-statie (mock aprobat): următoarele plecări pe linie + capăt (D-018, D-048, D-051),
+     randat pe server (D-050). Harta mică vine la punctul 9; favorita și raportul, la punctele 10 și 13. -->
+<head th:replace="~{fragments/head :: head(${board.station != null ? 'Stația ' + board.station.name + ' · Staționar — când vine autobuzul?' : 'Staționar — când vine autobuzul?'}, null)}"></head>
+<body>
+<header th:replace="~{fragments/antet :: antet}"></header>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-ceas" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-sageata" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+</svg>
+<main class="statie">
+  <section class="statie-cap">
+    <h1><svg class="ic" aria-hidden="true"><use href="#i-bus"/></svg><span
+        th:text="${board.station != null ? board.station.name : 'Stație'}">Turnișor</span></h1>
+    <p class="meta"><svg class="ic" aria-hidden="true"><use href="#i-ceas"/></svg><span
+        th:text="${board.dayLabel + ' · acum ' + #temporals.format(board.now, 'HH:mm')}">Marți, 17 noiembrie · zi lucrătoare · acum 16:40</span></p>
+  </section>
+
+  <div class="stare" th:if="${!board.feedImported}">
+    <h2>Orarul nu e încă importat</h2>
+    <p>Plecările apar după primul import al orarului Tursib. Revino peste câteva minute.</p>
+  </div>
+
+  <div class="stare" th:if="${board.feedImported and #lists.isEmpty(board.groups)}">
+    <h2>Nicio plecare azi sau mâine</h2>
+    <p>După orarul Tursib, nicio linie nu mai pleacă de aici azi sau mâine.</p>
+  </div>
+
+  <div class="plecari" th:unless="${#lists.isEmpty(board.groups)}">
+    <section class="grup" th:each="g : ${board.groups}" th:style="${'--linie: #' + g.color}"
+             th:attr="aria-label=${'Linia ' + g.line + ' spre ' + g.headsign}">
+      <div class="grup-cap">
+        <span class="eticheta" th:classappend="${g.color == 'FFFFFF'} ? 'fara-culoare'"
+              th:style="${'background: #' + g.color + '; color: #' + g.textColor}" th:text="${g.line}">19</span>
+        <span class="sens"><svg class="ic" aria-hidden="true"><use href="#i-sageata"/></svg><span class="sr">spre </span><span
+            th:text="${g.headsign}">Marquardt</span><small th:if="${#lists.size(g.departures) < 3}"
+            th:text="${#lists.size(g.departures) == 1 ? 'doar o plecare azi și mâine' : 'doar ' + #lists.size(g.departures) + ' plecări azi și mâine'}">doar 2 plecări azi și mâine</small></span>
+      </div>
+      <div class="urmatoarea" th:with="d=${g.departures[0]}">
+        <span class="sr">Următoarea plecare: </span><span class="ora" th:text="${d.time}">16:44</span>
+        <span class="cand" th:if="${d.tomorrow}"><span class="chip-maine">mâine</span></span>
+        <span class="cand" th:unless="${d.tomorrow}"><svg class="ic" aria-hidden="true"><use href="#i-ceas"/></svg><span
+            th:text="${d.untilText()}">în 4 min</span></span>
+      </div>
+      <ul class="altele" aria-label="Plecările următoare" th:if="${#lists.size(g.departures) > 1}">
+        <li th:each="d, it : ${g.departures}" th:unless="${it.first}">
+          <span class="ora" th:text="${d.time}">17:04</span>
+          <span class="cand" th:if="${d.tomorrow}"><span class="chip-maine">mâine</span></span>
+          <span class="cand" th:unless="${d.tomorrow}"><svg class="ic" aria-hidden="true"><use href="#i-ceas"/></svg><span
+              th:text="${d.untilText()}">în 24 min</span></span>
+        </li>
+      </ul>
+    </section>
+  </div>
+</main>
+<footer th:replace="~{fragments/subsol :: subsol}"></footer>
+</body>
+</html>

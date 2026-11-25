@@ -28,7 +28,12 @@ public record StationBoard(Station station, LocalDateTime now, String dayLabel, 
 
         /** „în 4 min”, „în 1 h 7 min”, „în 2 h” (mock-ul DS-autobuze-statie). */
         public String untilText() {
-            throw new UnsupportedOperationException("punctul 8: de scris");
+            int hours = minutes / 60;
+            int rest = minutes % 60;
+            if (hours == 0) {
+                return "în " + rest + " min";
+            }
+            return rest == 0 ? "în " + hours + " h" : "în " + hours + " h " + rest + " min";
         }
     }
 }

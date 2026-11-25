@@ -1,7 +1,9 @@
 package ro.autobuze.schedule;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashSet;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -46,8 +48,27 @@ public class ServiceCalendar {
 
     /** Tipul zilei (D-014), cu sărbătorile legale din {@code public_holidays} (D-015). */
     public DayType dayType(LocalDate date) {
-        Boolean holiday = jdbc.queryForObject(
-                "select exists (select 1 from public_holidays where date = ?)", Boolean.class, date);
-        return DayType.of(date, Boolean.TRUE.equals(holiday));
+        return DayType.of(date, holiday(date));
+    }
+
+    /**
+     * Eticheta zilei din capul paginii de stație, de ex. „Miercuri, 25 noiembrie · zi lucrătoare”;
+     * o sărbătoare legală apare ca „sărbătoare legală”, nu ca duminică.
+     */
+    public String dayLabel(LocalDate date) {
+        String day = date.format(DAY);
+        String kind = holiday(date) ? "sărbătoare legală" : switch (DayType.of(date, false)) {
+            case LUCRATOARE -> "zi lucrătoare";
+            case SAMBATA -> "sâmbătă";
+            case DUMINICA_SARBATOARE -> "duminică";
+        };
+        return Character.toUpperCase(day.charAt(0)) + day.substring(1) + " · " + kind;
+    }
+
+    private static final DateTimeFormatter DAY = DateTimeFormatter.ofPattern("EEEE, d MMMM", Locale.of("ro"));
+
+    private boolean holiday(LocalDate date) {
+        return Boolean.TRUE.equals(jdbc.queryForObject(
+                "select exists (select 1 from public_holidays where date = ?)", Boolean.class, date));
     }
 }

@@ -46,6 +46,59 @@ main {
 h1 { font: 600 var(--text-xl) var(--font-text); margin: 0; }
 main p { margin: var(--space-2) 0 0; color: var(--color-text-muted); }
 
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* DS-autobuze-statie */
+main.statie { padding: var(--space-4); }
+.statie-cap h1 { overflow-wrap: anywhere; display: flex; gap: var(--space-2); align-items: baseline; }
+.statie-cap h1 .ic { color: var(--color-text-muted); align-self: center; }
+.statie-cap .meta {
+  font: var(--text-sm) var(--font-text); margin: var(--space-1) 0 0;
+  display: flex; gap: var(--space-1); align-items: center;
+}
+.plecari { margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+.grup {
+  background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4);
+  border-top: var(--space-1) solid var(--linie, var(--color-border));
+}
+.grup-cap { display: flex; align-items: center; gap: var(--space-3); }
+.sens { font-weight: 600; overflow-wrap: anywhere; min-width: 0; }
+.sens .ic { color: var(--color-text-muted); margin-inline-end: var(--space-1); }
+.sens small { display: block; font: 400 var(--text-sm) var(--font-text); color: var(--color-text-muted); }
+
+/* DS-autobuze-eticheta-linie: culorile din feed, cu regula de contrast (LineColors) */
+.eticheta {
+  font: 700 var(--text-md) var(--font-text); padding: 0 var(--space-3); min-width: var(--space-5);
+  text-align: center; border-radius: var(--radius-pill); flex: none; border: 1px solid transparent;
+}
+.eticheta.fara-culoare { border-color: var(--color-border); }
+
+/* DS-autobuze-rand-plecare: prima plecare mare, ca pe panou; celelalte două mai mici */
+.urmatoarea {
+  margin-top: var(--space-3); background: var(--color-bg); border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+}
+.ora { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 700; display: block; color: var(--color-text); }
+.urmatoarea .ora { font: 700 var(--text-time) var(--font-mono); }
+.altele .ora { font: 700 var(--text-time-sm) var(--font-mono); }
+.cand {
+  font: var(--text-sm) var(--font-text); color: var(--color-text-muted);
+  display: flex; gap: var(--space-1); align-items: center; flex-wrap: wrap;
+}
+.chip-maine {
+  font: 600 var(--text-xs) var(--font-text); color: var(--color-warning);
+  border: 1px solid currentColor; border-radius: var(--radius-pill); padding: 0 var(--space-2);
+}
+.altele {
+  list-style: none; margin: var(--space-2) 0 0; padding: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2);
+}
+.altele li { padding: var(--space-1) var(--space-3); }
+
+/* Stările paginii: fără plecări, orar neimportat */
+.stare { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-5) var(--space-4); margin-top: var(--space-5); }
+.stare h2 { font: 600 var(--text-lg) var(--font-text); margin: 0; }
+
 /* DS-autobuze-subsol (D-008) */
 .subsol {
   border-top: 1px solid var(--color-divider); padding: var(--space-4);
@@ -54,5 +107,6 @@ main p { margin: var(--space-2) 0 0; color: var(--color-text-muted); }
 
 @media (min-width: 600px) {
   main { padding: var(--space-7) var(--space-5); }
+  main.statie { padding: var(--space-5); }
   h1 { font: 700 var(--text-2xl) var(--font-text); }
 }
