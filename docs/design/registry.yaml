@@ -102,7 +102,7 @@ designs:
     note: "antetul cu navigarea (hartă, planificator; Autentificare pentru vizitator; Acasă și Ieșire pentru utilizatorul logat; admin pentru ADMIN)"
     source: src/main/resources/templates/fragments/antet.html
     design_ref: mocks/DS-autobuze-antet.html
-    status: approved  # D-042 confirmat 2026-11-19; codul are încă culorile D-027 până la /plan-ul care aplică D-042
+    status: approved  # D-042 confirmat 2026-11-19; codul are încă culorile D-027 până la /plan-ul care aplică D-042. Logo-ul (pătratul cu autobuzul, docs/design/brand/) în locul iconiței, ales de autor 2026-11-26; celelalte mock-uri au încă iconița veche în antet
   - id: DS-autobuze-subsol
     kind: component
     note: "subsolul cu „Date de transport: Tursib S.A.” și „Aplicație neoficială. Nu este afiliată cu Tursib S.A.” pe fiecare pagină (D-008, D-049)"

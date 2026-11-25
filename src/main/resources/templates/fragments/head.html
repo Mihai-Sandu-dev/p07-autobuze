@@ -7,6 +7,9 @@
   <meta name="robots" th:if="${robots}" th:content="${robots}">
   <!-- Alegerea de temă salvată (D-039) se aplică înainte de afișare, ca pagina să nu clipească. -->
   <script>try { var t = localStorage.getItem("tema"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}</script>
+  <link rel="icon" th:href="@{/favicon.ico}" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" th:href="@{/img/favicon-32.png}" href="/img/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" th:href="@{/img/apple-touch-icon.png}" href="/img/apple-touch-icon.png">
   <link rel="stylesheet" th:href="@{/css/tokens.css}" href="/css/tokens.css">
   <link rel="stylesheet" th:href="@{/css/app.css}" href="/css/app.css">
   <script th:src="@{/js/tema.js}" src="/js/tema.js" defer></script>

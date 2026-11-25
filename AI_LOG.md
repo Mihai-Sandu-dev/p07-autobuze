@@ -3,6 +3,24 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-26 · Logo și favicon
+**Unealta:** Claude Code (model Claude Opus 5.5), pe branch-ul `feat/logo`.
+
+**Ce am cerut**
+- Logo-ul meu (`logoStationar.png`, lat, cu numele) peste tot în aplicație și `logoStationarHero.png`
+  (pătratul cu autobuzul) ca favicon.
+
+**Ce am primit**
+- Trei întrebări: numele din logo-ul lat e bleumarin și nu se vede pe tema întunecată; fișierele au
+  264–434 KB; pe ce branch. Și o cerere de acord: `HelloPageIT:35` verifica iconița SVG din antet.
+- Build-ul: în antet, pătratul cu autobuzul (32 px, fișier de 64 px, 7 KB) lângă numele „Staționar”
+  ca text; favicon-urile (`favicon.ico` 16/32/48, PNG 32 px, `apple-touch-icon` 180 px) generate cu
+  Pillow într-un container Docker, nu o dependență a proiectului. Originalele în `docs/design/brand/`.
+
+**Ce am făcut cu răspunsul**
+- Am ales pătratul + numele ca text (se vede în ambele teme), setul standard de favicon-uri, un
+  branch nou cu merge în `main` și push. Am aprobat schimbarea aserțiunii din `HelloPageIT:35`.
+
 ## 2026-11-25 · Pagina de stație și „următoarele plecări” (punctul 8), D-049–D-051, C-002
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
 `feat/pagina-statie`.
