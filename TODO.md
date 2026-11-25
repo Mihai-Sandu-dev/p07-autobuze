@@ -63,7 +63,8 @@
         `LineColorsTest` (4), `StationControllerIT` (5); screenshot-uri `DS-autobuze-statie` pe Gară (1051)
   - [x] Măsurat local: EXPLAIN ANALYZE, 13 interogări, 9,5–9,7 ms în total (DATA.md → Performanță)
   - [ ] **Autor:** `docs/perf/next-departures.sql` rulat în Neon SQL Editor; suma „Execution Time” în DATA.md (pragul)
-  - [ ] Deploy (cu acordul autorului) și cererea pe live, 10 cereri calde, în DATA.md (notată separat, nu e pragul)
+  - [x] Deploy (făcut de autor, 2026-11-26) și cererea pe live: mediana 438 ms, maxim 692 ms (10 cereri calde),
+        în DATA.md, notată separat (nu e pragul); peste 300 ms, deci tema de mai jos
   - [x] Q-025: sub un minut, pagina afișează „acum” (D-052; testul în `NextDeparturesTest`)
 - [ ] **9. Harta Leaflet** cu date din API, căutare după nume, „aproape de mine” (D-005, D-022, D-030, D-031, D-034);
       înlocuiește pagina „hello” de la „/” (se scoate `noindex`); Q-022 (cum spun paginile că nu e oficială Tursib)
@@ -90,6 +91,8 @@
 - [ ] **15. (jo 03.12) Final**: video demo, verificare pe o clonă nouă, căutare de secrete, predare
 
 ## În afara celor 15 puncte (din vechiul TODO, păstrate)
+- [ ] Comasarea interogărilor pentru „următoarele plecări” (cererea pe live: mediana 438 ms; 13 drumuri până
+      la Neon pe cerere, DATA.md → Performanță). De propus prin `/plan`; nu e cerința de 300 ms, care e pe interogare.
 - [ ] `/plan` pentru D-042: tokens noi în DESIGN.md și `tokens.css`, umbrele și mișcarea în `app.css`,
       screenshot-uri noi; DESIGN.md trimite încă la D-027.
 - [ ] Mock-uri lipsă (înainte de build-ul ecranului): acasa, linie, raport-abatere, inregistrare,

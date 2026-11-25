@@ -66,11 +66,16 @@ Toate cele 4 interogări de plecări folosesc indexul `stop_times_stop_departure
 | Unde | Mediana | Maxim | Cum |
 |---|---:|---:|---|
 | Local, `GET /api/statii/1051/plecari` | 16 ms | 18 ms | 12 cereri calde, `curl -w %{time_starttransfer}` |
-| Live (Render gratuit → Neon) | _de completat_ | | 10 cereri calde, după deploy |
+| Live (Render gratuit → Neon) | 438 ms | 692 ms | 10 cereri calde (după 3 de încălzire), `curl -w %{time_starttransfer}` din WSL, 26.11.2026, 00:10; minim 211 ms |
 
 Pe live, timpul unei cereri adună cele 13 drumuri dus-întors până la Neon (aplicația pe Render,
 baza pe Neon, amândouă în Frankfurt, dar pe rețele diferite) și procesorul de 0,1 CPU al planului
 gratuit Render. Cererile „la rece” (Render adormit ~1 min, Neon adormit) nu intră în măsurare.
+
+Pe live, cererea **trece de 300 ms** (mediana 438 ms). Diferența față de local (16 ms) nu vine din
+interogări (pragul, (a)), ci din cele 13 drumuri până la Neon și din cei 0,1 CPU ai planului gratuit:
+doar drumul până la Render, fără aplicație, a durat 108 ms (`GET /`, aceeași sesiune). Nu s-a
+optimizat acum (decizia autorului, 2026-11-25); comasarea interogărilor e o temă separată în TODO.
 
 ## Probleme găsite
 <!-- se completează la import -->
