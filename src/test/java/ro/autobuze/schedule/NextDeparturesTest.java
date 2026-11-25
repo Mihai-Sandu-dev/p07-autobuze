@@ -80,6 +80,19 @@ class NextDeparturesTest {
     }
 
     @Test
+    void underAMinuteTheTextIsNow() {
+        // D-052: 16:41 privită la 16:40:31 → minutes 0 (în jos); pagina arată „acum”, JSON-ul păstrează 0
+        LocalDateTime now = NOW.plusSeconds(31);
+        List<Departure> deps = List.of(dep("19", "Marquardt", 0, today(16, 41)), dep("19", "Marquardt", 0,
+                today(16, 42)));
+
+        List<StationBoard.Entry> entries = NextDepartures.groups(deps, Map.of(), now).get(0).departures();
+
+        assertThat(entries).extracting(StationBoard.Entry::minutes, StationBoard.Entry::untilText).containsExactly(
+                tuple(0, "acum"), tuple(1, "în 1 min"));
+    }
+
+    @Test
     void tomorrowFollowsTheClockDateNotTheServiceDay() {
         LocalDateTime night = LocalDateTime.of(2026, 11, 18, 0, 30);
         // 00:41 e din ziua de serviciu de ieri (oră ≥ 24:00), dar data de pe ceas e azi: fără „mâine”

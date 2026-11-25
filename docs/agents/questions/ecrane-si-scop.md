@@ -22,4 +22,4 @@
 - **Who answers:** utilizatorul
 - **Evidence:** pagina Gară (1051) pe feed-ul real, la build-ul punctului 8, 2026-11-25
 - **Answer:** Sub un minut, pagina afișează „acum”. (Răspunsul utilizatorului, 2026-11-25.)
-- **Recorded as:** o decizie propusă după build-ul punctului 8, în așteptarea aprobării
+- **Recorded as:** D-052

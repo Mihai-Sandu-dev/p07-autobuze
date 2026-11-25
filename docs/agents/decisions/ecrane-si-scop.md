@@ -119,3 +119,13 @@
 - **Evidence:** răspunsul utilizatorului la /plan pentru punctul 8, 2026-11-25
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-25
+
+## D-052 · O plecare la mai puțin de un minut apare „acum” pe pagina de stație
+- **Status:** approved
+- **Date:** 2026-11-25
+- **Rule:** Pe pagina de stație, o plecare care nu e „mâine” și e la mai puțin de un minut (`minutes` = 0, minutele rotunjite în jos) afișează „acum” în loc de „în 0 min”. JSON-ul (C-002) nu se schimbă: `minutes` rămâne 0; textul e doar al paginii.
+- **Why:** Răspunsul utilizatorului la Q-025: „în 0 min” a apărut pe feed-ul real (Gară, 1051).
+- **Rejected:** „în 0 min”; „sub 1 min”; minutele rotunjite în sus.
+- **Evidence:** răspunsul utilizatorului la Q-025, 2026-11-25
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-25

@@ -43,6 +43,7 @@
 - D-042 · Direcția vizuală: bază ușor colorată „rece”, umbre moi și mișcare lină; orele rămân de contrast maxim
 - D-049 · Subsolul spune că aplicația e neoficială, lângă atribuirea Tursib
 - D-050 · Paginile cu plecări se randează pe server; același serviciu dă endpoint-ul JSON
+- D-052 · O plecare la mai puțin de un minut apare „acum” pe pagina de stație
 
 ### [Orar si plecari](decisions/orar-si-plecari.md)
 - D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală
