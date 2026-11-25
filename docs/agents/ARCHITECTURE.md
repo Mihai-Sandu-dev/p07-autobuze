@@ -28,12 +28,13 @@ pe Render, din `Dockerfile`, și baza pe Neon (D-037).
 |---|---|---|---|
 | app | `src/main/java/ro/autobuze/` | pornirea (`AutobuzeApplication`); `web/HelloController`: pagina „hello” de la „/” (temporară, D-022) | db |
 | import | `src/main/java/ro/autobuze/gtfs/` | `GtfsImportService`: descărcare + SHA-256, versiune nouă într-o tranzacție, câte un COPY pe fișier, activare, păstrarea a 2 versiuni (D-003, D-019, D-038); `GtfsTable`: fișierele GTFS → coloanele din DB, citite cu Commons CSV (D-046); `GtfsValues`: orele în secunde (D-043) | db, feed-ul Tursib |
+| orar | `src/main/java/ro/autobuze/schedule/` | `ServiceCalendar`: versiunea activă, serviciile active la o dată (calendar ∪ adăugate − scoase), tipul de zi (D-014, D-015); `Departures`: plecările dintr-o listă de stații într-un interval, din toate zilele de serviciu care îl ating (ore ≥ 24:00, D-043, D-047) | db |
 | endpoint import | `src/main/java/ro/autobuze/web/ImportController.java` | `POST`/`GET /admin/import` cu token (C-001); importul pe `applicationTaskExecutor` | import |
 | workflow import | `.github/workflows/import.yml` | cron zilnic 01:30 UTC + manual: pornește importul pe live și întreabă starea la fiecare minut | endpoint import |
 | pagini | `src/main/resources/templates/` | Thymeleaf; fragmentele comune `fragments/head`, `antet` (DS-autobuze-antet), `subsol` (DS-autobuze-subsol, D-008) | — |
 | stiluri | `src/main/resources/static/css/` | `tokens.css` (copia tokenilor din DESIGN.md, verificată de `TokensTest`), `app.css` | — |
 | tema | `src/main/resources/static/js/tema.js` + scriptul din `fragments/head` | butonul light/dark, alegerea în `localStorage` (D-039) | — |
-| db | `src/main/resources/db/migration/` | schema doar prin Flyway; V1 goală; V2: PostGIS, tabelele GTFS pe versiune de feed, utilizatori, favorite, rapoarte de abatere (`docs/schema.md`, D-043, D-044) | — |
+| db | `src/main/resources/db/migration/` | schema doar prin Flyway; V1 goală; V2: PostGIS, tabelele GTFS pe versiune de feed, utilizatori, favorite, rapoarte de abatere (`docs/schema.md`, D-043, D-044); V3: sărbătorile legale 2026–2027 (D-015) | — |
 | teste | `src/test/java/ro/autobuze/` | `*Test` unitare, `*IT` cu Testcontainers (PostGIS 17); `ui/*UiTest` cu Playwright pe Compose (D-029), compilate și rulate doar cu profilul Maven `ui` | db, app |
 
 ## Data flow
@@ -41,7 +42,8 @@ Acum: browser → `GET /` → `HelloController` → `hello.html` (antet, text, s
 
 Plan, din deciziile aprobate:
 1. **Import (construit):** `import.yml` → `POST /admin/import` (token) → `GtfsImportService` pe un fir separat: descarcă arhiva într-un fișier temporar, calculează SHA-256; același checksum ca versiunea activă → `UNCHANGED`, fără versiune nouă. Altfel, într-o tranzacție: rând nou în `feed_versions`, fișierele în ordinea cheilor străine (agency → stops → routes → calendar → calendar_dates → shapes → trips → stop_times), fiecare printr-un singur `COPY ... FROM STDIN`, activarea, ștergerea versiunilor mai vechi decât cea anterioară, `ANALYZE`. Orice eroare → rollback, starea `FAILED`, versiunea activă rămâne. Starea e în memorie; workflow-ul o întreabă la fiecare minut. Raportul de diferențe (D-003): încă nu.
-2. **Stații, plecări, trasee, planificator, rapoarte:** D-018, D-031, D-002, D-012, D-013, D-033, D-009, D-028, D-035, D-036.
+2. **Orar (construit, fără pagină):** `Departures.between(fv, stopIds, from, until)` → pentru fiecare zi de serviciu de la ziua dinaintea lui `from` până la ziua lui `until`: `ServiceCalendar.activeServices` și plecările cu `departure_sec` în fereastră (indexul `stop_times_stop_departure`); ora reală = miezul nopții zilei de serviciu + secunde (D-047).
+3. **Stații, pagina de plecări, trasee, planificator, rapoarte:** D-018, D-031, D-002, D-012, D-013, D-033, D-009, D-028, D-035, D-036.
 
 ## State and storage
 | What | Where | Owner | Notes |

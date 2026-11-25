@@ -1,6 +1,7 @@
 # Schema bazei de date
 
-Sursa: [`V2__schema.sql`](../src/main/resources/db/migration/V2__schema.sql) (V1 e goală).
+Sursa: [`V2__schema.sql`](../src/main/resources/db/migration/V2__schema.sql) și
+[`V3__public_holidays.sql`](../src/main/resources/db/migration/V3__public_holidays.sql) (V1 e goală).
 PostgreSQL 17 cu PostGIS, local (Docker Compose) și pe Neon. Deciziile: D-043, D-044.
 
 ```mermaid
@@ -122,6 +123,10 @@ erDiagram
         int deviation_min "cu semn, pozitiv = intarziere"
         timestamptz created_at
     }
+    public_holidays {
+        date date PK
+        text name
+    }
 ```
 
 ## Cum se citește
@@ -133,12 +138,14 @@ erDiagram
   la începutul zilei de serviciu, ca în GTFS. 25:10:00 → 90600. Pe ecran și în CSV: HH:MM (D-024).
 - **Datele utilizatorilor (D-020, D-044).** `favorites` și `deviation_reports` nu au chei străine
   spre tabelele GTFS: se leagă prin `route_short_name` și `stop_key`, care rămân la fel între
-  versiuni. Ce conține `stop_key` (stop_code sau stop_id) e Q-019. O favorită ține cheia unui rând
+  versiuni. `stop_key` = `stop_id` (Q-019). O favorită ține cheia unui rând
   din stație; gruparea în stații (D-031) se face la citire.
 - **Rapoartele de abatere (D-009, D-025).** Sursa „utilizator” are `user_id`; sursa „teren”
   (observațiile din `field/observations.csv`) nu are. Un raport șters de admin se șterge definitiv
   (D-045).
-- **Ce nu e încă în schemă:** sărbătorile legale (D-015, punctul 7 din ROADMAP), tabelul de
-  corespondență teren → feed (Q-020), raportul de diferențe (D-003).
+- **Sărbătorile legale (D-015, V3).** `public_holidays`: 2026–2027, fără legături. Dau doar tipul
+  de zi (D-014); plecările vin numai din `calendar` și `calendar_dates`.
+- **Ce nu e încă în schemă:** tabelul de corespondență teren → feed (Q-020), raportul de
+  diferențe (D-003).
 - **Termenii:** `stops` = rânduri din `stops.txt` (o stație le grupează), `routes` = linii,
   `trips` = curse, `stop_times` = plecări (CONTEXT.md).

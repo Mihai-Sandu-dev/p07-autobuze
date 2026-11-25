@@ -3,6 +3,29 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-25 · Twist 1+2: serviciile active și orele ≥ 24:00 (punctul 7), D-047
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
+`feat/twist-calendar`.
+
+**Ce am cerut**
+- `/plan` pentru punctul 7 din ROADMAP.
+
+**Ce am primit**
+- Planul: serviciile active la o dată (calendar ∪ adăugate − scoase, într-un singur SQL), plecările
+  dintr-o listă de stații într-un interval, căutate în toate zilele de serviciu care îl ating,
+  sărbătorile 2026–2027 în V3 și tipul de zi. Granița cu punctul 8 (pagina, „primele 3”, 300 ms) explicită.
+- Lista sărbătorilor, cu Paștele ortodox calculat: 16 date în 2026, 17 în 2027.
+- Build-ul: testele întâi (picate pe cod lipsă), apoi codul; `./mvnw verify` cu 59 de teste trecute.
+  O întrebare nouă pentru punctul 8: Q-024 (cursele care se termină în stație).
+
+**Ce am făcut cu răspunsul**
+- Am aprobat planul și cele 4 presupuneri; am verificat eu lista sărbătorilor.
+- Am confirmat că orele din feed se citesc ca oră de pe ceas, ca pe panou → D-047.
+- **Am adăugat în mini-feed serviciul `DUM`** (doar duminica), cu o cursă de noapte din `S_NOAPTE`
+  la 24:35:00, și testul care răspunde la întrebarea din fișă: „următoarele plecări la 00:30 într-o
+  zi de luni, sărbătoare legală”. Luni 30.11.2026, 00:30: pleacă doar cursa de duminică de la 00:35;
+  nimic din serviciul luni–vineri, scos pe 30.11.
+
 ## 2026-11-25 · Primul import real, pe live și local (punctul 6)
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe `main`
 (doar documentație; deploy-ul, variabilele și workflow-ul le-am făcut eu).

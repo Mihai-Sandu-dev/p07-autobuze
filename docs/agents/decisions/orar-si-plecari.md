@@ -8,7 +8,7 @@
 - **Rejected:** două tipuri (lucrătoare / weekend); tipuri derivate din service_id-urile feed-ului.
 - **Evidence:** interviul de scope, 2026-11-19
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-25
 
 ## D-015 · Lista sărbătorilor legale e în DB, doar pentru eticheta zilei și media abaterilor
 - **Status:** approved
@@ -18,7 +18,7 @@
 - **Rejected:** sărbători deduse doar din excepțiile din calendar_dates.txt.
 - **Evidence:** interviul de scope, 2026-11-19
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-25
 
 ## D-018 · Următoarele plecări: primele 3 pe fiecare linie și sens, completate cu ziua următoare
 - **Status:** approved
@@ -28,4 +28,14 @@
 - **Rejected:** toate plecările din următoarele 60 de minute; maxim 2 ore; doar ziua curentă.
 - **Evidence:** interviul de scope, 2026-11-19
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-25
+
+## D-047 · Orele din feed sunt ora de pe ceas, ca pe panoul din stație
+- **Status:** approved
+- **Date:** 2026-11-25
+- **Rule:** Completează D-043. O oră din feed (de ex. `24:40:00` în ziua de serviciu 25.11) se citește ca ora locală de pe ceas (Europe/Bucharest), adunată la miezul nopții zilei de serviciu: 26.11, 00:40. Nu se folosește referința GTFS „prânz minus 12 ore”. Plecările se compară cu ora locală de pe ceas.
+- **Why:** Răspunsul utilizatorului la /plan pentru punctul 7: așa apar orele pe panourile Tursib. Diferența față de referința GTFS apare doar în cele două zile pe an în care se schimbă ora.
+- **Rejected:** referința GTFS „prânz minus 12 ore” (ar muta plecările cu o oră în zilele cu schimbarea orei, față de panou).
+- **Evidence:** răspunsul utilizatorului la /plan pentru punctul 7, 2026-11-25
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-25

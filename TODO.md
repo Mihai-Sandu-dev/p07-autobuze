@@ -50,8 +50,10 @@
   - [x] **Autor, după descărcare:** are `shapes.txt`? Da, 84.954 de puncte (Q-010 închisă, 2026-11-25)
   - [x] **Autor, după descărcare:** identificatorul stabil al stațiilor: `stop_id` (Q-019 închisă, 2026-11-25);
         feed-ul nu are `parent_station`, deci gruparea din D-031 merge după nume și distanță
-- [ ] **7. Twist 1+2**: serviciile active într-o zi (`calendar` + `calendar_dates`) și orele ≥ 24:00; teste pe mini-feed
+- [x] **7. Twist 1+2**: serviciile active într-o zi (`calendar` + `calendar_dates`) și orele ≥ 24:00; teste pe mini-feed
       (D-014, D-015: sărbătorile 2026–2027 în DB)
+  - [x] `ServiceCalendar`, `Departures`, `DayType`; V3 cu 33 de sărbători (16 în 2026, 17 în 2027); D-047 (ora de pe ceas)
+  - [x] Teste pe mini-feed: `ServiceCalendarIT` (8), `DeparturesIT` (6, inclusiv „luni, sărbătoare, 00:30”), `DayTypeTest` (3)
 - [ ] **8. Pagina de stație**: „următoarele plecări”, sub 300 ms pe feed-ul real, măsurat și documentat
       (D-018, D-028, D-036, D-041)
 - [ ] **9. Harta Leaflet** cu date din API, căutare după nume, „aproape de mine” (D-005, D-022, D-030, D-031, D-034);
@@ -68,8 +70,8 @@
   - [ ] Seed-ul din observațiile de teren (tabelul de corespondență: Q-020)
   - [ ] Admin: import, raportul de diferențe, moderare
 - [ ] **14. (mi 02.12) Teste, documentație, predare scrisă**
-  - [ ] Minim 10 teste, minim 4 pe twist (acum: 42 în `./mvnw verify`: 16 unitare și 26 de integrare, dintre care 6 pe schemă și 16 pe import;
-        + 3 de UI; niciunul pe twist)
+  - [ ] Minim 10 teste, minim 4 pe twist (acum: 59 în `./mvnw verify`: 19 unitare și 40 de integrare;
+        pe twist: 13, adică 7 în `ServiceCalendarIT` și 6 în `DeparturesIT`; + 3 de UI)
   - [x] CI verde (ultimul run pe `main`: success)
   - [ ] API docs + intrările C- în CONTRACTS.md (încă niciun contract „Provided”)
   - [ ] README final

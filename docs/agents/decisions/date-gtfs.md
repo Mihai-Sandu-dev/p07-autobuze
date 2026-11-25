@@ -68,7 +68,7 @@
 - **Rejected:** textul `HH:MM:SS` din GTFS; `interval`.
 - **Evidence:** răspunsul utilizatorului la /plan pentru schema DB, 2026-11-24; `V2__schema.sql`
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-24
+- **Confirmed:** 2026-11-25
 
 ## D-044 · Schema: tabele GTFS pe versiune de feed, datele utilizatorilor fără chei spre GTFS
 - **Status:** approved
@@ -78,5 +78,5 @@
 - **Rejected:** tabele GTFS fără versiune, înlocuite la fiecare import; nume de tabele în română.
 - **Evidence:** răspunsul utilizatorului la /plan pentru schema DB, 2026-11-24; `V2__schema.sql`, `docs/schema.md`
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-24
+- **Confirmed:** 2026-11-25
 
