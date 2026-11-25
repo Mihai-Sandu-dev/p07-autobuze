@@ -15,3 +15,9 @@
 - **Evidence:** build-ul punctului 7, 2026-11-25
 - **Answer:** Nu. „Următoarele plecări” nu arată o cursă în stația în care se termină (ultimul `stop_sequence` al cursei), ca la panoul din stație.
 - **Recorded as:** D-048
+
+## Q-025 · Ce arată pagina de stație pentru o plecare în mai puțin de un minut?
+- **Status:** open
+- **Blocks:** doar textul de sub ora plecării (DS-autobuze-statie). Acum minutele se rotunjesc în jos, deci o plecare la 23:15, privită la 23:14:31, apare „în 0 min”. Mock-ul nu are cazul. Variante posibile: „în 0 min” (cum e acum), „acum”, „sub 1 min”, sau minutele rotunjite în sus.
+- **Who answers:** utilizatorul
+- **Evidence:** pagina Gară (1051) pe feed-ul real, la build-ul punctului 8, 2026-11-25

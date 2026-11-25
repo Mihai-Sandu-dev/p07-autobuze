@@ -11,6 +11,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 /**
  * Screenshot-uri light și dark, la 360 și 1280 px (D-029), în docs/design/screens/ ca
  * {@code <nume>.<light|dark>.<360|1280>.png}. Pagina „hello” e temporară și nu are DS-ID.
+ * Pagina de stație: Gară (stop_id 1051), stația cu cele mai multe plecări din feed-ul Tursib;
+ * cere feed-ul real importat în Compose.
  */
 class ScreenshotUiTest extends UiTest {
 
@@ -20,6 +22,8 @@ class ScreenshotUiTest extends UiTest {
     @CsvSource({
         "hello, /, light, 360", "hello, /, light, 1280",
         "hello, /, dark, 360", "hello, /, dark, 1280",
+        "DS-autobuze-statie, /statie/1051, light, 360", "DS-autobuze-statie, /statie/1051, light, 1280",
+        "DS-autobuze-statie, /statie/1051, dark, 360", "DS-autobuze-statie, /statie/1051, dark, 1280",
     })
     void screenshot(String name, String path, String scheme, int width) {
         var options = new Browser.NewContextOptions()

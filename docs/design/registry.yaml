@@ -22,10 +22,10 @@ designs:
   - id: DS-autobuze-statie
     kind: screen
     note: "pagina de stație — hartă mică cu stația; următoarele 3 plecări pe linie și sens (prima mare), „mâine” marcat, buton de raport pe grup (D-018, D-017, D-028)"
-    source: none
-    screenshots: []
+    source: src/main/resources/templates/statie.html
+    screenshots: [screens/DS-autobuze-statie.light.360.png, screens/DS-autobuze-statie.light.1280.png, screens/DS-autobuze-statie.dark.360.png, screens/DS-autobuze-statie.dark.1280.png]
     design_ref: mocks/DS-autobuze-statie.html
-    status: approved  # confirmat de autor în browser cu D-042, 2026-11-19
+    status: implemented  # punctul 8, 2026-11-25; mock confirmat cu D-042. Lipsesc: harta mică și „Vezi pe hartă” (punctul 9), favorita și Acasă/Ieșire (punctul 10), linkul etichetei (punctul 11), raportul (punctul 13); culorile sunt încă D-027 (tokens.css), până la /plan-ul D-042
   - id: DS-autobuze-harta
     kind: screen
     note: "„/” pentru vizitator și /harta pentru toți — harta cu stații, căutare după nume și „aproape de mine” (D-022, D-030, D-034)"
@@ -105,20 +105,22 @@ designs:
     status: approved  # D-042 confirmat 2026-11-19; codul are încă culorile D-027 până la /plan-ul care aplică D-042
   - id: DS-autobuze-subsol
     kind: component
-    note: "subsolul cu „Date de transport: Tursib S.A.” pe fiecare pagină (D-008)"
+    note: "subsolul cu „Date de transport: Tursib S.A.” și „Aplicație neoficială. Nu este afiliată cu Tursib S.A.” pe fiecare pagină (D-008, D-049)"
     source: src/main/resources/templates/fragments/subsol.html
     design_ref: none
     status: implemented
   - id: DS-autobuze-eticheta-linie
     kind: component
     note: "numărul liniei în eticheta colorată din route_color / route_text_color, cu regula de contrast (D-027); link spre pagina liniei"
-    source: none
-    design_ref: none
+    source: src/main/resources/templates/statie.html  # + LineColors.java; încă fără link (punctul 11)
+    design_ref: mocks/DS-autobuze-statie.html
+    status: implemented
   - id: DS-autobuze-rand-plecare
     kind: component
     note: "un rând de plecare — eticheta liniei, sensul, ora mare monospace, „mâine” când e cazul (D-018, D-027)"
-    source: none
-    design_ref: none
+    source: src/main/resources/templates/statie.html
+    design_ref: mocks/DS-autobuze-statie.html
+    status: implemented
   - id: DS-autobuze-harta-leaflet
     kind: component
     note: "harta Leaflet cu tile-uri OSM și atribuirea „© OpenStreetMap contributors” (D-005)"

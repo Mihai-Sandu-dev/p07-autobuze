@@ -31,6 +31,7 @@
 ### [Ecrane si scop](questions/ecrane-si-scop.md)
 - Q-022 · Cum spun paginile reale că aplicația nu e oficială Tursib? · _answered_
 - Q-024 · Următoarele plecări arată și cursele care se termină în stația aceea? · _answered_
+- Q-025 · Ce arată pagina de stație pentru o plecare în mai puțin de un minut?
 
 ### [Infrastructura](questions/infrastructura.md)
 - Q-004 · Ce furnizor de tile-uri folosește harta? · _answered_

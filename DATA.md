@@ -29,10 +29,11 @@ Primul import al feed-ului real, 25.11.2026: arhiva `tursib.gtfs_2026-10-v4.9.zi
 | `shapes.txt` | 84.954 |
 | `trips.txt` | 5.138 |
 | `stop_times.txt` | 93.218 |
-| **Total** | **183.887** |
+| **Total importat** | **183.886** |
 
 Feed-ul Tursib are **183.887 de rânduri în total (93.218 în `stop_times.txt`)**, sub pragul de
-200.000 de rânduri din catalog. `feed_info.txt` (1 rând) nu se importă.
+200.000 de rânduri din catalog. `feed_info.txt` (1 rând) nu se importă, deci în DB intră 183.886
+(totalul tabelului de mai sus; corectat 25.11.2026, scria 183.887).
 
 | Unde | Durata importului | Memoria | Sursa |
 |---|---|---|---|
@@ -42,6 +43,34 @@ Feed-ul Tursib are **183.887 de rânduri în total (93.218 în `stop_times.txt`)
 Verificat local cu SQL: 93.218 rânduri în `stop_times`, 84.954 în `shapes`, toate stațiile cu punct
 (`geog`), 48 de plecări la ≥ 24:00 (cea mai târzie 24:21:10). Rândurile de pe Neon nu sunt verificate
 separat cu SQL; numărul vine din starea importului de pe live, egal cu cel local.
+
+## Performanță: următoarele plecări
+Cerința (fișa P07, D-018): „următoarele plecări” sub 300 ms pe feed-ul real, **pe interogare**.
+Măsurat pe Gară (`stop_id` 1051), stația cu cele mai multe plecări (1.730 de rânduri în `stop_times`),
+pentru o cerere de joi, 26.11.2026, 16:00: fereastra până sâmbătă 00:00, deci 4 zile de serviciu.
+O cerere face 13 interogări; textul lor exact, cu `EXPLAIN (ANALYZE, BUFFERS)`, e în
+[`docs/perf/next-departures.sql`](docs/perf/next-departures.sql).
+
+**(a) Pragul: EXPLAIN ANALYZE, suma „Execution Time” a celor 13 interogări**
+
+| Unde | Suma | Cea mai lentă | Sursa |
+|---|---:|---|---|
+| Local (Docker Compose, PostGIS 17.5) | 9,5–9,7 ms (3 rulări) | stația, D-031 (~4,5 ms); lista de curse pentru D-048 (~2,6 ms, 757 de curse) | `psql` pe fișierul de mai sus, 25.11.2026 |
+| Neon (PostgreSQL 17, Frankfurt) | _de completat_ | | autorul, în Neon SQL Editor, cu același fișier |
+
+Toate cele 4 interogări de plecări folosesc indexul `stop_times_stop_departure`
+(`feed_version_id, stop_id, departure_sec`); lista de curse folosește cheia primară a lui `stop_times`.
+
+**(b) Cererea întreagă pe live (notată separat, nu e pragul)**
+
+| Unde | Mediana | Maxim | Cum |
+|---|---:|---:|---|
+| Local, `GET /api/statii/1051/plecari` | 16 ms | 18 ms | 12 cereri calde, `curl -w %{time_starttransfer}` |
+| Live (Render gratuit → Neon) | _de completat_ | | 10 cereri calde, după deploy |
+
+Pe live, timpul unei cereri adună cele 13 drumuri dus-întors până la Neon (aplicația pe Render,
+baza pe Neon, amândouă în Frankfurt, dar pe rețele diferite) și procesorul de 0,1 CPU al planului
+gratuit Render. Cererile „la rece” (Render adormit ~1 min, Neon adormit) nu intră în măsurare.
 
 ## Probleme găsite
 <!-- se completează la import -->

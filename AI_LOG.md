@@ -3,6 +3,37 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-25 · Pagina de stație și „următoarele plecări” (punctul 8), D-049–D-051, C-002
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
+`feat/pagina-statie`.
+
+**Ce am cerut**
+- `/plan` pentru punctul 8: endpoint + pagina de stație cu `Departures` și `ServiceCalendar`, ora
+  din Europe/Bucharest, regula D-018, sub 300 ms pe feed-ul real cu EXPLAIN ANALYZE, documentat.
+- Apoi `/build` pe planul aprobat.
+
+**Ce am primit**
+- Patru întrebări înainte de plan: randarea (server sau browser), harta mică (acum sau la punctul 9),
+  Q-022 (cum spun paginile că aplicația e neoficială) și gruparea (linie + capăt sau linie + `direction_id`).
+- Planul: `NextDepartures` peste `Departures` (neschimbat, D-048), fereastra „acum → sfârșitul zilei
+  de mâine”, gruparea stației după nume și 150 m, contractul C-002, 7 teste de twist pe mini-feed.
+- Build-ul: 22 de teste noi, picate întâi pe cod lipsă, apoi `./mvnw verify` cu 81 de teste trecute;
+  screenshot-urile pe Gară (1051); `docs/perf/next-departures.sql` cu cele 13 interogări ale unei cereri.
+  Local: 9,5–9,7 ms în total cu EXPLAIN ANALYZE; toate plecările pe indexul `stop_times_stop_departure`.
+- Observații din feed-ul real: 33 de perechi linie + sens au mai multe capete (D-051 contează); nicio
+  stație cu același nume la 150–400 m (gruparea D-031 nu are lanțuri). Totalul din DATA.md era greșit:
+  în DB intră 183.886 de rânduri, nu 183.887 (`feed_info.txt` nu se importă).
+
+**Ce am făcut cu răspunsul**
+- Am ales: randare pe server (→ D-050), harta mică la punctul 9, gruparea pe linie + capăt (→ D-051).
+- **La Q-022 am dat eu textul:** în subsolul fiecărei pagini, „Aplicație neoficială. Nu este afiliată
+  cu Tursib S.A.”, deci pagina de stație nu mai are nevoie de `noindex` (→ D-049).
+- Am aprobat planul, C-002 și presupunerile. Am precizat măsurarea: pragul de 300 ms e pe interogare
+  (EXPLAIN ANALYZE pe Neon); cererea pe live se notează separat, cu explicația, și nu se optimizează acum.
+- Am pornit Docker Desktop în WSL și am refăcut `.env` cu o parolă nouă; volumul local recreat, importul
+  refăcut (`DONE` în 1,9 s, același checksum).
+- De făcut de mine: `docs/perf/next-departures.sql` în Neon SQL Editor; acordul pentru deploy.
+
 ## 2026-11-25 · Twist 1+2: serviciile active și orele ≥ 24:00 (punctul 7), D-047
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
 `feat/twist-calendar`.

@@ -44,7 +44,8 @@
   - [x] **Autor:** mini-feed-ul de test (`src/test/resources/gtfs/mini/`), pe scenariile a–f ale autorului: scris de
         agent, verificat de autor rând cu rând (2026-11-25)
 - [x] **6. Feed-ul real importat local și pe live**; durata și numărul de rânduri în DATA.md
-  - [x] Pe live, 2026-11-25: `DONE` în 22,8 s, versiunea 1, 183.887 de rânduri (workflow pornit manual; capturile autorului)
+  - [x] Pe live, 2026-11-25: `DONE` în 22,8 s, versiunea 1, 183.886 de rânduri importate (183.887 în arhivă, cu
+        `feed_info.txt`, care nu se importă; corectat 2026-11-25) (workflow pornit manual; capturile autorului)
   - [x] Local, 2026-11-25: `DONE` în 5,9 s, aceleași rânduri și același checksum, verificat cu SQL
   - [x] Durata, rândurile pe fișier și memoria în DATA.md → „Import”
   - [x] **Autor, după descărcare:** are `shapes.txt`? Da, 84.954 de puncte (Q-010 închisă, 2026-11-25)
@@ -57,6 +58,13 @@
   - [x] Teste pe mini-feed: `ServiceCalendarIT` (8), `DeparturesIT` (6, inclusiv „luni, sărbătoare, 00:30”), `DayTypeTest` (3)
 - [ ] **8. Pagina de stație**: „următoarele plecări”, sub 300 ms pe feed-ul real, măsurat și documentat
       (D-018, D-028, D-036, D-041)
+  - [x] `NextDepartures`, `Stations`, `LineColors`; `/statie/{stopId}` și `/api/statii/{stopId}/plecari` (C-002,
+        D-048, D-049, D-050, D-051); teste: `NextDeparturesIT` (7, pe mini-feed), `NextDeparturesTest` (6),
+        `LineColorsTest` (4), `StationControllerIT` (5); screenshot-uri `DS-autobuze-statie` pe Gară (1051)
+  - [x] Măsurat local: EXPLAIN ANALYZE, 13 interogări, 9,5–9,7 ms în total (DATA.md → Performanță)
+  - [ ] **Autor:** `docs/perf/next-departures.sql` rulat în Neon SQL Editor; suma „Execution Time” în DATA.md (pragul)
+  - [ ] Deploy (cu acordul autorului) și cererea pe live, 10 cereri calde, în DATA.md (notată separat, nu e pragul)
+  - [ ] Q-025: textul pentru o plecare în mai puțin de un minut („în 0 min” acum)
 - [ ] **9. Harta Leaflet** cu date din API, căutare după nume, „aproape de mine” (D-005, D-022, D-030, D-031, D-034);
       înlocuiește pagina „hello” de la „/” (se scoate `noindex`); Q-022 (cum spun paginile că nu e oficială Tursib)
 - [ ] **10. Auth USER + ADMIN**, rute protejate pe server; favorite + pagina „Acasă” (D-011, D-020, D-022, D-032)
@@ -71,8 +79,9 @@
   - [ ] Seed-ul din observațiile de teren (tabelul de corespondență: Q-020)
   - [ ] Admin: import, raportul de diferențe, moderare
 - [ ] **14. (mi 02.12) Teste, documentație, predare scrisă**
-  - [ ] Minim 10 teste, minim 4 pe twist (acum: 59 în `./mvnw verify`: 19 unitare și 40 de integrare;
-        pe twist: 13, adică 7 în `ServiceCalendarIT` și 6 în `DeparturesIT`; + 3 de UI)
+  - [ ] Minim 10 teste, minim 4 pe twist (acum: 81 în `./mvnw verify`: 29 unitare și 52 de integrare;
+        pe twist: 21, adică 8 în `ServiceCalendarIT`, 6 în `DeparturesIT` și 7 în `NextDeparturesIT`;
+        + testele de UI)
   - [x] CI verde (ultimul run pe `main`: success)
   - [ ] API docs + intrările C- în CONTRACTS.md (încă niciun contract „Provided”)
   - [ ] README final
