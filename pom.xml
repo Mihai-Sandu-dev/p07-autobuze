@@ -43,10 +43,16 @@
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-database-postgresql</artifactId>
     </dependency>
+    <!-- Importul folosește API-ul COPY al driverului (D-038), deci driverul e la compilare. -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <scope>runtime</scope>
+    </dependency>
+    <!-- Citirea fișierelor CSV din feed-ul GTFS (D-046). Nu e gestionat de Spring Boot. -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.14.1</version>
     </dependency>
 
     <dependency>

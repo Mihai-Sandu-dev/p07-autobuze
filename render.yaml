@@ -19,3 +19,6 @@ services:
         sync: false
       - key: SPRING_DATASOURCE_PASSWORD
         sync: false
+      # Tokenul endpoint-ului de import (C-001); același ca secretul IMPORT_TOKEN din GitHub.
+      - key: IMPORT_TOKEN
+        sync: false

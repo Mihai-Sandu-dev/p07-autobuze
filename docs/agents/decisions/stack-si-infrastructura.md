@@ -9,7 +9,7 @@
 - **Evidence:** cerința utilizatorului la setup, 2026-11-18 (nu există cod încă)
 - **Source:** user · confidence high
 - **Owner note:** 2026-11-18: reformulat din „totul rulează local” după D-007 (găzduire publică).
-- **Confirmed:** 2026-11-18
+- **Confirmed:** 2026-11-25
 
 ## D-006 · Build cu Maven (./mvnw); teste cu JUnit 5 și Testcontainers PostGIS
 - **Status:** approved
@@ -19,7 +19,7 @@
 - **Rejected:** Gradle.
 - **Evidence:** răspunsul utilizatorului la Q-006, 2026-11-18
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
+- **Confirmed:** 2026-11-25
 
 ## D-007 · Aplicația e găzduită pe un URL public, cu HTTPS
 - **Status:** approved
@@ -39,7 +39,7 @@
 - **Rejected:** promovarea la admin din aplicație; un admin scris în cod sau într-o migrare.
 - **Evidence:** răspunsul utilizatorului la Q-014, 2026-11-18
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-18
+- **Confirmed:** 2026-11-25
 
 ## D-029 · Screenshot-uri cu Playwright headless
 - **Status:** approved
@@ -66,7 +66,7 @@
 - **Why:** Răspunsul utilizatorului la Q-012; limitele verificate pe 2026-11-19 sunt în Q-012.
 - **Evidence:** răspunsul utilizatorului la Q-012, 2026-11-19; render.com/docs/free; neon.com/docs/introduction/free-tier
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-25
 
 ## D-040 · Conexiunea la Neon verifică certificatul serverului: sslmode=verify-full
 - **Status:** approved
@@ -77,3 +77,13 @@
 - **Evidence:** review-ul de securitate al PR-ului #1, 2026-11-19; documentația driverului PostgreSQL JDBC (sslmode)
 - **Source:** review · confidence medium
 - **Confirmed:** 2026-11-24
+
+## D-046 · CSV-ul din feed se citește cu Apache Commons CSV
+- **Status:** approved
+- **Date:** 2026-11-25
+- **Rule:** Fișierele `.txt` din feed-ul GTFS se citesc cu Apache Commons CSV (`org.apache.commons:commons-csv`), în flux, cu antetul din primul rând. Codul nostru face doar maparea coloanelor GTFS spre coloanele din DB și conversia valorilor (orele după D-043, datele `YYYYMMDD`); testele acoperă maparea noastră, nu biblioteca.
+- **Why:** Decizia utilizatorului la /plan pentru importul GTFS: mai puțin cod de întreținut și de explicat decât un cititor CSV scris de mână (ghilimele, BOM, CRLF).
+- **Rejected:** cititorul CSV scris de mână (propus în planul importului).
+- **Evidence:** răspunsul utilizatorului la /plan pentru importul GTFS, 2026-11-25
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-25

@@ -4,7 +4,10 @@
 - Oraș: Sibiu. Operator: Tursib S.A.
 - Feed GTFS oficial: https://tursib.ro/trasee/gtfs
 - Copie de rezervă: https://mobilitydatabase.org/feeds/gtfs/mdb-2099
-- Dacă feed-ul conține `shapes.txt`: de verificat la descărcare (Q-010).
+- Arhiva verificată la 25.11.2026: `tursib.gtfs_2026-10-v4.9.zip` (1,66 MB; `feed_version` v4.9),
+  la care redirecționează adresa oficială. Conține `shapes.txt` (84.954 de puncte; Q-010 închisă).
+  `stop_times.txt` are 93.218 rânduri; în total, 183.887 de rânduri în 9 fișiere.
+  `stops.txt` (512 rânduri) nu are `stop_code`, iar `parent_station` e gol (Q-019).
 
 ## Licență
 - Feed-ul nu are o licență declarată: câmpul de licență din `feed_info.txt` e gol (verificat la 18.11.2026).

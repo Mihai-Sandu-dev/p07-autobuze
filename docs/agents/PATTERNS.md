@@ -20,7 +20,7 @@
 - **Evidence:** build-ul scheletului, 2026-11-19; 7 teste UI și 4 screenshot-uri trecute așa
 
 ## PATTERN-002 · `./mvnw` rulează în imaginea `eclipse-temurin:21-jdk` când gazda nu are JDK
-- **Status:** candidate
+- **Status:** candidate · outdated (2026-11-25): gazda are acum JDK 21 (21.0.13), iar `./mvnw verify` rulează direct; păstrat pentru o gazdă fără JDK
 - **Date:** 2026-11-24
 - **How:** Cu Docker pornit, rulează `./mvnw` în `eclipse-temurin:21-jdk`, cu repo-ul și cache-ul Maven montate, utilizatorul curent în grupul `docker` și socket-ul Docker montat, ca Testcontainers să-și pornească PostGIS-ul pe gazdă; `TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal` (cu `--add-host host.docker.internal:host-gateway`), ca testele să ajungă la porturile containerului.
 - **Example:** `docker run --rm --user "$(id -u):$(getent group docker | cut -d: -f3)" -e HOME=/tmp/home -e TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal --add-host host.docker.internal:host-gateway -v /var/run/docker.sock:/var/run/docker.sock -v "$HOME/.m2:/tmp/home/.m2" -v "$PWD:/work" -w /work eclipse-temurin:21-jdk ./mvnw -B verify`

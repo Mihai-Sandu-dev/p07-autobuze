@@ -9,12 +9,27 @@
 <!-- graffino-agentic:end -->
 
 ## Index
+- C-001 · Endpoint-ul de import al feed-ului GTFS · provided
 
 ---
 
 ## Provided
-Niciunul încă. REST API-ul aplicației (consumat de harta Leaflet) primește o intrare
-C- când primul endpoint e planificat.
+
+### C-001 · Endpoint-ul de import al feed-ului GTFS
+- **Status:** approved
+- **Date:** 2026-11-25
+- **Interface:** `POST /admin/import` pornește importul (D-019, D-038) și răspunde imediat; `GET /admin/import` dă starea ultimului import. Ambele cer antetul `Authorization: Bearer <IMPORT_TOKEN>` (variabilă de mediu pe Render, secret în GitHub).
+- **Responses:**
+  - `POST`: `202` + starea, dacă importul a pornit; `409` + starea, dacă rulează deja.
+  - `GET`: `200` + starea.
+  - Ambele: `401` fără token sau cu token greșit; `404` dacă `IMPORT_TOKEN` nu e setat pe server.
+- **Body (JSON):** `state` (`IDLE` · `RUNNING` · `DONE` · `UNCHANGED` · `FAILED`), `checksum` (SHA-256, hex), `sourceUrl`, `feedVersionId` (doar la `DONE`), `rows` (tabel → număr de rânduri), `startedAt`, `finishedAt` (ISO-8601), `durationMs`, `message` (motivul la `FAILED`). Câmpurile necunoscute încă sunt `null`.
+- **Consumers:** `.github/workflows/import.yml` (cron zilnic; întreabă starea la fiecare minut până la `DONE`, `UNCHANGED` sau `FAILED`). Mai târziu, butonul adminului (D-038).
+- **Evidence:** planul importului GTFS, aprobat de utilizator 2026-11-25
+- **Confirmed:** 2026-11-25
+
+REST API-ul aplicației (consumat de harta Leaflet) primește o intrare C- separată când
+primul endpoint e planificat.
 
 ## Consumed
 Niciunul.

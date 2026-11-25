@@ -29,11 +29,15 @@
 - **Recorded as:** DATA.md → Licență
 
 ## Q-010 · Feed-ul Tursib conține shapes.txt?
-- **Status:** open
+- **Status:** answered 2026-11-25
 - **Blocks:** vizualizarea traseelor: forma reală de pe hartă sau linii drepte între stații
 - **Who answers:** utilizatorul, la descărcarea feed-ului
+- **Answer:** Da. Arhiva `tursib.gtfs_2026-10-v4.9.zip` (descărcată 2026-11-25, SHA-256 `cb0ddad9…aa9f91`) are `shapes.txt` cu 84.954 de puncte, iar `trips.txt` are `shape_id` completat. Traseele se desenează după forma reală. Utilizatorul a cerut închiderea întrebării după verificare.
+- **Recorded as:** DATA.md → Sursă
 
 ## Q-019 · Ce identificator stabil folosim pentru stații: stop_code sau stop_id?
-- **Status:** open
+- **Status:** answered 2026-11-25
 - **Blocks:** D-020 (rapoarte și favorite care supraviețuiesc versiunilor); depinde dacă feed-ul Tursib are stop_code și dacă stop_id rămâne la fel între versiuni
 - **Who answers:** utilizatorul, după descărcarea feed-ului
+- **Answer:** `stop_id`, confirmat de utilizator pe 2026-11-25. `stop_key` (D-020, D-044) = `stop_id`. În arhiva din 2026-11-25 (v4.9), `stops.txt` nu are deloc coloana `stop_code` (0 din 512 rânduri), iar `parent_station` e gol la toate. `stop_id` e numeric (ex. `1051` = Gară) și e folosit în adresele publice ale Tursib (`stop_url` = `https://tursib.ro/statii/<stop_id>`), deci e de așteptat să rămână același între versiuni. Stabilitatea între două versiuni nu e verificată încă: se compară la primul re-import.
+- **Recorded as:** aici; D-020 și D-044 trimit la Q-019 Consecință pentru D-031: fără `parent_station`, gruparea stațiilor se face după nume și distanță.

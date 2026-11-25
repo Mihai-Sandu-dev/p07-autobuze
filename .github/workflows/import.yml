@@ -1,0 +1,60 @@
+name: Import GTFS
+
+# Importul zilnic al feed-ului Tursib (D-019, D-038, C-001): trezește aplicația de pe Render,
+# pornește importul prin endpoint-ul protejat și întreabă starea la fiecare minut, ca serviciul
+# să nu adoarmă cât rulează. Secretul IMPORT_TOKEN e același cu variabila de pe Render.
+on:
+  schedule:
+    - cron: "30 1 * * *"   # 01:30 UTC = 03:30 (iarna) / 04:30 (vara), ora României
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: import-gtfs
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      IMPORT_URL: https://autobuze.onrender.com/admin/import
+      IMPORT_TOKEN: ${{ secrets.IMPORT_TOKEN }}
+    steps:
+      - name: Import
+        run: |
+          if [ -z "$IMPORT_TOKEN" ]; then
+            echo "::notice::Secretul IMPORT_TOKEN nu e setat; importul nu rulează."
+            exit 0
+          fi
+          auth="Authorization: Bearer $IMPORT_TOKEN"
+
+          # Pornirea: Render poate dormi (~1 min până pornește). 202 = pornit, 409 = rula deja.
+          code=$(curl -sS -o start.json -w '%{http_code}' -X POST -H "$auth" \
+            --max-time 180 --retry 3 --retry-delay 20 --retry-all-errors "$IMPORT_URL")
+          echo "POST: HTTP $code"
+          if [ "$code" != "202" ] && [ "$code" != "409" ]; then
+            echo "::error::Importul nu a pornit (HTTP $code)."
+            exit 1
+          fi
+
+          for i in $(seq 1 25); do
+            sleep 60
+            curl -sS -f -H "$auth" --max-time 60 --retry 3 --retry-all-errors -o status.json "$IMPORT_URL"
+            state=$(jq -r .state status.json)
+            echo "Minutul $i: $state"
+            case "$state" in
+              DONE|UNCHANGED)
+                jq '{state, checksum, sourceUrl, feedVersionId, rows, durationMs}' status.json
+                exit 0 ;;
+              FAILED)
+                echo "::error::Import eșuat: $(jq -r .message status.json)"
+                exit 1 ;;
+              IDLE)
+                echo "::error::Aplicația a repornit în timpul importului (starea IDLE)."
+                exit 1 ;;
+            esac
+          done
+          echo "::error::Importul nu s-a terminat în 25 de minute."
+          exit 1

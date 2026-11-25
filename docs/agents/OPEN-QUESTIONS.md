@@ -25,8 +25,8 @@
 - Q-002 · Ce face un import nou cu datele existente? · _answered_
 - Q-003 · Următoarele plecări vin doar din orar (static) sau și din GTFS-Realtime? · _answered_
 - Q-009 · Confirmă Tursib folosirea datelor GTFS în acest proiect? · _answered_
-- Q-010 · Feed-ul Tursib conține shapes.txt?
-- Q-019 · Ce identificator stabil folosim pentru stații: stop_code sau stop_id?
+- Q-010 · Feed-ul Tursib conține shapes.txt? · _answered_
+- Q-019 · Ce identificator stabil folosim pentru stații: stop_code sau stop_id? · _answered_
 
 ### [Ecrane si scop](questions/ecrane-si-scop.md)
 - Q-022 · Cum spun paginile reale că aplicația nu e oficială Tursib?

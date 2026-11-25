@@ -62,5 +62,6 @@
 - D-032 · Autentificare și înregistrare: întoarcere pe pagina de origine; email unic, parolă de minim 8 caractere și maxim 72 de octeți
 - D-037 · Găzduire: Render (aplicația din Dockerfile) + Neon (PostgreSQL cu PostGIS)
 - D-040 · Conexiunea la Neon verifică certificatul serverului: sslmode=verify-full
+- D-046 · CSV-ul din feed se citește cu Apache Commons CSV
 
 ---

@@ -3,6 +3,41 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-25 · Importul GTFS (punctul 5), D-046, C-001
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
+`feat/import-gtfs`.
+
+**Ce am cerut**
+- `/plan` pentru punctul 5: descărcarea feed-ului printr-un job, cu versiune și checksum; insert în
+  batch, nu rând cu rând; totul într-o tranzacție; indecși expliciți; mini-feed de test construit de
+  noi. Doar importul: fără raportul de diferențe, fără pagini și fără plecări.
+
+**Ce am primit**
+- Planul: descărcare + SHA-256, o tranzacție, câte un `COPY` pe fișier (D-038), endpoint cu token și
+  stare (C-001), workflow cu cron, test că fiecare cheie străină are index; un cititor CSV scris de mână.
+- Înainte de build, analiza arhivei reale (`tursib.gtfs_2026-10-v4.9.zip`): are `shapes.txt`
+  (84.954 de puncte), `stop_times.txt` are 93.218 rânduri (183.887 în total), `stop_code` lipsește
+  la toate cele 512 stații, iar `parent_station` e gol.
+- Build-ul: testele întâi (16 unitare picate pe cod lipsă), apoi codul; `./mvnw verify` cu 42 de teste
+  trecute. Două reguli stricate intenționat (păstrarea a 2 versiuni, verificarea checksum-ului) au
+  fost prinse de teste.
+
+**Ce am făcut cu răspunsul**
+- Am aprobat planul, C-001 și presupunerile (pornire prin endpoint + cron; același checksum notat
+  doar în stare și în log, fără migrare).
+- Am înlocuit cititorul CSV scris de mână cu Apache Commons CSV (D-046): mai puțin cod de întreținut
+  și de explicat. Testul cititorului a devenit un test pe maparea noastră.
+- **Scenariile mini-feed-ului sunt ale mele:** a) serviciu luni–vineri scos pe 01.12.2026; b) serviciu
+  doar în `calendar_dates`; c) cursă 23:50 → 25:10:00; d) două stații la ~100 m pe linii diferite;
+  e) o stație la peste 150 m, care nu e transfer; f) un `stop_name` cu virgulă. Agentul a scris
+  fișierele după ele; le-am verificat rând cu rând înainte de commit și am cerut două ajustări:
+  o stație intermediară pe cursa de noapte (`S_NOAPTE`, plecare la 24:40:00 dintr-o stație care nu
+  e capăt) și 30.11.2026 (Sf. Andrei) scos din serviciul luni–vineri.
+- Am cerut închiderea Q-010 după verificarea arhivei. Pentru Q-019 agentul a propus `stop_id`;
+  am confirmat și am închis-o. Am aprobat D-046 și cele două abateri de la plan (driverul PostgreSQL
+  la compilare, `IMPORT_TOKEN` în `docker-compose.yml`). PATTERN-002 e marcat outdated: gazda are
+  acum JDK 21.
+
 ## 2026-11-24 · V2 pe Neon (punctul 2 încheiat), D-045
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe `main`
 (doar documentație; deploy-ul l-am făcut eu, din consola Render).

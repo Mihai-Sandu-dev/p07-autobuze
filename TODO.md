@@ -36,13 +36,17 @@
 
 ## Checkpoint 2 · du 29.11 (intern)
 
-- [ ] **5. Importul GTFS** (D-003, D-019, D-038): job de descărcare cu versiune + checksum, insert în
+- [x] **5. Importul GTFS** (D-003, D-019, D-038): job de descărcare cu versiune + checksum, insert în
       batch, tranzacțional, indecși expliciți; mini-feed de test
-  - [ ] Jobul de import
-  - [ ] **Autor:** mini-feed-ul de test: calendar cu excepții, curse după miezul nopții (25:10:00), transfer ≤ 150 m
+  - [x] Jobul de import: `GtfsImportService` (SHA-256, o tranzacție, câte un COPY pe fișier, 2 versiuni păstrate),
+        `POST`/`GET /admin/import` cu token (C-001), `.github/workflows/import.yml`; `GtfsImportIT` și
+        `ImportControllerIT` trec local. Pe live: încă nu (deploy + `IMPORT_TOKEN` pe Render și în GitHub, de la autor)
+  - [x] **Autor:** mini-feed-ul de test (`src/test/resources/gtfs/mini/`), pe scenariile a–f ale autorului: scris de
+        agent, verificat de autor rând cu rând (2026-11-25)
 - [ ] **6. Feed-ul real importat local și pe live**; durata și numărul de rânduri în DATA.md
-  - [ ] **Autor, după descărcare:** are `shapes.txt`? (Q-010)
-  - [ ] **Autor, după descărcare:** identificatorul stabil al stațiilor și regula de grupare din D-031 (Q-019)
+  - [x] **Autor, după descărcare:** are `shapes.txt`? Da, 84.954 de puncte (Q-010 închisă, 2026-11-25)
+  - [x] **Autor, după descărcare:** identificatorul stabil al stațiilor: `stop_id` (Q-019 închisă, 2026-11-25);
+        feed-ul nu are `parent_station`, deci gruparea din D-031 merge după nume și distanță
 - [ ] **7. Twist 1+2**: serviciile active într-o zi (`calendar` + `calendar_dates`) și orele ≥ 24:00; teste pe mini-feed
       (D-014, D-015: sărbătorile 2026–2027 în DB)
 - [ ] **8. Pagina de stație**: „următoarele plecări”, sub 300 ms pe feed-ul real, măsurat și documentat
@@ -61,7 +65,8 @@
   - [ ] Seed-ul din observațiile de teren (tabelul de corespondență: Q-020)
   - [ ] Admin: import, raportul de diferențe, moderare
 - [ ] **14. (mi 02.12) Teste, documentație, predare scrisă**
-  - [ ] Minim 10 teste, minim 4 pe twist (acum: 11 în `./mvnw verify`, dintre care 6 pe schemă, + 3 de UI; niciunul pe twist)
+  - [ ] Minim 10 teste, minim 4 pe twist (acum: 42 în `./mvnw verify`: 16 unitare și 26 de integrare, dintre care 6 pe schemă și 16 pe import;
+        + 3 de UI; niciunul pe twist)
   - [x] CI verde (ultimul run pe `main`: success)
   - [ ] API docs + intrările C- în CONTRACTS.md (încă niciun contract „Provided”)
   - [ ] README final
