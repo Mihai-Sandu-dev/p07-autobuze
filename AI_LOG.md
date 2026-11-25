@@ -3,6 +3,30 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-25 · Primul import real, pe live și local (punctul 6)
+**Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe `main`
+(doar documentație; deploy-ul, variabilele și workflow-ul le-am făcut eu).
+
+**Ce am făcut eu**
+- Deploy pe Render al commit-ului `d2ea174`; `IMPORT_TOKEN` pe Render și ca secret în GitHub; am
+  pornit manual workflow-ul „Import GTFS”.
+- **Greșeala:** prima încercare a picat cu 404. Pusesem `IMPORT_TOKEN` pe Render la „Secret Files”
+  în loc de „Environment Variables”. Aplicația nu vedea variabila, deci endpoint-ul răspundea 404,
+  cum cere C-001 când tokenul nu e configurat. **Corectura:** am mutat tokenul la Environment
+  Variables, am redat deploy-ul, iar a doua rulare a mers: `POST` 202, `DONE` după primul minut.
+
+**Ce am cerut**
+- Durata, rândurile pe fișier și memoria în DATA.md; precizarea că feed-ul are 183.887 de rânduri
+  (93.218 în `stop_times`), sub pragul de 200.000 din catalog; punctul 6 bifat.
+
+**Ce am primit**
+- Cifrele de pe live luate din capturile mele: 22,8 s, versiunea 1, rândurile pe fișier. Agentul a
+  observat că lăsasem necompletate memoria și verificarea pe Neon. Memoria pe Render nu se vede pe
+  planul gratuit, așa că în DATA.md apare ca nemăsurată.
+- Importul local, rulat de agent în Docker Compose cu un token temporar ținut doar în shell (nescris
+  în fișiere): `DONE` în 5,9 s, același checksum, rândurile verificate cu SQL, maxim ~332 MiB pentru
+  container.
+
 ## 2026-11-25 · Importul GTFS (punctul 5), D-046, C-001
 **Unealta:** Claude Code (model Claude Opus 5.5), în repo-ul local `p07-autobuze`, pe branch-ul
 `feat/import-gtfs`.

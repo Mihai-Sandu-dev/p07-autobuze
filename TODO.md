@@ -43,7 +43,10 @@
         `ImportControllerIT` trec local. Pe live: încă nu (deploy + `IMPORT_TOKEN` pe Render și în GitHub, de la autor)
   - [x] **Autor:** mini-feed-ul de test (`src/test/resources/gtfs/mini/`), pe scenariile a–f ale autorului: scris de
         agent, verificat de autor rând cu rând (2026-11-25)
-- [ ] **6. Feed-ul real importat local și pe live**; durata și numărul de rânduri în DATA.md
+- [x] **6. Feed-ul real importat local și pe live**; durata și numărul de rânduri în DATA.md
+  - [x] Pe live, 2026-11-25: `DONE` în 22,8 s, versiunea 1, 183.887 de rânduri (workflow pornit manual; capturile autorului)
+  - [x] Local, 2026-11-25: `DONE` în 5,9 s, aceleași rânduri și același checksum, verificat cu SQL
+  - [x] Durata, rândurile pe fișier și memoria în DATA.md → „Import”
   - [x] **Autor, după descărcare:** are `shapes.txt`? Da, 84.954 de puncte (Q-010 închisă, 2026-11-25)
   - [x] **Autor, după descărcare:** identificatorul stabil al stațiilor: `stop_id` (Q-019 închisă, 2026-11-25);
         feed-ul nu are `parent_station`, deci gruparea din D-031 merge după nume și distanță
