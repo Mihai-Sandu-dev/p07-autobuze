@@ -26,8 +26,11 @@ public record StationBoard(Station station, LocalDateTime now, String dayLabel, 
      */
     public record Entry(String time, LocalDateTime at, boolean tomorrow, int minutes) {
 
-        /** „în 4 min”, „în 1 h 7 min”, „în 2 h” (mock-ul DS-autobuze-statie). */
+        /** „în 4 min”, „în 1 h 7 min”, „în 2 h” (mock-ul DS-autobuze-statie); sub un minut, „acum” (D-052). */
         public String untilText() {
+            if (minutes <= 0) {
+                return "acum";
+            }
             int hours = minutes / 60;
             int rest = minutes % 60;
             if (hours == 0) {
