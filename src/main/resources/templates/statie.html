@@ -1,20 +1,29 @@
 <!doctype html>
 <html lang="ro" xmlns:th="http://www.thymeleaf.org">
 <!-- DS-autobuze-statie (mock aprobat): următoarele plecări pe linie + capăt (D-018, D-048, D-051),
-     randat pe server (D-050). Harta mică vine la punctul 9; favorita și raportul, la punctele 10 și 13. -->
+     randat pe server (D-050). Harta mică (punctul 9): coordonatele din C-002, desenul în static/js/harta-mini.js;
+     favorita și raportul, la punctele 10 și 13. -->
 <head th:replace="~{fragments/head :: head(${board.station != null ? 'Stația ' + board.station.name + ' · Staționar — când vine autobuzul?' : 'Staționar — când vine autobuzul?'}, null)}"></head>
 <body>
-<header th:replace="~{fragments/antet :: antet}"></header>
+<header th:replace="~{fragments/antet :: antet('statie')}"></header>
 <svg class="sprite" aria-hidden="true">
   <symbol id="i-ceas" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-sageata" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-harta" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></symbol>
 </svg>
 <main class="statie">
+  <a class="harta-mini" href="/harta?statie=1051" data-lat="45.79" data-lon="24.16" aria-label="Deschide harta mare"
+     th:if="${board.station != null}" th:href="@{/harta(statie=${board.station.stopIds[0]})}"
+     th:data-lat="${board.station.lat}" th:data-lon="${board.station.lon}"
+     th:aria-label="${'Deschide harta mare, centrată pe stația ' + board.station.name}"><div class="harta-leaflet"></div></a>
   <section class="statie-cap">
     <h1><svg class="ic" aria-hidden="true"><use href="#i-bus"/></svg><span
         th:text="${board.station != null ? board.station.name : 'Stație'}">Turnișor</span></h1>
     <p class="meta"><svg class="ic" aria-hidden="true"><use href="#i-ceas"/></svg><span
         th:text="${board.dayLabel + ' · acum ' + #temporals.format(board.now, 'HH:mm')}">Marți, 17 noiembrie · zi lucrătoare · acum 16:40</span></p>
+    <div class="actiuni" th:if="${board.station != null}">
+      <a class="btn" th:href="@{/harta(statie=${board.station.stopIds[0]})}" href="/harta?statie=1051"><svg class="ic" aria-hidden="true"><use href="#i-harta"/></svg>Vezi pe hartă</a>
+    </div>
   </section>
 
   <div class="stare" th:if="${!board.feedImported}">
@@ -55,5 +64,10 @@
   </div>
 </main>
 <footer th:replace="~{fragments/subsol :: subsol}"></footer>
+<th:block th:if="${board.station != null}">
+<link rel="stylesheet" th:href="@{/vendor/leaflet/leaflet.css}" href="/vendor/leaflet/leaflet.css">
+<script th:src="@{/vendor/leaflet/leaflet.js}" src="/vendor/leaflet/leaflet.js"></script>
+<script th:src="@{/js/harta-mini.js}" src="/js/harta-mini.js"></script>
+</th:block>
 </body>
 </html>

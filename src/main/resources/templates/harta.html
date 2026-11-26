@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<!-- DS-autobuze-harta (mock aprobat): „/” și /harta (D-022, D-030). Stațiile vin din API (C-003) și se
+     desenează în browser (static/js/harta.js); căutarea după nume e în browser (D-054), „aproape de mine”
+     pe server, cu PostGIS (D-034). Leaflet din static/vendor/leaflet (D-053), tile-uri OSM cu atribuire (D-005). -->
+<head th:replace="~{fragments/head :: head('Staționar — când vine autobuzul?', null)}"></head>
+<body>
+<header th:replace="~{fragments/antet :: antet('harta')}"></header>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-locatie" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+</svg>
+<main class="harta-pagina">
+  <section class="panou" aria-label="Căutare stații">
+    <h1>Stații</h1>
+    <div class="camp">
+      <label for="cauta">Caută o stație după nume</label>
+      <div class="rand-cautare">
+        <input type="search" id="cauta" autocomplete="off" placeholder="ex. Turnișor">
+        <button class="btn" type="button" id="aproape"><svg class="ic" aria-hidden="true"><use href="#i-locatie"/></svg><span>Aproape de mine</span></button>
+      </div>
+    </div>
+    <div id="rezultate" class="rezultate" aria-live="polite"><p class="mesaj">Se încarcă stațiile…</p></div>
+  </section>
+  <section class="harta" id="harta" aria-label="Harta stațiilor">
+    <div id="harta-leaflet" class="harta-leaflet"></div>
+    <div id="popup-loc"></div>
+  </section>
+</main>
+<footer th:replace="~{fragments/subsol :: subsol}"></footer>
+<link rel="stylesheet" th:href="@{/vendor/leaflet/leaflet.css}" href="/vendor/leaflet/leaflet.css">
+<script th:src="@{/vendor/leaflet/leaflet.js}" src="/vendor/leaflet/leaflet.js"></script>
+<script th:src="@{/js/harta.js}" src="/js/harta.js"></script>
+</body>
+</html>
