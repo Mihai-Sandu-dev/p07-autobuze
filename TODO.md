@@ -75,12 +75,13 @@
   - [x] Teste: `StationDirectoryIT` (5), `MapControllerIT` (10, înlocuiește `HelloPageIT`), `StationControllerIT` (+1),
         `HartaUiTest` (8); screenshot-uri `DS-autobuze-harta` și `DS-autobuze-statie` (feed-ul real, local)
   - [x] Deploy (făcut de autor) și „aproape de mine” verificat de autor pe telefon, pe live (HTTPS), 2026-11-26
-- [ ] **10. Auth USER + ADMIN**, rute protejate pe server; favorite + pagina „Acasă” (D-011, D-020, D-022, D-032)
+- [x] **10. Auth USER + ADMIN**, rute protejate pe server; favorite + pagina „Acasă” (D-011, D-020, D-022, D-032)
   - [x] Spring Security (`security/`): `/autentificare`, `/inregistrare` (→ autentificare, D-056), `/iesire`; rutele D-058
         (`/admin/import` doar cu token); adminul din mediu (D-055); favoritele, maxim 10, și „Acasă” la „/” (D-057)
   - [x] Teste: `SecurityIT` (12), `RegistrationIT` (9), `AdminAccountIT` (4), `FavoritesIT` (9), `HomePageIT` (7),
         `ReturnToTest` (11), `AuthUiTest` (2); screenshot-uri `DS-autobuze-login`, `-inregistrare`, `-acasa`
-  - [ ] **Autor:** `ADMIN_EMAIL` și `ADMIN_PASSWORD` în Render; deploy (cu acordul autorului) și autentificarea pe live
+  - [x] **Autor:** `ADMIN_EMAIL` și `ADMIN_PASSWORD` în Render; deploy și verificare pe live (2026-11-26):
+        login admin, favorite + „Acasă”, USER pe /admin → 403, „aproape de mine” pe telefon
 - [ ] **11. Pagina de linie**: traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi (D-014, D-016, D-035; Q-010)
 
 ## Livrare · jo 03.12
