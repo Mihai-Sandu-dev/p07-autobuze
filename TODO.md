@@ -104,6 +104,9 @@
 - [ ] **15. (jo 03.12) Final**: video demo, verificare pe o clonă nouă, căutare de secrete, predare
 
 ## În afara celor 15 puncte (din vechiul TODO, păstrate)
+- [ ] **Autor, după punctul 12:** exercițiu fără AI: sortarea grupurilor pe pagina de stație după numărul liniei
+      (`?ordine=linie`), sortare numerică (2 < 11 < 19 < 118, inclusiv linii ca „11b”), cu test în
+      `NextDeparturesTest`. Îl scrie autorul, ca pregătire pentru modificarea surpriză.
 - [ ] Comasarea interogărilor pentru „următoarele plecări” (cererea pe live: mediana 438 ms; 13 drumuri până
       la Neon pe cerere, DATA.md → Performanță). De propus prin `/plan`; nu e cerința de 300 ms, care e pe interogare.
 - [ ] Gruparea stațiilor cu nume numerotat (ex. „Aeroport 1” + „Aeroport 2”) la ≤ 150 m. Pe feed-ul real, D-031

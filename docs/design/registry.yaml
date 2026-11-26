@@ -46,7 +46,7 @@ designs:
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-linie.html
-    status: draft  # desenat 2026-11-26 (punctul 11), de confirmat de autor în browser
+    status: approved  # desenat 2026-11-26 (punctul 11), confirmat de autor în browser 2026-11-26, cu textele propuse
   - id: DS-autobuze-planificator
     kind: screen
     note: "de la stația A la B, acum sau la o oră dată; primele 3 itinerarii (D-002, D-012, D-013)"
