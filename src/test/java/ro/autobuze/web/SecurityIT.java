@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -76,14 +75,14 @@ class SecurityIT {
     void favoritesNeedALogin() throws Exception {
         mvc.perform(post("/favorite/S_B").with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlPattern("**/autentificare"));
+                .andExpect(redirectedUrl("/autentificare"));
     }
 
     @Test
     void adminRoutesNeedTheAdminRole() throws Exception {
         mvc.perform(get("/admin/rapoarte"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlPattern("**/autentificare"));
+                .andExpect(redirectedUrl("/autentificare"));
         mvc.perform(get("/admin/rapoarte").with(user(EMAIL).roles("USER")))
                 .andExpect(status().isForbidden());
         // ADMIN trece de filtru; pagina nu există încă (punctul 13)

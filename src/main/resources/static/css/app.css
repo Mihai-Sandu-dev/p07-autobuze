@@ -48,6 +48,13 @@ a { color: var(--color-accent); }
 }
 .antet nav a:hover { background: var(--color-surface); }
 .antet nav a[aria-current="page"] { font-weight: 600; box-shadow: inset 0 calc(-1 * var(--space-1) / 2) 0 var(--color-text); }
+/* „Ieșire” e un formular POST (D-058), arătat ca linkurile de lângă el */
+.antet nav .iesire { display: contents; }
+.antet nav .iesire button {
+  font: var(--text-sm) var(--font-text); color: var(--color-text); background: none; border: 0; cursor: pointer;
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); transition: background var(--motion-fast);
+}
+.antet nav .iesire button:hover { background: var(--color-surface); }
 
 /* Conținutul paginilor */
 main {
@@ -219,6 +226,70 @@ input[type="search"] {
 .stare-harta.eroare h2 { color: var(--color-danger); }
 .stare-harta p { margin: var(--space-2) 0 var(--space-4); color: var(--color-text-muted); }
 
+/* Pagina de stație: favorita (D-057) și textul pentru vizitator */
+.statie-cap .actiuni form { display: contents; }
+.btn.fav[aria-pressed="true"] { border-color: var(--color-accent); color: var(--color-accent); }
+.btn.fav[aria-pressed="true"] .ic { fill: currentColor; }
+.limita {
+  flex-basis: 100%; margin: 0; border: 1px solid var(--color-warning); border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3); font: var(--text-sm) var(--font-text); background: var(--color-bg);
+}
+.info-login { margin: var(--space-4) 0 0; font: var(--text-sm) var(--font-text); color: var(--color-text-muted); }
+
+/* DS-autobuze-login, DS-autobuze-inregistrare */
+main.formular { max-width: var(--size-form); }
+.intro { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); margin: var(--space-1) 0 0; }
+.card {
+  margin-top: var(--space-5); background: var(--color-surface); border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-4); display: grid; gap: var(--space-4);
+}
+.card input[type="email"], .card input[type="password"] {
+  font: var(--text-md) var(--font-text); color: var(--color-text); background: var(--color-bg);
+  border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3);
+  min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box; width: 100%;
+}
+.card input[aria-invalid="true"] { border-color: var(--color-danger); }
+.eroare-camp { color: var(--color-danger); font: var(--text-sm) var(--font-text); margin: 0; }
+.ajutor { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); margin: 0; }
+.alerta, .succes {
+  border: 1px solid var(--color-danger); border-radius: var(--radius-sm); padding: var(--space-3);
+  font: var(--text-sm) var(--font-text); background: var(--color-bg); display: flex; gap: var(--space-2);
+}
+.alerta .ic { color: var(--color-danger); }
+.alerta strong { display: block; color: var(--color-danger); }
+.succes { border-color: var(--color-success); font-weight: 600; align-items: center; }
+.succes .ic { color: var(--color-success); }
+.btn-lat { width: 100%; }
+.alt { text-align: center; font: var(--text-sm) var(--font-text); color: var(--color-text-muted); margin: var(--space-4) 0 0; }
+
+/* DS-autobuze-acasa (D-057) */
+.acasa-cap .meta {
+  color: var(--color-text-muted); font: var(--text-sm) var(--font-text); margin: var(--space-1) 0 0;
+  display: flex; gap: var(--space-1); align-items: center;
+}
+.favorite { margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+.fav { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); }
+.fav h2 {
+  font: 600 var(--text-lg) var(--font-text); margin: 0 0 var(--space-2); overflow-wrap: anywhere;
+  display: flex; gap: var(--space-2); align-items: center;
+}
+.fav h2 a { color: var(--color-text); text-decoration-color: var(--color-border); text-underline-offset: var(--space-1); }
+.fav h2 .ic { color: var(--color-warning); fill: currentColor; }
+.randuri { list-style: none; margin: 0; padding: 0; display: grid; }
+.randuri li {
+  display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-1) var(--space-3); align-items: center;
+  padding: var(--space-2) 0; border-top: 1px solid var(--color-divider);
+}
+.randuri li:first-child { border-top: 0; }
+.randuri .sens { font: 600 var(--text-sm) var(--font-text); overflow-wrap: anywhere; min-width: 0; }
+.randuri .sens .ic { color: var(--color-text-muted); }
+.randuri .cand-ora { text-align: end; display: grid; justify-items: end; }
+.randuri .ora { font: 700 var(--text-time-sm) var(--font-mono); }
+.fav .nota { margin: 0; color: var(--color-text-muted); font: var(--text-sm) var(--font-text); }
+.fav .sterge { margin-top: var(--space-3); }
+.harta-fav-titlu { font: 600 var(--text-lg) var(--font-text); margin: var(--space-6) 0 var(--space-2); }
+.stare p { margin: var(--space-2) 0 var(--space-4); color: var(--color-text-muted); }
+
 /* DS-autobuze-subsol (D-008) */
 .subsol {
   border-top: 1px solid var(--color-divider); padding: var(--space-4);
@@ -227,6 +298,7 @@ input[type="search"] {
 
 @media (min-width: 600px) {
   main { padding: var(--space-7) var(--space-5); }
+  .card { padding: var(--space-5); }
   main.statie { padding: var(--space-5); }
   h1 { font: 700 var(--text-2xl) var(--font-text); }
   .harta-mini { aspect-ratio: 3 / 1; }

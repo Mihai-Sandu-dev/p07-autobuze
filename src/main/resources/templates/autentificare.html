@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<!-- DS-autobuze-login (mock aprobat): email și parolă (D-011), procesate de Spring Security pe POST /autentificare;
+     după autentificare, înapoi la `inapoi` (D-032). Starea „Contul a fost creat” vine după înregistrare (D-056). -->
+<head th:replace="~{fragments/head :: head('Autentificare · Staționar — când vine autobuzul?', null)}"></head>
+<body>
+<header th:replace="~{fragments/antet :: antet('autentificare')}"></header>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-alerta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></symbol>
+</svg>
+<main class="formular">
+  <h1>Autentificare</h1>
+  <p class="intro">Cu un cont salvezi stații la favorite și raportezi abateri.</p>
+  <form class="card" action="/autentificare" th:action="@{/autentificare}" method="post" novalidate
+        data-trimite="Se verifică…">
+    <div class="succes" role="status" th:if="${creat}">
+      <svg class="ic" aria-hidden="true"><use href="#i-ok"/></svg>
+      <span>Contul a fost creat. Autentifică-te.</span>
+    </div>
+    <div class="alerta" role="alert" th:if="${eroare}">
+      <svg class="ic" aria-hidden="true"><use href="#i-alerta"/></svg>
+      <span><strong>Emailul sau parola nu sunt corecte.</strong>Verifică-le și încearcă din nou.</span>
+    </div>
+    <input type="hidden" name="inapoi" th:value="${inapoi}">
+    <div class="camp">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" aria-describedby="eroare-email"
+             data-gol="Scrie adresa de email." th:aria-invalid="${eroare} ? 'true'">
+      <p class="eroare-camp" id="eroare-email" hidden></p>
+    </div>
+    <div class="camp">
+      <label for="parola">Parolă</label>
+      <input type="password" id="parola" name="parola" autocomplete="current-password" aria-describedby="eroare-parola"
+             data-gol="Scrie parola." th:aria-invalid="${eroare} ? 'true'">
+      <p class="eroare-camp" id="eroare-parola" hidden></p>
+    </div>
+    <button class="btn btn-primar btn-lat" type="submit">Autentifică-te</button>
+  </form>
+  <p class="alt">Nu ai cont? <a href="/inregistrare" th:href="@{/inregistrare(inapoi=${inapoi})}">Creează unul</a></p>
+</main>
+<footer th:replace="~{fragments/subsol :: subsol}"></footer>
+<script th:src="@{/js/formular.js}" src="/js/formular.js"></script>
+</body>
+</html>

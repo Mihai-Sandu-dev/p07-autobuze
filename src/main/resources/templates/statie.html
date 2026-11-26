@@ -2,13 +2,14 @@
 <html lang="ro" xmlns:th="http://www.thymeleaf.org">
 <!-- DS-autobuze-statie (mock aprobat): următoarele plecări pe linie + capăt (D-018, D-048, D-051),
      randat pe server (D-050). Harta mică (punctul 9): coordonatele din C-002, desenul în static/js/harta-mini.js;
-     favorita și raportul, la punctele 10 și 13. -->
+     favorita (punctul 10, D-057) cu formulare POST; raportul, la punctul 13. -->
 <head th:replace="~{fragments/head :: head(${board.station != null ? 'Stația ' + board.station.name + ' · Staționar — când vine autobuzul?' : 'Staționar — când vine autobuzul?'}, null)}"></head>
 <body>
 <header th:replace="~{fragments/antet :: antet('statie')}"></header>
 <svg class="sprite" aria-hidden="true">
   <symbol id="i-ceas" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-sageata" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-stea" viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></symbol>
   <symbol id="i-harta" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></symbol>
 </svg>
 <main class="statie">
@@ -22,8 +23,15 @@
     <p class="meta"><svg class="ic" aria-hidden="true"><use href="#i-ceas"/></svg><span
         th:text="${board.dayLabel + ' · acum ' + #temporals.format(board.now, 'HH:mm')}">Marți, 17 noiembrie · zi lucrătoare · acum 16:40</span></p>
     <div class="actiuni" th:if="${board.station != null}">
+      <form th:if="${utilizator != null and !favorita}" action="#" th:action="@{/favorite/{id}(id=${stopId})}" method="post"><button
+          class="btn fav" type="submit" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-stea"/></svg><span>Adaugă la favorite</span></button></form>
+      <form th:if="${utilizator != null and favorita}" action="#" th:action="@{/favorite/{id}/sterge(id=${stopId})}" method="post"><button
+          class="btn fav" type="submit" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-stea"/></svg><span>În favorite</span></button></form>
       <a class="btn" th:href="@{/harta(statie=${board.station.stopIds[0]})}" href="/harta?statie=1051"><svg class="ic" aria-hidden="true"><use href="#i-harta"/></svg>Vezi pe hartă</a>
+      <p class="limita" role="alert" th:if="${limita}">Ai deja 10 stații favorite. Șterge una ca să adaugi alta.</p>
     </div>
+    <p class="info-login" th:if="${utilizator == null and board.station != null}">Ai văzut un autobuz întârziat? <a
+        href="/autentificare" th:href="@{/autentificare(inapoi=${caleCurenta})}">Autentifică-te</a> ca să raportezi o abatere sau să salvezi stația la favorite.</p>
   </section>
 
   <div class="stare" th:if="${!board.feedImported}">

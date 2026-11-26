@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<!-- DS-autobuze-acasa (mock aprobat): „/” pentru utilizatorul logat (D-022). Pentru fiecare favorită, ordonate
+     după nume, următoarea plecare din fiecare grup linie + capăt (D-018, D-051, D-057), randat pe server (D-050);
+     dedesubt, harta favoritelor (static/js/harta-mini.js). -->
+<head th:replace="~{fragments/head :: head('Acasă · Staționar — când vine autobuzul?', null)}"></head>
+<body>
+<header th:replace="~{fragments/antet :: antet('acasa')}"></header>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-ceas" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-sageata" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-stea" viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></symbol>
+</svg>
+<main class="acasa">
+  <section class="acasa-cap">
+    <h1>Acasă</h1>
+    <p class="meta"><svg class="ic" aria-hidden="true"><use href="#i-ceas"/></svg><span
+        th:text="${dayLabel + ' · acum ' + #temporals.format(now, 'HH:mm')}">Marți, 17 noiembrie · zi lucrătoare · acum 16:40</span></p>
+  </section>
+
+  <div class="stare" th:if="${!feedImported}">
+    <h2>Orarul nu e încă importat</h2>
+    <p>Plecările apar după primul import al orarului Tursib. Revino peste câteva minute.</p>
+  </div>
+
+  <div class="stare" th:if="${feedImported and #lists.isEmpty(favorite)}">
+    <h2>Nu ai încă stații favorite</h2>
+    <p>Deschide o stație și apasă „Adaugă la favorite”: plecările ei apar aici. Poți salva până la 10 stații.</p>
+    <a class="btn btn-primar" href="/harta" th:href="@{/harta}">Caută o stație pe hartă</a>
+  </div>
+
+  <th:block th:if="${feedImported and !#lists.isEmpty(favorite)}">
+    <div class="favorite">
+      <section class="fav" th:each="f : ${favorite}" th:attr="aria-label=${f.name}">
+        <h2 th:if="${f.gone}"><svg class="ic" aria-hidden="true"><use href="#i-stea"/></svg><span th:text="${f.name}">Piața Cibin 3</span></h2>
+        <h2 th:unless="${f.gone}"><svg class="ic" aria-hidden="true"><use href="#i-stea"/></svg><a href="/statie/1051"
+            th:href="@{/statie/{id}(id=${f.stopId})}" th:text="${f.name}">Metro</a></h2>
+        <th:block th:if="${f.gone}">
+          <p class="nota">Stația nu mai e în orarul actual Tursib.</p>
+          <form action="#" th:action="@{/favorite/{id}/sterge(id=${f.stopId})}" method="post">
+            <input type="hidden" name="inapoi" value="/">
+            <button class="btn sterge" type="submit">Șterge din favorite</button>
+          </form>
+        </th:block>
+        <p class="nota" th:if="${!f.gone and #lists.isEmpty(f.groups)}">Nicio plecare azi sau mâine.</p>
+        <ul class="randuri" th:if="${!f.gone and !#lists.isEmpty(f.groups)}">
+          <li th:each="g : ${f.groups}" th:with="d=${g.departures[0]}">
+            <span class="eticheta" th:classappend="${g.color == 'FFFFFF'} ? 'fara-culoare'"
+                  th:style="${'background: #' + g.color + '; color: #' + g.textColor}" th:text="${g.line}">11</span>
+            <span class="sens"><svg class="ic" aria-hidden="true"><use href="#i-sageata"/></svg><span class="sr">spre </span><span
+                th:text="${g.headsign}">Aumovio</span></span>
+            <span class="cand-ora"><span class="sr">Următoarea plecare: </span><span class="ora" th:text="${d.time}">16:43</span>
+              <span class="cand" th:if="${d.tomorrow}"><span class="chip-maine">mâine</span></span>
+              <span class="cand" th:unless="${d.tomorrow}" th:text="${d.untilText()}">în 3 min</span></span>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <th:block th:if="${puncte != '[]'}">
+      <h2 class="harta-fav-titlu">Favoritele pe hartă</h2>
+      <a class="harta-mini" href="/harta" th:href="@{/harta}" th:data-puncte="${puncte}"
+         aria-label="Deschide harta mare"><div class="harta-leaflet"></div></a>
+    </th:block>
+  </th:block>
+</main>
+<footer th:replace="~{fragments/subsol :: subsol}"></footer>
+<th:block th:if="${feedImported and puncte != '[]'}">
+<link rel="stylesheet" th:href="@{/vendor/leaflet/leaflet.css}" href="/vendor/leaflet/leaflet.css">
+<script th:src="@{/vendor/leaflet/leaflet.js}" src="/vendor/leaflet/leaflet.js"></script>
+<script th:src="@{/js/harta-mini.js}" src="/js/harta-mini.js"></script>
+</th:block>
+</body>
+</html>
