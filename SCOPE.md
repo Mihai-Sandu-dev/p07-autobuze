@@ -35,7 +35,7 @@ raportate de utilizatori. Fișa: categoria B, dificultate ★★★★★, ~45 h
 | `/` pentru vizitator; `/harta` pentru toți | harta cu stații, căutare după nume și „aproape de mine” (geolocația din browser; cele mai apropiate 3 stații în 1 km) | D-022, D-030, D-034, D-005 |
 | `/` pentru utilizator logat („Acasă”) | plecările de la stațiile favorite, harta dedesubt | D-022 |
 | Pagina de stație | următoarele 3 plecări pe fiecare linie și sens, cu excepțiile de calendar; un buton de raport de abatere pe fiecare grup de linie și sens | D-018, D-017, D-028 |
-| Pagina de linie | traseul pe hartă, stațiile în ordine, orarul complet pe tipuri de zi, abaterea medie pe intervale de o oră | D-014, D-016; Q-010 (shapes) |
+| Pagina de linie | traseul pe hartă, stațiile în ordine, orarul complet pe tipuri de zi (lucrătoare, sâmbătă, duminică, D-060), abaterea medie pe intervale de o oră | D-060, D-061, D-016; Q-010 (shapes) |
 | Planificator | de la stația A la stația B, acum sau la o dată și oră alese (în perioada de valabilitate a feed-ului; continuă cu ziua următoare); primele 3 itinerarii: plecare, sosire, linii, stația de transfer, timpul de așteptare | D-002, D-012, D-013, D-033 |
 | Înregistrare, login | email și parolă | D-011 |
 | Admin: import | pornește jobul; versiuni și checksum-uri | D-003, D-019 |
@@ -54,9 +54,9 @@ Designul fiecărui ecran se face în pasul următor (`docs/design/`).
   (D-003, D-019).
 - **Date ale utilizatorilor** (rapoarte, favorite): legate de identificatori stabili,
   nu de o versiune (D-020; Q-019).
-- **Tipuri de zi:** lucrătoare, sâmbătă, duminică sau sărbătoare legală (D-014). Lista
+- **Tipuri de zi:** lucrătoare, sâmbătă, duminică sau sărbătoare legală (D-061; pe pagina liniei, D-060). Lista
   sărbătorilor din DB dă doar eticheta zilei și intră în media abaterilor; plecările
-  vin numai din calendar.txt și calendar_dates.txt (D-014, D-015).
+  vin numai din calendar.txt și calendar_dates.txt (D-061, D-015).
 - **Seed din teren:** observațiile din `field/observations.csv` intră în rapoartele de
   abatere (D-009, D-010), legate de feed printr-un tabel de corespondență completat de
   autor (D-021; Q-020). Intră ca rapoarte de abatere cu sursa „teren” (D-025).

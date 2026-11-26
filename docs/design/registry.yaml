@@ -42,7 +42,7 @@ designs:
     status: implemented  # punctul 10, 2026-11-26; culorile D-042 din 2026-11-26
   - id: DS-autobuze-linie
     kind: screen
-    note: "pagina de linie — traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi, abaterea medie pe ore (D-014, D-016)"
+    note: "pagina de linie — traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi (D-060), abaterea medie pe ore (D-061, D-016)"
     source: none
     screenshots: []
     design_ref: none
