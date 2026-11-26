@@ -28,7 +28,7 @@
 - **Body (JSON):** `state` (`IDLE` · `RUNNING` · `DONE` · `UNCHANGED` · `FAILED`), `checksum` (SHA-256, hex), `sourceUrl`, `feedVersionId` (doar la `DONE`), `rows` (tabel → număr de rânduri), `startedAt`, `finishedAt` (ISO-8601), `durationMs`, `message` (motivul la `FAILED`). Câmpurile necunoscute încă sunt `null`.
 - **Consumers:** `.github/workflows/import.yml` (cron zilnic; întreabă starea la fiecare minut până la `DONE`, `UNCHANGED` sau `FAILED`). Mai târziu, butonul adminului (D-038).
 - **Evidence:** planul importului GTFS, aprobat de utilizator 2026-11-25
-- **Confirmed:** 2026-11-25
+- **Confirmed:** 2026-11-26
 
 ### C-002 · Următoarele plecări dintr-o stație, în JSON
 - **Status:** approved

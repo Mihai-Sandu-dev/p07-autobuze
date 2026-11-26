@@ -39,7 +39,7 @@
 - **Rejected:** promovarea la admin din aplicație; un admin scris în cod sau într-o migrare.
 - **Evidence:** răspunsul utilizatorului la Q-014, 2026-11-18
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-25
+- **Confirmed:** 2026-11-26
 
 ## D-029 · Screenshot-uri cu Playwright headless
 - **Status:** approved
@@ -57,7 +57,7 @@
 - **Why:** Răspunsul utilizatorului. BCrypt folosește doar primii 72 de octeți; o parolă cu diacritice poate depăși 72 de octeți sub 72 de caractere.
 - **Evidence:** răspunsul utilizatorului la recapitularea din 2026-11-19
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-26
 
 ## D-037 · Găzduire: Render (aplicația din Dockerfile) + Neon (PostgreSQL cu PostGIS)
 - **Status:** approved
@@ -95,5 +95,25 @@
 - **Why:** Alegerea utilizatorului la /plan pentru punctul 9: fără terți la rulare și fără dependență Maven în plus.
 - **Rejected:** WebJar Maven (`org.webjars.npm:leaflet`); CDN (unpkg / jsdelivr).
 - **Evidence:** răspunsul utilizatorului la /plan pentru punctul 9, 2026-11-26
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-26
+
+## D-055 · Primul admin: la fiecare pornire, contul cu `ADMIN_EMAIL` primește rolul ADMIN și parola din `ADMIN_PASSWORD`
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Rule:** Completează D-011. La fiecare pornire, dacă `ADMIN_EMAIL` și `ADMIN_PASSWORD` sunt setate, contul cu acel email (fără diferență de majuscule) primește rolul ADMIN și parola din `ADMIN_PASSWORD` (hash BCrypt); dacă nu există, se creează. Fără variabile, nu se creează niciun admin. O parolă care nu respectă D-032 oprește pornirea, cu un mesaj fără parolă. Parola nu se scrie niciodată în log.
+- **Why:** Înregistrarea e publică: dacă contul s-ar crea doar când lipsește, cine se înregistrează primul cu emailul adminului ar deveni admin cu parola lui. Rescrierea la pornire îi ia contul.
+- **Rejected:** contul creat doar dacă lipsește (rolul ADMIN dat unui cont existent cu parola lui; sau contul existent lăsat neatins).
+- **Evidence:** răspunsul utilizatorului la /plan pentru punctul 10, 2026-11-26
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-26
+
+## D-058 · Rutele: public totul, în afară de `/favorite/**` (login) și `/admin/**` (ADMIN); `/admin/import` doar cu token
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Rule:** Completează D-011. Paginile, API-ul JSON și fișierele statice sunt publice. `/favorite/**` cere un utilizator logat (USER sau ADMIN); `/admin/**` cere rolul ADMIN. Excepție: `/admin/import` (C-001) rămâne protejat doar cu tokenul `IMPORT_TOKEN`, fără sesiune și fără CSRF, pentru workflow-ul din GitHub Actions. Formularele POST au token CSRF; ieșirea e POST pe `/iesire`.
+- **Why:** Răspunsul utilizatorului la /plan pentru punctul 10: C-001 nu se schimbă.
+- **Rejected:** `/admin/import` cu token sau sesiune ADMIN (schimbarea lui C-001).
+- **Evidence:** răspunsul utilizatorului la /plan pentru punctul 10, 2026-11-26
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-26

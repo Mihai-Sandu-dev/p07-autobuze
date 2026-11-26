@@ -139,3 +139,23 @@
 - **Evidence:** răspunsul utilizatorului la /plan pentru punctul 9, 2026-11-26
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-26
+
+## D-056 · După înregistrare, utilizatorul ajunge pe autentificare, cu „Contul a fost creat. Autentifică-te.”
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Rule:** Completează D-032. După o înregistrare reușită, utilizatorul ajunge pe `/autentificare` cu mesajul „Contul a fost creat. Autentifică-te.”, iar parametrul `inapoi` se păstrează; după autentificare ajunge pe pagina de origine (sau pe „Acasă”). Fără login programatic la înregistrare.
+- **Why:** Alegerea utilizatorului la /plan pentru punctul 10 (corectura de la aprobare).
+- **Rejected:** login direct după înregistrare (rămâne o idee în TODO, la extra).
+- **Evidence:** răspunsul utilizatorului la aprobarea planului pentru punctul 10, 2026-11-26
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-26
+
+## D-057 · „Acasă”: următoarea plecare pe grup pentru fiecare favorită, harta favoritelor dedesubt; maxim 10 favorite
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Rule:** Completează D-022. Pe „Acasă”, pentru fiecare stație favorită (ordonate după nume): numele, ca link spre pagina stației, și următoarea plecare din fiecare grup linie + capăt (D-018, D-051), din aceleași date ca pagina de stație; dedesubt, o hartă cu favoritele. Un utilizator are cel mult 10 favorite; la a 11-a, pagina de stație arată „Ai deja 10 stații favorite. Șterge una ca să adaugi alta.” și favorita nu se salvează.
+- **Why:** Alegerea utilizatorului la /plan pentru punctul 10: o pagină scurtă; limita ține „Acasă” sub câteva secunde pe live (13 interogări pe favorită).
+- **Rejected:** toate grupurile cu primele 3 plecări pentru fiecare favorită; favorite nelimitate.
+- **Evidence:** răspunsul utilizatorului la /plan și la aprobarea planului pentru punctul 10, 2026-11-26
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-26
