@@ -9,6 +9,7 @@
 - PATTERN-001 · Testele de UI rulează în imaginea oficială Playwright când browser-ul nu se poate descărca · candidate
 - PATTERN-002 · `./mvnw` rulează în imaginea `eclipse-temurin:21-jdk` când gazda nu are JDK · candidate
 - PATTERN-003 · Markerele Leaflet primesc culorile din tokeni prin `className` și CSS, nu prin opțiuni JS · candidate
+- PATTERN-004 · Testele paginilor pentru utilizatorul logat: un rând real în `users` și `user(email)` din spring-security-test · candidate
 
 ---
 
@@ -35,3 +36,11 @@
 - **Example:** `src/main/resources/static/js/harta.js` (`marker-statie`, `marker-tinta`, `marker-eu`) și `static/css/app.css`
 - **Why:** DESIGN.md cere doar tokeni în codul componentelor; opțiunile `color`/`fillColor` din JS ar fi culori scrise de mână și n-ar urma tema.
 - **Evidence:** punctul 9, 2026-11-26; screenshot-urile `DS-autobuze-harta` light și dark
+
+## PATTERN-004 · Testele paginilor pentru utilizatorul logat: un rând real în `users` și `user(email)` din spring-security-test
+- **Status:** candidate
+- **Date:** 2026-11-26
+- **How:** Testul scrie contul în `users` (`TestUsers.create`, parola în BCrypt) și trimite cererea cu `.with(user(email).roles("USER"))`; codul găsește utilizatorul după `Principal.getName()` (emailul). Formularele POST primesc `.with(csrf())`. Fluxul complet de autentificare (POST pe `/autentificare`) se testează separat, în `SecurityIT`.
+- **Example:** `src/test/java/ro/autobuze/web/FavoritesIT.java`, `HomePageIT.java`, `TestUsers.java`
+- **Why:** Favoritele și „Acasă” citesc din DB după email; un utilizator doar în sesiune, fără rând în `users`, n-ar avea favorite.
+- **Evidence:** punctul 10, 2026-11-26

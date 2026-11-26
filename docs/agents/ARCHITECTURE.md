@@ -6,7 +6,7 @@
 <!-- graffino-agentic:end -->
 
 > Rescris din cod după primul build (scheletul proiectului, 2026-11-19); importul GTFS și pagina de
-> stație adăugate 2026-11-25; harta 2026-11-26. Autentificarea nu există încă; secțiunile marcate „plan”
+> stație adăugate 2026-11-25; harta, autentificarea, favoritele și „Acasă” 2026-11-26. Secțiunile marcate „plan”
 > descriu deciziile aprobate.
 
 ## Overview
@@ -31,6 +31,8 @@ pe Render, din `Dockerfile`, și baza pe Neon (D-037).
 | orar | `src/main/java/ro/autobuze/schedule/` | `ServiceCalendar`: versiunea activă, serviciile active la o dată (calendar ∪ adăugate − scoase), tipul de zi (D-014, D-015); `Departures`: plecările dintr-o listă de stații într-un interval, din toate zilele de serviciu care îl ating (ore ≥ 24:00, D-043, D-047); `Stations`: stația unui `stop_id` (D-031); `NextDepartures`: următoarele plecări (D-018, D-048, D-051) în `StationBoard`; `LineColors`: culorile etichetei cu regula de contrast; `StationDirectory`: toate stațiile (D-031) și cele mai apropiate 3 la ≤ 1 km (D-034), cu PostGIS | db |
 | pagina de stație | `src/main/java/ro/autobuze/web/StationController.java`, `templates/statie.html` | `GET /statie/{stopId}` randat pe server și `GET /api/statii/{stopId}/plecari` în JSON (C-002, D-050); 404 la o stație necunoscută | orar |
 | harta | `src/main/java/ro/autobuze/web/MapController.java`, `templates/harta.html`, `static/js/harta.js` | `GET /` și `/harta` (D-022, D-030); `GET /api/statii` și `/api/statii/aproape` (C-003); pagina desenează stațiile în browser, cu Leaflet din `static/vendor/leaflet` (D-053), și caută după nume acolo (D-054); harta mică de pe pagina de stație: `static/js/harta-mini.js` | orar, tile-uri OSM |
+| autentificare | `src/main/java/ro/autobuze/security/`, `web/AuthController.java`, `web/CurrentUser.java` | `SecurityConfig`: formularul de pe `/autentificare`, sesiune, BCrypt, CSRF, rutele din D-058 (`/admin/import` doar cu token, C-001), ieșirea prin POST pe `/iesire`; `AppUsers`: conturile din `users`, înregistrarea după D-032; `AdminAccount`: adminul din mediu la fiecare pornire (D-055); `ReturnTo`: întoarcerea pe pagina de origine (D-032); `/inregistrare` duce la autentificare (D-056) | db |
+| favorite și „Acasă” | `src/main/java/ro/autobuze/schedule/Favorites.java`, `web/FavoritesController.java`, `templates/acasa.html` | favoritele (maxim 10, D-057) cu formulare POST pe pagina de stație; „/” pentru cine e logat: următoarea plecare pe grup din `NextDepartures`, pentru fiecare favorită, și harta lor (D-022, D-057) | orar, db |
 | endpoint import | `src/main/java/ro/autobuze/web/ImportController.java` | `POST`/`GET /admin/import` cu token (C-001); importul pe `applicationTaskExecutor` | import |
 | workflow import | `.github/workflows/import.yml` | cron zilnic 01:30 UTC + manual: pornește importul pe live și întreabă starea la fiecare minut | endpoint import |
 | pagini | `src/main/resources/templates/` | Thymeleaf; fragmentele comune `fragments/head`, `antet` (DS-autobuze-antet), `subsol` (DS-autobuze-subsol, D-008) | — |
@@ -73,7 +75,8 @@ Plan, din deciziile aprobate:
 | `autobuze.import.feed-url` | `application.properties` | `GtfsImportService` | `https://tursib.ro/trasee/gtfs` (redirect spre arhiva versiunii); testele îl schimbă cu un server local |
 | `JAVA_TOOL_OPTIONS` | `Dockerfile` | JVM | `-Xmx300m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=48m -XX:MaxDirectMemorySize=32m -Xss512k` |
 | `spring.datasource.hikari.*` | `application.properties` | app | maxim 3 conexiuni; `minimum-idle=0`, `idle-timeout=60000`, ca Neon să poată adormi |
-| datele primului admin | variabile de mediu | pornirea aplicației | nume: la planul autentificării (D-011) |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | `.env` (local); Render (`render.yaml`, `sync: false`) | `AdminAccount` (`autobuze.admin.*`) | la fiecare pornire, contul devine ADMIN cu această parolă (D-055); goale: niciun admin |
+| `server.forward-headers-strategy` | `application.properties` | app | `framework`: în spatele proxy-ului HTTPS de pe Render, cookie-ul de sesiune e `Secure` |
 <!-- names only, never values -->
 
 ## Build, deploy, runtime

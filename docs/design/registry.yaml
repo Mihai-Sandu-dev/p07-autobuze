@@ -25,7 +25,7 @@ designs:
     source: src/main/resources/templates/statie.html
     screenshots: [screens/DS-autobuze-statie.light.360.png, screens/DS-autobuze-statie.light.1280.png, screens/DS-autobuze-statie.dark.360.png, screens/DS-autobuze-statie.dark.1280.png]
     design_ref: mocks/DS-autobuze-statie.html
-    status: implemented  # punctul 8, 2026-11-25; mock confirmat cu D-042. Harta mică și „Vezi pe hartă”: punctul 9, 2026-11-26. Lipsesc: favorita și Acasă/Ieșire (punctul 10), linkul etichetei (punctul 11), raportul (punctul 13); culorile sunt încă D-027 (tokens.css), până la /plan-ul D-042
+    status: implemented  # punctul 8, 2026-11-25; mock confirmat cu D-042. Harta mică și „Vezi pe hartă”: punctul 9; favorita, limita de 10 și Acasă/Ieșire: punctul 10, 2026-11-26. Lipsesc: linkul etichetei (punctul 11), raportul (punctul 13); culorile sunt încă D-027 (tokens.css), până la /plan-ul D-042
   - id: DS-autobuze-harta
     kind: screen
     note: "„/” pentru vizitator și /harta pentru toți — harta cu stații, căutare după nume și „aproape de mine” (D-022, D-030, D-034)"
@@ -36,10 +36,10 @@ designs:
   - id: DS-autobuze-acasa
     kind: screen
     note: "„/” pentru utilizator logat — pentru fiecare favorită, următoarea plecare pe grup; harta favoritelor dedesubt; maxim 10 (D-022, D-057)"
-    source: none
-    screenshots: []
+    source: src/main/resources/templates/acasa.html  # + MapController („/” pentru utilizatorul logat)
+    screenshots: [screens/DS-autobuze-acasa.light.360.png, screens/DS-autobuze-acasa.light.1280.png, screens/DS-autobuze-acasa.dark.360.png, screens/DS-autobuze-acasa.dark.1280.png]
     design_ref: mocks/DS-autobuze-acasa.html
-    status: approved  # desenat 2026-11-26 (punctul 10), confirmat de autor în browser 2026-11-26
+    status: implemented  # punctul 10, 2026-11-26; culorile încă D-027
   - id: DS-autobuze-linie
     kind: screen
     note: "pagina de linie — traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi, abaterea medie pe ore (D-014, D-016)"
@@ -62,17 +62,17 @@ designs:
   - id: DS-autobuze-login
     kind: screen
     note: "autentificare cu email și parolă (D-011)"
-    source: none
-    screenshots: []
+    source: src/main/resources/templates/autentificare.html
+    screenshots: [screens/DS-autobuze-login.light.360.png, screens/DS-autobuze-login.light.1280.png, screens/DS-autobuze-login.dark.360.png, screens/DS-autobuze-login.dark.1280.png]
     design_ref: mocks/DS-autobuze-login.html
-    status: approved  # confirmat de autor în browser cu D-042, 2026-11-19
+    status: implemented  # punctul 10, 2026-11-26; starea „Contul a fost creat” (D-056) confirmată de autor 2026-11-26; culorile încă D-027
   - id: DS-autobuze-inregistrare
     kind: screen
     note: "cont nou cu email și parolă, rol USER (D-011, D-032); după creare, spre autentificare (D-056)"
-    source: none
-    screenshots: []
+    source: src/main/resources/templates/inregistrare.html
+    screenshots: [screens/DS-autobuze-inregistrare.light.360.png, screens/DS-autobuze-inregistrare.light.1280.png, screens/DS-autobuze-inregistrare.dark.360.png, screens/DS-autobuze-inregistrare.dark.1280.png]
     design_ref: mocks/DS-autobuze-inregistrare.html
-    status: approved  # desenat 2026-11-26 (punctul 10), confirmat de autor în browser 2026-11-26
+    status: implemented  # punctul 10, 2026-11-26; culorile încă D-027
   - id: DS-autobuze-admin-import
     kind: screen
     note: "admin — pornește jobul, versiunile și checksum-urile (D-003, D-019)"
@@ -102,7 +102,7 @@ designs:
   - id: DS-autobuze-antet
     kind: component
     note: "antetul cu navigarea (hartă, planificator; Autentificare pentru vizitator; Acasă și Ieșire pentru utilizatorul logat; admin pentru ADMIN)"
-    source: src/main/resources/templates/fragments/antet.html  # linkul „Hartă” (D-030) din punctul 9
+    source: src/main/resources/templates/fragments/antet.html  # „Hartă” (D-030) din punctul 9; „Autentificare” / „Acasă” + „Ieșire” din punctul 10
     design_ref: mocks/DS-autobuze-antet.html
     status: approved  # D-042 confirmat 2026-11-19; codul are încă culorile D-027 până la /plan-ul care aplică D-042. Logo-ul (pătratul cu autobuzul, docs/design/brand/) în locul iconiței, ales de autor 2026-11-26; celelalte mock-uri au încă iconița veche în antet
   - id: DS-autobuze-subsol

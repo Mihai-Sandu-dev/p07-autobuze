@@ -3,6 +3,30 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-26 · Autentificarea, favoritele și „Acasă” (punctul 10), D-055–D-058
+**Unealta:** Claude Code (model Claude Opus 5.5), pe branch-ul `feat/auth`.
+
+**Ce am cerut**
+- `/plan` pentru punctul 10: autentificare cu USER + ADMIN, rute protejate pe server, favorite și „Acasă”. Apoi `/build`.
+
+**Ce am primit**
+- Patru întrebări înainte de plan: `/admin/import` cu sesiune sau doar cu token, primul admin dacă emailul există,
+  ce urmează după înregistrare, cât de detaliată e „Acasă”.
+- Planul: Spring Security peste tabelul `users`, `/admin/import` neschimbat (C-001), favoritele cu formulare POST,
+  „Acasă” la „/”; două mock-uri noi de desenat întâi (cont nou, „Acasă”).
+- Build-ul: mock-urile, confirmate de mine; testele picate întâi pe stub-uri; `./mvnw verify` cu 106 teste IT
+  trecute și 33 de teste de UI trecute; screenshot-urile pentru autentificare, cont nou și „Acasă”.
+
+**Ce am făcut cu răspunsul**
+- **Primul admin (D-055) am ales eu:** la fiecare pornire, contul cu `ADMIN_EMAIL` primește rolul ADMIN și parola
+  din `ADMIN_PASSWORD`. Motivul meu: înregistrarea e publică, iar cine s-ar înregistra primul cu emailul adminului
+  ar deveni admin cu parola lui.
+- La „după înregistrare” am răspuns întâi „login direct”, apoi, la aprobare, am corectat: pagina de autentificare
+  cu „Contul a fost creat. Autentifică-te.” (D-056); „login direct” a rămas în TODO, la extra.
+- **Am adăugat limita de 10 favorite** și textul „Ai deja 10 stații favorite. Șterge una ca să adaugi alta.” (D-057).
+- `/admin/import` rămâne doar cu token (D-058); „Acasă” compactă (D-057).
+- Am observat că nuanța „rece” din mock-uri lipsește pe site: e D-042, aprobat dar neaplicat; urmează un `/plan`.
+
 ## 2026-11-26 · Harta Leaflet, căutarea și „aproape de mine” (punctul 9), D-053, D-054, C-003
 **Unealta:** Claude Code (model Claude Opus 5.5), pe branch-ul `feat/harta`.
 

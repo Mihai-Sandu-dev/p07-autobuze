@@ -76,6 +76,11 @@
         `HartaUiTest` (8); screenshot-uri `DS-autobuze-harta` și `DS-autobuze-statie` (feed-ul real, local)
   - [x] Deploy (făcut de autor) și „aproape de mine” verificat de autor pe telefon, pe live (HTTPS), 2026-11-26
 - [ ] **10. Auth USER + ADMIN**, rute protejate pe server; favorite + pagina „Acasă” (D-011, D-020, D-022, D-032)
+  - [x] Spring Security (`security/`): `/autentificare`, `/inregistrare` (→ autentificare, D-056), `/iesire`; rutele D-058
+        (`/admin/import` doar cu token); adminul din mediu (D-055); favoritele, maxim 10, și „Acasă” la „/” (D-057)
+  - [x] Teste: `SecurityIT` (12), `RegistrationIT` (9), `AdminAccountIT` (4), `FavoritesIT` (9), `HomePageIT` (7),
+        `ReturnToTest` (11), `AuthUiTest` (2); screenshot-uri `DS-autobuze-login`, `-inregistrare`, `-acasa`
+  - [ ] **Autor:** `ADMIN_EMAIL` și `ADMIN_PASSWORD` în Render; deploy (cu acordul autorului) și autentificarea pe live
 - [ ] **11. Pagina de linie**: traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi (D-014, D-016, D-035; Q-010)
 
 ## Livrare · jo 03.12
@@ -103,6 +108,8 @@
 - [ ] Gruparea stațiilor cu nume numerotat (ex. „Aeroport 1” + „Aeroport 2”) la ≤ 150 m. Pe feed-ul real, D-031
       nu unește nimic: cele două părți ale drumului au nume diferite (DATA.md → Stațiile pe hartă). Nu e cerută
       de fișă; o regulă nouă de grupare ar schimba D-031 (PROPOSAL, prin `/plan`).
+- [ ] Login direct după înregistrare (acum: pagina de autentificare cu „Contul a fost creat”, D-056), pentru o
+      experiență mai scurtă. Ar schimba D-056 (PROPOSAL, prin `/plan`).
 - [ ] Tile-uri întunecate în tema dark: tile-urile OSM rămân deschise, iar markerele (culoarea textului din dark)
       se văd mai slab decât în light. Nu e cerut de fișă; furnizorul de tile-uri e D-005 (PROPOSAL, prin `/plan`).
 - [ ] `/plan` pentru D-042: tokens noi în DESIGN.md și `tokens.css`, umbrele și mișcarea în `app.css`,
