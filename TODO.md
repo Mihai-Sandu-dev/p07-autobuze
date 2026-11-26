@@ -20,13 +20,14 @@
   - [x] Migrarea Flyway `V2__schema.sql` cu cele 12 tabele și PostGIS (D-043, D-044); `SchemaIT` trece local
   - [x] Diagrama schemei: `docs/schema.md` (Mermaid)
   - [x] V2 aplicată pe Neon (deploy 2026-11-24: `flyway_schema_history` cu 1 init și 2 schema, ambele reușite; PostGIS 3.5.7)
-- [ ] **3. Date de teren și Tursib** (D-010, D-024, D-026)
+- [x] **3. Date de teren și Tursib** (D-010, D-024, D-026)
   - [x] `FIELD.md` cu cele 20 de observații
   - [x] `field/observations.csv` cu 20 de rânduri
-  - [ ] **Autor:** pozele panourilor în `field/photos/<data>/` (~1600 px), coloana `poza`, secțiunea din FIELD.md (Q-017)
+  - [x] **Autor:** pozele panourilor de la cele 6 stații în `field/photos/2026-11-17/` (8 poze, ≤1600 px, fără EXIF),
+        coloana `poza`, secțiunea din FIELD.md (Q-017 închisă, 2026-11-26)
   - [x] Interviul 1 (L.B.)
-  - [ ] **Autor:** interviurile 2 și 3 (inițiale și rol) (Q-018)
-  - [ ] **Autor:** secțiunea „De ce aceste linii și stații” din FIELD.md
+  - [x] **Autor:** interviurile 2 și 3 (H., S. B) (Q-018 închisă, 2026-11-26)
+  - [x] **Autor:** secțiunea „De ce aceste linii și stații” din FIELD.md (textul autorului, 2026-11-26)
 - [ ] **4. README și TODO.md**
   - [x] README: scope
   - [x] README: stack

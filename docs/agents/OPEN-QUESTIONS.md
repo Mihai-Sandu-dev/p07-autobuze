@@ -14,8 +14,8 @@
 - Q-013 · Unde e FIELD.md și ce format au observațiile de teren? · _answered_
 - Q-015 · Ce format au valorile din field/observations.csv? · _answered_
 - Q-016 · Cum apar observațiile de teren în aplicație față de rapoartele utilizatorilor? · _answered_
-- Q-017 · Câte poze cu panouri există și de la ce stații?
-- Q-018 · Când sunt gata celelalte 2 interviuri cu navetiști?
+- Q-017 · Câte poze cu panouri există și de la ce stații? · _answered_
+- Q-018 · Când sunt gata celelalte 2 interviuri cu navetiști? · _answered_
 - Q-020 · Unde stă tabelul de corespondență teren → feed și ce coloane are?
 - Q-021 · Ce conține coloana `poza` din field/observations.csv? · _answered_
 - Q-023 · Când adminul șterge un raport de abatere, rândul dispare sau se marchează ca șters? · _answered_

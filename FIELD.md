@@ -1,11 +1,12 @@
 # FIELD — date de teren pentru P07
 
 > Generat pe 2026-11-19 din `field/Date_Teren_Autobuze.xlsx`, cu datele exact cum sunt în
-> fișă (D-010, D-024). Datele de teren le completează doar autorul: un agent nu inventează
-> observații, interviuri sau poze. Secțiunile goale așteaptă autorul (Q-017, Q-018).
+> fișă (D-010, D-024). Actualizat pe 2026-11-26 din fișa nouă (aceleași observații, plus navetiștii
+> 2 și 3) și cu pozele autorului. Datele de teren le completează doar autorul: un agent nu
+> inventează observații, interviuri sau poze.
 
 ## De ce aceste linii și stații
-_De completat de autor: fișa nu spune de ce au fost alese._
+„Am ales liniile cu care circul zilnic (118 dimineața, spre facultate; 2 și 11 după-amiaza) și stații în care aceste linii se intersectează (Turnișor, Ambient 1, Teatru, Zidul Cetății), ca să observ mai multe linii în aceeași stație și să am cazuri reale de transfer pentru planificator.”
 
 Linii (6): 2, 11, 19, 21, 24, 118. Stații (9): Metro, Teatru, Piața Cibin 3, Zidul Cetății,
 Turnișor, Ambient 1, Casa Armatei, Andrei Șaguna, Poliție.
@@ -47,8 +48,18 @@ Legătura cu feed-ul (stop_id, route_id, direction_id) se face printr-un tabel d
 corespondență completat de autor (D-021; locul și formatul: Q-020).
 
 ## Poze cu panourile din stații
-_De completat de autor (Q-017). Pozele nu sunt încă în repo; locul lor: `field/photos/<data>/`,
-micșorate la ~1600 px (D-010). Coloana `poza` din CSV rămâne goală până atunci (D-026)._
+Pozele din 2026-11-17 stau în `field/photos/2026-11-17/` (D-010): maxim 1600 px, fără metadate
+EXIF sau GPS. Stația fiecărei poze a fost confirmată de autor. În CSV, coloana `poza` are prima
+poză a stației; observațiile de la Casa Armatei, Andrei Șaguna și Poliție nu au poză (D-026).
+
+| Stația | Poze |
+|---|---|
+| Metro | [panou](field/photos/2026-11-17/2026-11-17_metro_panou.jpg) |
+| Teatru | [panou](field/photos/2026-11-17/2026-11-17_teatru_panou.jpg) |
+| Piața Cibin 3 | [panou](field/photos/2026-11-17/2026-11-17_piata-cibin-3_panou.jpg), [panou 2](field/photos/2026-11-17/2026-11-17_piata-cibin-3_panou-2.jpg) |
+| Zidul Cetății | [panou](field/photos/2026-11-17/2026-11-17_zidul-cetatii_panou.jpg), [panou 2](field/photos/2026-11-17/2026-11-17_zidul-cetatii_panou-2.jpg) |
+| Turnișor | [panou](field/photos/2026-11-17/2026-11-17_turnisor_panou.jpg) |
+| Ambient 1 | [panou](field/photos/2026-11-17/2026-11-17_ambient-1_panou.jpg) |
 
 Ce spune foaia „Stații” din fișă (neschimbat):
 
@@ -61,7 +72,8 @@ Ce spune foaia „Stații” din fișă (neschimbat):
 | 5 | Turnișor | 11, 19, 21 | Da | |
 | 6 | Ambient 1 | 11, 21 | Da | |
 
-Casa Armatei, Andrei Șaguna și Poliție (din observații) nu apar în foaie (Q-017).
+Casa Armatei, Andrei Șaguna și Poliție (din observații) nu apar în foaie și nu au poză: catalogul
+cere poze la minim 6 stații (Q-017).
 
 ## Interviuri navetiști
 Fișa P07 cere 3 discuții; repo-ul e public, deci doar inițiale și rol.
@@ -70,8 +82,8 @@ Fișa P07 cere 3 discuții; repo-ul e public, deci doar inițiale și rol.
 > „Să știu când vine următorul autobuz, să știu dacă merg pe jos sau nu. Să pot vedea
 > întregul traseu al autobuzelor care trec prin stația mea.”
 
-### 2.
-_De completat de autor (Q-018)._
+### 2. H., Student an 3, zilnic pe o linie (2026-11-19, acord: Da)
+> "Să poți să vezi atât traseul autobuzului până la destinația ta, cât și traseul complet până la capătul de linie."
 
-### 3.
-_De completat de autor (Q-018)._
+### 3. S. B, Zilnic (2026-11-26, acord: Da)
+> Să vezi traseul dintr-un capăt până la celălalt, și programul autobuzelor pentru a manageria timpul mai eficient. Mă ajută prin a înțelege mai bine orașul și fiecare locație în parte unde este, prin hartă, văzând unde sunt stațiile.

@@ -29,14 +29,16 @@
 - **Recorded as:** D-025
 
 ## Q-017 · Câte poze cu panouri există și de la ce stații?
-- **Status:** open
+- **Status:** answered 2026-11-26
 - **Blocks:** FIELD.md și `field/photos/` (D-010). În interviu: „6 poze”, apoi „poze și la Casa Armatei, Andrei Șaguna, Poliție”. Foaia „Stații” are 6 stații (fără acestea 3); nume de fișier doar la Metro (`118_Metro_17-11-2026_07-18`, fără extensie); la Metro scrie doar linia 118, deși observația 20 e cu linia 11. Pozele nu sunt încă în repo.
 - **Who answers:** utilizatorul (completează foaia „Stații”)
+- **Answer:** 8 poze din 2026-11-17, de la toate cele 6 stații din foaia „Stații” (Metro, Teatru, Piața Cibin 3, Zidul Cetății, Turnișor, Ambient 1; câte 2 la Piața Cibin 3 și Zidul Cetății), în `field/photos/2026-11-17/`, legate din FIELD.md și din coloana `poza`. Catalogul cere poze la minim 6 stații, deci Casa Armatei, Andrei Șaguna și Poliție nu au nevoie de poze. A 9-a poză (Teatru, ecran stins, cu reflexiile a două persoane) nu intră în repo.
 
 ## Q-018 · Când sunt gata celelalte 2 interviuri cu navetiști?
-- **Status:** open
+- **Status:** answered 2026-11-26
 - **Blocks:** secțiunea „Interviuri navetiști” din FIELD.md; fișa P07 cere 3, foaia „Navetiști” are 1 (L.B., 2026-11-18)
 - **Who answers:** utilizatorul
+- **Answer:** Gata: foaia „Navetiști” din fișa actualizată are 3 discuții (L.B. 2026-11-18, H. 2026-11-19, S. B 2026-11-26), trecute în FIELD.md exact cum sunt scrise.
 
 ## Q-020 · Unde stă tabelul de corespondență teren → feed și ce coloane are?
 - **Status:** open

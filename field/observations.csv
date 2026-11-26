@@ -1,21 +1,21 @@
 data,ora_reala,statie,linie,sens,ora_feed,abatere_min,observatii,poza
-2026-11-17,07:23,Metro,118,Gușterița,07:24,-1,,
-2026-11-17,07:39,Teatru,118,Gușterița,07:35,+4,,
-2026-11-17,14:56,Teatru,2,Piața Cibin,14:45,+11,,
-2026-11-17,15:11,Piața Cibin 3,2,Piața Cibin,15:10,+1,,
-2026-11-17,16:14,Piața Cibin 3,2,Zona Industrială Est - Neveon,16:10,+4,,
-2026-11-17,16:36,Zidul Cetății,2,Zona Industrială Est - Neveon,16:30,+6,,
-2026-11-17,16:40,Zidul Cetății,19,Cartier Magnolia - Marquardt,16:36,+4,,
-2026-11-17,16:52,Turnișor,19,Cartier Magnolia - Marquardt,16:44,+8,,
-2026-11-17,16:56,Turnișor,11,Aumovio,16:51,+5,,
-2026-11-17,16:59,Ambient 1,11,Aumovio,16:53,+6,,
-2026-11-17,16:56,Turnișor,21,Marquardt,16:47,+9,,
-2026-11-17,16:58,Ambient 1,21,Marquardt,16:49,+9,,
-2026-11-18,07:24,Metro,118,Gușterița,07:24,0,,
+2026-11-17,07:23,Metro,118,Gușterița,07:24,-1,,field/photos/2026-11-17/2026-11-17_metro_panou.jpg
+2026-11-17,07:39,Teatru,118,Gușterița,07:35,+4,,field/photos/2026-11-17/2026-11-17_teatru_panou.jpg
+2026-11-17,14:56,Teatru,2,Piața Cibin,14:45,+11,,field/photos/2026-11-17/2026-11-17_teatru_panou.jpg
+2026-11-17,15:11,Piața Cibin 3,2,Piața Cibin,15:10,+1,,field/photos/2026-11-17/2026-11-17_piata-cibin-3_panou.jpg
+2026-11-17,16:14,Piața Cibin 3,2,Zona Industrială Est - Neveon,16:10,+4,,field/photos/2026-11-17/2026-11-17_piata-cibin-3_panou.jpg
+2026-11-17,16:36,Zidul Cetății,2,Zona Industrială Est - Neveon,16:30,+6,,field/photos/2026-11-17/2026-11-17_zidul-cetatii_panou.jpg
+2026-11-17,16:40,Zidul Cetății,19,Cartier Magnolia - Marquardt,16:36,+4,,field/photos/2026-11-17/2026-11-17_zidul-cetatii_panou.jpg
+2026-11-17,16:52,Turnișor,19,Cartier Magnolia - Marquardt,16:44,+8,,field/photos/2026-11-17/2026-11-17_turnisor_panou.jpg
+2026-11-17,16:56,Turnișor,11,Aumovio,16:51,+5,,field/photos/2026-11-17/2026-11-17_turnisor_panou.jpg
+2026-11-17,16:59,Ambient 1,11,Aumovio,16:53,+6,,field/photos/2026-11-17/2026-11-17_ambient-1_panou.jpg
+2026-11-17,16:56,Turnișor,21,Marquardt,16:47,+9,,field/photos/2026-11-17/2026-11-17_turnisor_panou.jpg
+2026-11-17,16:58,Ambient 1,21,Marquardt,16:49,+9,,field/photos/2026-11-17/2026-11-17_ambient-1_panou.jpg
+2026-11-18,07:24,Metro,118,Gușterița,07:24,0,,field/photos/2026-11-17/2026-11-17_metro_panou.jpg
 2026-11-18,07:41,Casa Armatei,118,Gușterița,07:33,+8,,
 2026-11-18,07:43,Casa Armatei,24,A. Șaguna,07:34,+9,,
 2026-11-18,07:46,Andrei Șaguna,24,A. Șaguna,07:36,+10,,
 2026-11-18,10:03,Poliție,11,Aeroport Terminal,10:02,+1,,
-2026-11-18,10:14,Ambient 1,11,Aeroport Terminal,10:13,+1,,
-2026-11-18,13:59,Metro,11,Calea Cisnădiei,13:59,0,,
+2026-11-18,10:14,Ambient 1,11,Aeroport Terminal,10:13,+1,,field/photos/2026-11-17/2026-11-17_ambient-1_panou.jpg
+2026-11-18,13:59,Metro,11,Calea Cisnădiei,13:59,0,,field/photos/2026-11-17/2026-11-17_metro_panou.jpg
 2026-11-18,14:12,Casa Armatei,11,Calea Cisnădiei,14:08,+4,,
