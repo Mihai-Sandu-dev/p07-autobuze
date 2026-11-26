@@ -159,3 +159,13 @@
 - **Evidence:** răspunsul utilizatorului la /plan și la aprobarea planului pentru punctul 10, 2026-11-26
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-26
+
+## D-059 · În tema dark, tile-urile OSM sunt întunecate în browser cu un filtru CSS
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Rule:** Completează D-005 și D-042. În tema dark (după sistem sau după buton, D-039), stratul de tile-uri al hărților Leaflet (`.leaflet-tile-pane`) primește filtrul din tokenul `--filter-tiles` (`tokens.css`, DESIGN.md → Tokens); în light, `--filter-tiles` e `none`. Furnizorul (OSM), tile-urile descărcate și atribuirea nu se schimbă. Markerele, controalele și atribuirea nu sunt filtrate.
+- **Why:** Cererea autorului la /plan pentru restilizarea D-042: harta albă strica tema dark; un filtru e o regulă CSS, fără alt furnizor de tile-uri.
+- **Rejected:** alt furnizor de tile-uri întunecate (ar schimba D-005); tile-urile deschise și în dark.
+- **Evidence:** răspunsul autorului la /plan pentru restilizarea D-042, 2026-11-26
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-26

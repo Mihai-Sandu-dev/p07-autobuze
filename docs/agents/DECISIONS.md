@@ -47,6 +47,7 @@
 - D-054 · Căutarea stațiilor după nume se face în browser, fără diacritice
 - D-056 · După înregistrare, utilizatorul ajunge pe autentificare, cu „Contul a fost creat. Autentifică-te.”
 - D-057 · „Acasă”: următoarea plecare pe grup pentru fiecare favorită, harta favoritelor dedesubt; maxim 10 favorite
+- D-059 · În tema dark, tile-urile OSM sunt întunecate în browser cu un filtru CSS
 
 ### [Orar si plecari](decisions/orar-si-plecari.md)
 - D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală
