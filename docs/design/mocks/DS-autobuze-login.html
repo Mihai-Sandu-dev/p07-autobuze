@@ -8,7 +8,8 @@
      Actualizat la D-042 (2026-11-19): culorile „rece”, umbre moi, mișcare lină.
      Reguli: autentificare cu email și parolă (D-011); legătura spre cont nou
      (DS-autobuze-inregistrare). Fără „am uitat parola” și fără alte metode de login:
-     nu sunt cerute. Același stil ca DS-autobuze-statie. -->
+     nu sunt cerute. Același stil ca DS-autobuze-statie.
+     2026-11-26, punctul 10: starea „Contul a fost creat. Autentifică-te.” (D-056), de reconfirmat de autor. -->
 <style>
 /* ===== Tokens — DESIGN.md, cu culorile, umbrele și mișcarea din D-042 (varianta „rece”) ===== */
 :root {
@@ -92,6 +93,9 @@ input[aria-invalid="true"] { border-color: var(--color-danger); }
 .alerta { border: 1px solid var(--color-danger); border-radius: var(--radius-sm); padding: var(--space-3);
   font: var(--text-sm) var(--font-text); background: var(--color-bg); display: flex; gap: var(--space-2); }
 .alerta .ic { color: var(--color-danger); }
+.succes { border: 1px solid var(--color-success); border-radius: var(--radius-sm); padding: var(--space-3);
+  font: 600 var(--text-sm) var(--font-text); background: var(--color-bg); display: flex; gap: var(--space-2); align-items: center; }
+.succes .ic { color: var(--color-success); }
 .alerta strong { display: block; color: var(--color-danger); }
 .btn { font: 600 var(--text-sm) var(--font-text); padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
   border: 1px solid var(--color-accent); background: var(--color-accent); color: var(--color-on-accent);
@@ -142,6 +146,7 @@ input[aria-invalid="true"] { border-color: var(--color-danger); }
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/><circle cx="8" cy="14.5" r="0.5"/><circle cx="16" cy="14.5" r="0.5"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></symbol>
   <symbol id="i-alerta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></symbol>
 </svg>
 
@@ -153,6 +158,7 @@ input[aria-invalid="true"] { border-color: var(--color-danger); }
       <option value="validare">Câmpuri lipsă</option>
       <option value="gresit">Email sau parolă greșită</option>
       <option value="trimite">Se trimite</option>
+      <option value="creat">După înregistrare: contul a fost creat</option>
     </select>
   </label>
   <label>Temă
@@ -162,7 +168,7 @@ input[aria-invalid="true"] { border-color: var(--color-danger); }
     <select id="latime" autocomplete="off"><option value="360">360 px (mobil)</option><option value="full">Toată fereastra</option></select>
   </label>
 </div>
-<div class="mock-note">Adresa de email din formular e un exemplu. Linkuri active: numele aplicației și Hartă (pagina hărții), Planificator. „Autentifică-te” cu orice email și parolă te duce la pagina de stație, logat; un câmp gol arată eroarea. Starea „parolă greșită” se alege din bara de sus. „Creează unul” nu are încă mock.</div>
+<div class="mock-note">Adresa de email din formular e un exemplu. Linkuri active: numele aplicației și Hartă (pagina hărții), Planificator. „Autentifică-te” cu orice email și parolă te duce la pagina de stație, logat; un câmp gol arată eroarea. Starea „parolă greșită” se alege din bara de sus. „Creează unul” duce la DS-autobuze-inregistrare. Starea „contul a fost creat” e pagina de după înregistrare (D-056, 2026-11-26).</div>
 
 <div class="frame" id="frame" data-width="360">
 <div class="page">
@@ -180,6 +186,10 @@ input[aria-invalid="true"] { border-color: var(--color-danger); }
     <p class="intro">Cu un cont salvezi stații la favorite și raportezi abateri.</p>
 
     <form class="card" id="form" novalidate>
+      <div class="succes" id="succes" role="status" hidden>
+        <svg class="ic" aria-hidden="true"><use href="#i-ok"/></svg>
+        <span>Contul a fost creat. Autentifică-te.</span>
+      </div>
       <div class="alerta" id="alerta" role="alert" hidden>
         <svg class="ic" aria-hidden="true"><use href="#i-alerta"/></svg>
         <span><strong>Emailul sau parola nu sunt corecte.</strong>Verifică-le și încearcă din nou.</span>
@@ -196,10 +206,10 @@ input[aria-invalid="true"] { border-color: var(--color-danger); }
       </div>
       <button class="btn" type="submit" id="trimite">Autentifică-te</button>
     </form>
-    <p class="alt">Nu ai cont? <a href="#">Creează unul</a></p>
+    <p class="alt">Nu ai cont? <a href="DS-autobuze-inregistrare.html" data-mock>Creează unul</a></p>
   </main>
 
-  <footer class="subsol">Date de transport: Tursib S.A.</footer>
+  <footer class="subsol">Date de transport: Tursib S.A. · Aplicație neoficială. Nu este afiliată cu Tursib S.A.</footer>
 </div>
 </div>
 
@@ -211,6 +221,7 @@ function randeaza() {
   $("email").value = stare === "gresit" || stare === "trimite" ? "nume@exemplu.ro" : "";
   $("parola").value = stare === "gresit" || stare === "trimite" ? "parola-exemplu" : "";
   $("alerta").hidden = stare !== "gresit";
+  $("succes").hidden = stare !== "creat";
   for (const id of ["email", "parola"]) {
     $("eroare-" + id).hidden = !validare;
     $(id).setAttribute("aria-invalid", validare || stare === "gresit");

@@ -35,10 +35,11 @@ designs:
     status: implemented  # punctul 9, 2026-11-26; culorile sunt încă D-027 (tokens.css), până la /plan-ul D-042. Fără „Planificator” și „Autentificare” în antet (paginile lor nu există încă)
   - id: DS-autobuze-acasa
     kind: screen
-    note: "„/” pentru utilizator logat — plecările de la favorite, harta dedesubt (D-022)"
+    note: "„/” pentru utilizator logat — pentru fiecare favorită, următoarea plecare pe grup; harta favoritelor dedesubt; maxim 10 (D-022, D-057)"
     source: none
     screenshots: []
-    design_ref: none  # pas următor: mock înainte de build (vezi sus)
+    design_ref: mocks/DS-autobuze-acasa.html
+    status: draft  # desenat 2026-11-26 (punctul 10), de confirmat de autor în browser
   - id: DS-autobuze-linie
     kind: screen
     note: "pagina de linie — traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi, abaterea medie pe ore (D-014, D-016)"
@@ -67,10 +68,11 @@ designs:
     status: approved  # confirmat de autor în browser cu D-042, 2026-11-19
   - id: DS-autobuze-inregistrare
     kind: screen
-    note: "cont nou cu email și parolă, rol USER (D-011)"
+    note: "cont nou cu email și parolă, rol USER (D-011, D-032); după creare, spre autentificare (D-056)"
     source: none
     screenshots: []
-    design_ref: none
+    design_ref: mocks/DS-autobuze-inregistrare.html
+    status: draft  # desenat 2026-11-26 (punctul 10), de confirmat de autor în browser
   - id: DS-autobuze-admin-import
     kind: screen
     note: "admin — pornește jobul, versiunile și checksum-urile (D-003, D-019)"
