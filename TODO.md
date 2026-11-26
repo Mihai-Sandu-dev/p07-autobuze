@@ -100,6 +100,11 @@
 ## În afara celor 15 puncte (din vechiul TODO, păstrate)
 - [ ] Comasarea interogărilor pentru „următoarele plecări” (cererea pe live: mediana 438 ms; 13 drumuri până
       la Neon pe cerere, DATA.md → Performanță). De propus prin `/plan`; nu e cerința de 300 ms, care e pe interogare.
+- [ ] Gruparea stațiilor cu nume numerotat (ex. „Aeroport 1” + „Aeroport 2”) la ≤ 150 m. Pe feed-ul real, D-031
+      nu unește nimic: cele două părți ale drumului au nume diferite (DATA.md → Stațiile pe hartă). Nu e cerută
+      de fișă; o regulă nouă de grupare ar schimba D-031 (PROPOSAL, prin `/plan`).
+- [ ] Tile-uri întunecate în tema dark: tile-urile OSM rămân deschise, iar markerele (culoarea textului din dark)
+      se văd mai slab decât în light. Nu e cerut de fișă; furnizorul de tile-uri e D-005 (PROPOSAL, prin `/plan`).
 - [ ] `/plan` pentru D-042: tokens noi în DESIGN.md și `tokens.css`, umbrele și mișcarea în `app.css`,
       screenshot-uri noi; DESIGN.md trimite încă la D-027.
 - [ ] Mock-uri lipsă (înainte de build-ul ecranului): acasa, linie, raport-abatere, inregistrare,
