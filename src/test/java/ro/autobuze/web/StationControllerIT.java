@@ -105,6 +105,13 @@ class StationControllerIT {
     }
 
     @Test
+    void theLineLabelLinksToTheLinePage() throws Exception {
+        // DS-autobuze-eticheta-linie: link spre pagina liniei (D-060)
+        mvc.perform(get("/statie/S_B"))
+                .andExpect(content().string(containsString("href=\"/linie/2\" aria-label=\"Linia 2, pagina liniei\">2</a>")));
+    }
+
+    @Test
     void stationWithoutDeparturesShowsTheEmptyState() throws Exception {
         // D-048: toate cursele se termină în S_CIBIN
         mvc.perform(get("/statie/S_CIBIN"))

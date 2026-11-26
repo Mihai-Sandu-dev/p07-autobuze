@@ -30,6 +30,8 @@ class ScreenshotUiTest extends UiTest {
         "DS-autobuze-login, /autentificare, dark, 360", "DS-autobuze-login, /autentificare, dark, 1280",
         "DS-autobuze-inregistrare, /inregistrare, light, 360", "DS-autobuze-inregistrare, /inregistrare, light, 1280",
         "DS-autobuze-inregistrare, /inregistrare, dark, 360", "DS-autobuze-inregistrare, /inregistrare, dark, 1280",
+        "DS-autobuze-linie, /linie/19, light, 360", "DS-autobuze-linie, /linie/19, light, 1280",
+        "DS-autobuze-linie, /linie/19, dark, 360", "DS-autobuze-linie, /linie/19, dark, 1280",
     })
     void screenshot(String name, String path, String scheme, int width) {
         var options = new Browser.NewContextOptions()
