@@ -33,8 +33,8 @@ class TemaUiTest extends UiTest {
             Page l = open(light);
             assertThat(pressed(d)).isEqualTo("true");
             assertThat(pressed(l)).isEqualTo("false");
-            assertThat(background(d)).isEqualTo("rgb(18, 20, 23)");   // --color-bg dark #121417
-            assertThat(background(l)).isEqualTo("rgb(255, 255, 255)"); // --color-bg light #ffffff
+            assertThat(background(d)).isEqualTo("rgb(17, 26, 35)");   // --color-bg dark #111a23 (D-042)
+            assertThat(background(l)).isEqualTo("rgb(243, 248, 252)"); // --color-bg light #f3f8fc (D-042)
         }
     }
 
@@ -46,11 +46,11 @@ class TemaUiTest extends UiTest {
             assertThat(pressed(page)).isEqualTo("true");
             assertThat(page.evaluate("document.documentElement.dataset.theme")).isEqualTo("dark");
             assertThat(page.evaluate("localStorage.getItem('tema')")).isEqualTo("dark");
-            assertThat(background(page)).isEqualTo("rgb(18, 20, 23)");
+            assertThat(background(page)).isEqualTo("rgb(17, 26, 35)");
 
             page.reload();
             assertThat(pressed(page)).isEqualTo("true");
-            assertThat(background(page)).isEqualTo("rgb(18, 20, 23)");
+            assertThat(background(page)).isEqualTo("rgb(17, 26, 35)");
 
             page.click("button[aria-label='Temă întunecată']");
             assertThat(pressed(page)).isEqualTo("false");
@@ -65,7 +65,7 @@ class TemaUiTest extends UiTest {
             page.evaluate("localStorage.setItem('tema', 'light')");
             page.reload();
             assertThat(pressed(page)).isEqualTo("false");
-            assertThat(background(page)).isEqualTo("rgb(255, 255, 255)");
+            assertThat(background(page)).isEqualTo("rgb(243, 248, 252)");
         }
     }
 }

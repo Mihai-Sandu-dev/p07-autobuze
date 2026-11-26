@@ -101,30 +101,30 @@ them; a ticket with UI has a design subtask instead (team addon).
 - Design board: niciunul. Conform laboratorului, autorul confirmă mock-ul deschizându-l în browser (aprobat 2026-11-19).
 - Figma: niciunul
 - Token source in code: `src/main/resources/static/css/tokens.css` (se creează la primul /build cu UI)
-- Direcția vizuală: D-027
+- Direcția vizuală: D-042 (culorile „rece”, aplicate 2026-11-26); D-027 înlocuit
 
 ## Tokens
-Aprobate 2026-11-19 (D-027). Contrastul e măsurat față de **ambele** fundaluri,
+Aprobate 2026-11-19 (D-027); culorile înlocuite cu varianta „rece” din D-042 la 2026-11-26. Contrastul e măsurat față de **ambele** fundaluri,
 `--color-bg` și `--color-surface`: text ≥ 4,5:1, borduri de câmpuri ≥ 3:1.
 
 ### Color
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--color-bg` | #ffffff | #121417 | fundalul paginii |
-| `--color-surface` | #f4f5f7 | #1c1f24 | carduri, liste |
-| `--color-text` | #1a1d21 (16,9 / 15,5) | #e8eaed (15,3 / 13,7) | text |
-| `--color-text-muted` | #5a6270 (6,2 / 5,6) | #a3abb7 (8,0 / 7,1) | text secundar |
-| `--color-border` | #868e99 (3,3 / 3,0) | #626a76 (3,4 / 3,0) | borduri de câmpuri, eticheta liniei fără culoare |
-| `--color-divider` | #d6d9de | #2b3037 | separatoare decorative (fără cerință de contrast) |
-| `--color-accent` | #1d5fd1 (5,8 / 5,3) | #6ea2ff (7,3 / 6,5) | butoane, linkuri, inelul de focus |
-| `--color-on-accent` | #ffffff (5,8 pe accent) | #0b1b33 (6,8 pe accent) | text pe accent |
-| `--color-danger` | #b42318 (6,6 / 6,0) | #ff7b72 (7,3 / 6,6) | erori, ștergere |
-| `--color-success` | #1a7f37 (5,1 / 4,7) | #56d364 (9,6 / 8,6) | confirmări |
-| `--color-warning` | #986600 (5,0 / 4,5) | #e3b341 (9,5 / 8,5) | „mâine”, abateri mari |
+| `--color-bg` | #f3f8fc | #111a23 | fundalul paginii |
+| `--color-surface` | #e4eef6 | #1a2734 | carduri, liste |
+| `--color-text` | #13212d (15,3 / 13,9) | #e6eef5 (15,0 / 13,0) | text |
+| `--color-text-muted` | #4c5d6c (6,4 / 5,8) | #a6b6c4 (8,5 / 7,3) | text secundar |
+| `--color-border` | #748797 (3,5 / 3,2) | #5f7385 (3,6 / 3,1) | borduri de câmpuri, eticheta liniei fără culoare |
+| `--color-divider` | #d2e0eb | #263646 | separatoare decorative (fără cerință de contrast) |
+| `--color-accent` | #0f62a8 (5,9 / 5,4) | #7cbcf5 (8,7 / 7,5) | butoane, linkuri, inelul de focus |
+| `--color-on-accent` | #ffffff (6,3 pe accent) | #06213a (8,1 pe accent) | text pe accent |
+| `--color-danger` | #b42318 (6,2 / 5,6) | #ff8a80 (7,7 / 6,7) | erori, ștergere |
+| `--color-success` | #1a7340 (5,5 / 5,0) | #6fd49a (9,7 / 8,4) | confirmări |
+| `--color-warning` | #8a5a00 (5,5 / 5,0) | #f0c062 (10,4 / 9,0) | „mâine”, abateri mari |
 
 Valorile din paranteze: contrast pe bg / pe surface.
 
-**Eticheta liniei** (D-027): fundal `route_color`, text `route_text_color` din feed. Sub
+**Eticheta liniei** (D-027, păstrată de D-042): fundal `route_color`, text `route_text_color` din feed. Sub
 4,5:1, textul trece pe #ffffff sau #000000, care contrastează mai bine. O linie fără
 culoare în feed folosește valorile implicite GTFS (fundal alb, text negru) și bordura
 `--color-border`.
@@ -176,6 +176,13 @@ Aprobate 2026-11-19.
 | `--motion-base` | 250 ms | deschideri de panouri |
 
 Animațiile se opresc la `prefers-reduced-motion: reduce`.
+
+### Map
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `--filter-tiles` | `none` | `invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9)` | filtrul pe tile-urile OSM (`.leaflet-tile-pane`), D-059; markerele și atribuirea nu se filtrează |
+
+TokensTest verifică doar valoarea light a acestui rând; valoarea dark se verifică în screenshot-urile dark.
 
 ### Breakpoints / window sizes
 | Name | Min | Max |
