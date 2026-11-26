@@ -48,7 +48,7 @@
 - **Why:** Răspunsul utilizatorului la Q-007. Definition of done cere screenshot-uri light și dark; nu există altă unealtă în repo.
 - **Evidence:** răspunsul utilizatorului la Q-007, 2026-11-19
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-26
 
 ## D-032 · Autentificare și înregistrare: întoarcere pe pagina de origine; email unic, parolă de minim 8 caractere și maxim 72 de octeți
 - **Status:** approved
@@ -87,3 +87,13 @@
 - **Evidence:** răspunsul utilizatorului la /plan pentru importul GTFS, 2026-11-25
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-25
+
+## D-053 · Leaflet se servește din fișiere copiate în `static/vendor/leaflet/`
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Rule:** Completează D-001. Leaflet 1.9.4 (`leaflet.js`, `leaflet.css`, `images/`) e copiat în `src/main/resources/static/vendor/leaflet/`, cu licența BSD-2 (`LICENSE`) alături, și se servește de aplicație. Fără CDN la rulare și fără dependență Maven (WebJar). O versiune nouă se copiază de mână.
+- **Why:** Alegerea utilizatorului la /plan pentru punctul 9: fără terți la rulare și fără dependență Maven în plus.
+- **Rejected:** WebJar Maven (`org.webjars.npm:leaflet`); CDN (unpkg / jsdelivr).
+- **Evidence:** răspunsul utilizatorului la /plan pentru punctul 9, 2026-11-26
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-26

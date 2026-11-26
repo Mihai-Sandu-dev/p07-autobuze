@@ -97,7 +97,7 @@
 - **Evidence:** `docs/design/mocks/DS-autobuze-statie.variante.html` (coloana „B · Rece”, cu valorile light și dark și contrastul calculat în pagină); răspunsul autorului, 2026-11-19
 - **Source:** user · confidence high
 - **Owner note:** 2026-11-19: aprobată și propunerea de tokens (culorile variantei „rece”, `--color-time`, `--shadow-card`, `--shadow-card-hover`, `--shadow-button`, `--shadow-button-hover`, `--ease-out` și regulile de mișcare). Până la /plan-ul care le aplică, DESIGN.md și `tokens.css` rămân neschimbate (altfel pică TokensTest); valorile sunt în mock-ul de mai sus.
-- **Confirmed:** 2026-11-19
+- **Confirmed:** 2026-11-26
 
 
 ## D-049 · Subsolul spune că aplicația e neoficială, lângă atribuirea Tursib
@@ -128,4 +128,14 @@
 - **Rejected:** „în 0 min”; „sub 1 min”; minutele rotunjite în sus.
 - **Evidence:** răspunsul utilizatorului la Q-025, 2026-11-25
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-25
+- **Confirmed:** 2026-11-26
+
+## D-054 · Căutarea stațiilor după nume se face în browser, fără diacritice
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Rule:** Pe hartă, căutarea filtrează în browser lista de stații din `GET /api/statii` (C-003). Comparația ignoră diacriticele și majusculele (`normalize("NFD")`, fără semnele combinate, litere mici) și caută textul oriunde în nume („conține”). Lista arată toate stațiile potrivite, ordonate după nume, ca în mock-ul DS-autobuze-harta.
+- **Why:** Alegerea utilizatorului la /plan pentru punctul 9: harta încarcă oricum toate stațiile (~250) pentru markere, deci căutarea nu mai are nevoie de un endpoint sau de extensia `unaccent`.
+- **Rejected:** căutarea pe server cu `unaccent`; doar primele 10 rezultate.
+- **Evidence:** răspunsul utilizatorului la /plan pentru punctul 9, 2026-11-26
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-26

@@ -44,6 +44,7 @@
 - D-049 · Subsolul spune că aplicația e neoficială, lângă atribuirea Tursib
 - D-050 · Paginile cu plecări se randează pe server; același serviciu dă endpoint-ul JSON
 - D-052 · O plecare la mai puțin de un minut apare „acum” pe pagina de stație
+- D-054 · Căutarea stațiilor după nume se face în browser, fără diacritice
 
 ### [Orar si plecari](decisions/orar-si-plecari.md)
 - D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală
@@ -69,5 +70,6 @@
 - D-037 · Găzduire: Render (aplicația din Dockerfile) + Neon (PostgreSQL cu PostGIS)
 - D-040 · Conexiunea la Neon verifică certificatul serverului: sslmode=verify-full
 - D-046 · CSV-ul din feed se citește cu Apache Commons CSV
+- D-053 · Leaflet se servește din fișiere copiate în `static/vendor/leaflet/`
 
 ---

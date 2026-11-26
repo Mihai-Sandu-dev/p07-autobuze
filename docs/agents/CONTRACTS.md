@@ -11,6 +11,7 @@
 ## Index
 - C-001 · Endpoint-ul de import al feed-ului GTFS · provided
 - C-002 · Următoarele plecări dintr-o stație, în JSON · provided
+- C-003 · Stațiile și „aproape de mine”, în JSON · provided
 
 ---
 
@@ -34,10 +35,20 @@
 - **Date:** 2026-11-25
 - **Interface:** `GET /api/statii/{stopId}/plecari`, public. `stopId` e orice `stop_id` al stației (Q-019); răspunsul e pentru toată stația (D-031). Ora curentă e cea de pe ceas, Europe/Bucharest (D-047). Aceleași date ca pagina `/statie/{stopId}` (D-050).
 - **Responses:** `200` + JSON; `404` pentru un `stopId` necunoscut în versiunea de feed activă. Fără versiune de feed activă: `200` cu `feedImported: false`, `station: null` și `groups` gol.
-- **Body (JSON):** `station` {`name`, `stopIds[]`}, `now` (ISO-8601, ora locală), `dayLabel` (de ex. „Miercuri, 25 noiembrie · zi lucrătoare”), `feedImported` (bool), `groups[]` {`line`, `headsign`, `color`, `textColor` (hex fără `#`, după regula de contrast din DESIGN.md), `departures[]` {`time` („HH:mm”), `at` (ISO-8601, ora locală), `tomorrow` (bool), `minutes` (int, de acum)}}. Regulile listei: D-018, D-048, D-051.
-- **Consumers:** niciunul încă; harta (punctul 9) și „Acasă” (punctul 10).
-- **Evidence:** planul punctului 8, aprobat de utilizator 2026-11-25
-- **Confirmed:** 2026-11-25
+- **Body (JSON):** `station` {`name`, `stopIds[]`, `lat`, `lon` (media rândurilor stației, WGS84)}, `now` (ISO-8601, ora locală), `dayLabel` (de ex. „Miercuri, 25 noiembrie · zi lucrătoare”), `feedImported` (bool), `groups[]` {`line`, `headsign`, `color`, `textColor` (hex fără `#`, după regula de contrast din DESIGN.md), `departures[]` {`time` („HH:mm”), `at` (ISO-8601, ora locală), `tomorrow` (bool), `minutes` (int, de acum)}}. Regulile listei: D-018, D-048, D-051.
+- **Consumers:** pagina de stație (harta mică, `static/js/harta-mini.js`, din aceleași date randate pe server); mai târziu „Acasă” (punctul 10).
+- **Evidence:** planul punctului 8, aprobat de utilizator 2026-11-25; `lat`/`lon` adăugate prin planul punctului 9, aprobat 2026-11-26
+- **Confirmed:** 2026-11-26
+
+### C-003 · Stațiile și „aproape de mine”, în JSON
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Interface:** `GET /api/statii` (toate stațiile versiunii de feed active) și `GET /api/statii/aproape?lat=<grade>&lon=<grade>` (WGS84), ambele publice. O stație = rândurile din `stops.txt` cu același nume la maxim 150 m (D-031); `stopId` e cel mai mic `stop_id` din grup, iar `lat`/`lon` e media rândurilor.
+- **Responses:** `200` + JSON. `/aproape`: `400` dacă `lat` sau `lon` lipsește, nu e număr sau iese din −90..90 / −180..180. Fără versiune de feed activă: `200` cu `feedImported: false` și `stations` gol.
+- **Body (JSON):** `/api/statii`: `feedImported` (bool), `stations[]` {`stopId`, `name`, `lat`, `lon`, `stopIds[]`}, ordonate după nume. `/aproape`: `feedImported`, `stations[]` {`stopId`, `name`, `lat`, `lon`, `distanceM` (int, metri până la cel mai apropiat rând al stației)}: cele mai apropiate 3 stații la maxim 1 km, ordonate după distanță (D-034).
+- **Consumers:** `src/main/resources/static/js/harta.js` (pagina hărții, `/` și `/harta`); mai târziu „Acasă” (punctul 10).
+- **Evidence:** planul punctului 9, aprobat de utilizator 2026-11-26
+- **Confirmed:** 2026-11-26
 
 ## Consumed
 Niciunul.

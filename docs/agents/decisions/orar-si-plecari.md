@@ -28,7 +28,7 @@
 - **Rejected:** toate plecările din următoarele 60 de minute; maxim 2 ore; doar ziua curentă.
 - **Evidence:** interviul de scope, 2026-11-19
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-25
+- **Confirmed:** 2026-11-26
 
 ## D-047 · Orele din feed sunt ora de pe ceas, ca pe panoul din stație
 - **Status:** approved
@@ -48,7 +48,7 @@
 - **Rejected:** afișarea tuturor rândurilor din `stop_times`, inclusiv capătul cursei.
 - **Evidence:** răspunsul utilizatorului la Q-024, 2026-11-25
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-25
+- **Confirmed:** 2026-11-26
 
 
 ## D-051 · Un grup din „Următoarele plecări” = linie + capăt (trip_headsign)
@@ -59,4 +59,4 @@
 - **Rejected:** un grup pe linie și `direction_id`, cu capătul cel mai des întâlnit ca titlu.
 - **Evidence:** răspunsul utilizatorului la /plan pentru punctul 8, 2026-11-25
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-25
+- **Confirmed:** 2026-11-26
