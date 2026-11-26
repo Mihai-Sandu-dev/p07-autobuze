@@ -59,7 +59,7 @@ _Avoid_: măsurătoare, notă
 **Versiune de feed** (substantiv) — rezultatul unui import reușit, cu checksum; una singură e activă.
 _Avoid_: snapshot, revizie, ediție
 
-**Tip de zi** (substantiv) — lucrătoare, sâmbătă, sau duminică și sărbătoare legală.
+**Tip de zi** (substantiv) — lucrătoare, sâmbătă, sau duminică și sărbătoare legală (D-061: eticheta zilei, media abaterilor). Orarul de pe pagina liniei are coloanele lucrătoare, sâmbătă, duminică (D-060).
 _Avoid_: tip de serviciu, regim
 
 **Favorită** (substantiv) — o stație salvată de un utilizator logat; plecările ei apar pe pagina „Acasă”.

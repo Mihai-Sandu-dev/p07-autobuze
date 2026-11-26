@@ -1,14 +1,13 @@
 # Decisions — tipuri de zi, sărbători, următoarele plecări
 
 ## D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală
-- **Status:** approved
+- **Status:** superseded-by D-061
 - **Date:** 2026-11-19
 - **Rule:** Aplicația folosește trei tipuri de zi: lucrătoare, sâmbătă, duminică sau sărbătoare legală. O sărbătoare legală se tratează ca duminică. Tipurile de zi sunt folosite în orarul complet de pe pagina liniei și în media abaterilor.
 - **Why:** Răspunsul utilizatorului; fișa P07 cere „orarul complet pe tipuri de zi”.
 - **Rejected:** două tipuri (lucrătoare / weekend); tipuri derivate din service_id-urile feed-ului.
 - **Evidence:** interviul de scope, 2026-11-19
 - **Source:** user · confidence high
-- **Confirmed:** 2026-11-25
 
 ## D-015 · Lista sărbătorilor legale e în DB, doar pentru eticheta zilei și media abaterilor
 - **Status:** approved
@@ -58,5 +57,15 @@
 - **Why:** Răspunsul utilizatorului la /plan pentru punctul 8.
 - **Rejected:** un grup pe linie și `direction_id`, cu capătul cel mai des întâlnit ca titlu.
 - **Evidence:** răspunsul utilizatorului la /plan pentru punctul 8, 2026-11-25
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-26
+
+## D-061 · Tipuri de zi: lucrătoare, sâmbătă, duminică sau sărbătoare legală (eticheta zilei și media abaterilor)
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Rule:** Înlocuiește D-014. Aplicația folosește trei tipuri de zi: lucrătoare, sâmbătă, duminică sau sărbătoare legală; o sărbătoare legală se tratează ca duminică. Tipurile se folosesc pentru eticheta zilei și pentru media abaterilor. Pagina liniei nu le folosește: orarul ei urmează D-060 (coloana „Duminică”, din următoarea duminică, cu nota despre sărbători).
+- **Why:** Pe feed-ul real (v4.9), sărbătorile legale 30.11 și 01.12 rulează orarul lucrător (serviciul 3), nu pe cel de duminică; o coloană „duminică și sărbătoare” pe pagina liniei ar fi falsă. Răspunsul utilizatorului la /plan pentru punctul 11.
+- **Rejected:** coloana „Duminică și sărbătoare” pe pagina liniei.
+- **Evidence:** calendarul feed-ului local (v4.9), 2026-11-26; răspunsul utilizatorului la /plan pentru punctul 11, 2026-11-26
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-26

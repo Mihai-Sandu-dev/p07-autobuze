@@ -48,14 +48,15 @@
 - D-056 · După înregistrare, utilizatorul ajunge pe autentificare, cu „Contul a fost creat. Autentifică-te.”
 - D-057 · „Acasă”: următoarea plecare pe grup pentru fiecare favorită, harta favoritelor dedesubt; maxim 10 favorite
 - D-059 · În tema dark, tile-urile OSM sunt întunecate în browser cu un filtru CSS
+- D-060 · Pagina de linie: traseul cel mai des pe fiecare sens, orarul din capăt pe trei zile reale
 
 ### [Orar si plecari](decisions/orar-si-plecari.md)
-- D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală
 - D-015 · Lista sărbătorilor legale e în DB, doar pentru eticheta zilei și media abaterilor
 - D-018 · Următoarele plecări: primele 3 pe fiecare linie și sens, completate cu ziua următoare
 - D-047 · Orele din feed sunt ora de pe ceas, ca pe panoul din stație
 - D-048 · Următoarele plecări nu arată cursele care se termină în stație
 - D-051 · Un grup din „Următoarele plecări” = linie + capăt (trip_headsign)
+- D-061 · Tipuri de zi: lucrătoare, sâmbătă, duminică sau sărbătoare legală (eticheta zilei și media abaterilor)
 
 ### [Planificator](decisions/planificator.md)
 - D-002 · Planificatorul caută itinerarii cu maxim un transfer

@@ -11,4 +11,7 @@
 ### [Ecrane si scop](decisions/ecrane-si-scop.md)
 - D-027 · Direcția vizuală: bază neutră, un accent, stil de panou doar la plecări și linii · _superseded-by D-042_
 
+### [Orar si plecari](decisions/orar-si-plecari.md)
+- D-014 · Tipuri de zi: lucrătoare, sâmbătă, duminică și sărbătoare legală · _superseded-by D-061_
+
 ---

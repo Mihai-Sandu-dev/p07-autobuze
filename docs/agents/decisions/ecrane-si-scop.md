@@ -169,3 +169,13 @@
 - **Evidence:** răspunsul autorului la /plan pentru restilizarea D-042, 2026-11-26
 - **Source:** user · confidence high
 - **Confirmed:** 2026-11-26
+
+## D-060 · Pagina de linie: traseul cel mai des pe fiecare sens, orarul din capăt pe trei zile reale
+- **Status:** approved
+- **Date:** 2026-11-26
+- **Rule:** Pagina de linie e la `/linie/{route_short_name}` (D-020). Pentru fiecare sens (linie + capăt, D-051): stațiile în ordine și shape-ul traseului pe care merg cele mai multe curse (la egalitate, traseul cu mai multe stații, apoi cel mai mic `trip_id`; shape-ul e cel mai des `shape_id` al acestor curse). Orarul: ora de plecare din prima stație a fiecărei curse, în trei coloane, din următoarea zi lucrătoare, sâmbătă și duminică de azi încolo, cu excepțiile din calendar și cu data în titlu; cursele pe alt traseu au semnul „traseu diferit”; orele de după miezul nopții apar ca „00:40”, la sfârșitul coloanei. Coloana a treia se numește „Duminică”, cu nota „De sărbători, Tursib poate circula după alt orar: vezi pagina stației pentru ziua aceea.” Eticheta liniei de pe pagina de stație duce aici.
+- **Why:** Răspunsurile utilizatorului la /plan pentru punctul 11: orarul ca la capăt; feed-ul are până la 4 trasee pe un sens; orarul depinde de dată (E2026, sărbătorile).
+- **Rejected:** orele din stația aleasă; toate traseele unui sens; serviciile din `calendar.txt` fără excepții; coloana „Duminică și sărbătoare”.
+- **Evidence:** răspunsul utilizatorului la /plan pentru punctul 11, 2026-11-26
+- **Source:** user · confidence high
+- **Confirmed:** 2026-11-26
