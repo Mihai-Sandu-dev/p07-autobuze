@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DS-autobuze-linie · mock</title>
+<!-- Mock pentru punctul 11 (2026-11-26), status draft: de confirmat de autor în browser.
+     Același stil ca DS-autobuze-statie (D-042). Reguli (D-060): /linie/{route_short_name}; pentru fiecare sens
+     (linie + capăt, D-051) stațiile în ordine și traseul pe care merg cele mai multe curse; orarul din prima stație,
+     în trei coloane (următoarea zi lucrătoare, sâmbătă, duminică, cu data), pe rânduri de oră ca pe orarele din
+     stații (cerut de autor); cursele pe alt traseu au semnul „◦”; orele de după miezul nopții la sfârșit („00”).
+     Coloana „Duminică” are nota despre sărbători (D-061). Fără abaterile medii (punctul 13).
+     Sensurile sunt <details>: fără JS; primul e deschis. Harta e un desen schematic; în aplicație e Leaflet. -->
+<style>
+/* ===== Tokens — DESIGN.md, cu culorile, umbrele și mișcarea din D-042 (varianta „rece”) ===== */
+:root {
+  /* D-042, varianta „rece” — scrise direct în mock până la /plan-ul care le pune în DESIGN.md */
+  --color-bg: #f3f8fc; --color-surface: #e4eef6; --color-text: #13212d;
+  --color-text-muted: #4c5d6c; --color-border: #748797; --color-divider: #d2e0eb;
+  --color-accent: #0f62a8; --color-on-accent: #ffffff; --color-danger: #b42318;
+  --color-success: #1a7340; --color-warning: #8a5a00; --color-time: #08121b;
+  --shadow-card: 0 1px 2px rgb(20 50 80 / 0.06), 0 4px 12px rgb(20 50 80 / 0.08);
+  --shadow-card-hover: 0 2px 4px rgb(20 50 80 / 0.08), 0 10px 24px rgb(20 50 80 / 0.12);
+  --shadow-button: 0 1px 2px rgb(20 50 80 / 0.10), 0 2px 6px rgb(20 50 80 / 0.08);
+  --shadow-button-hover: 0 2px 4px rgb(20 50 80 / 0.12), 0 6px 14px rgb(20 50 80 / 0.12);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --text-xs: 12px/16px; --text-sm: 14px/20px; --text-md: 16px/24px; --text-lg: 20px/28px;
+  --text-xl: 24px/32px; --text-2xl: 32px/40px; --text-time: 28px/32px; --text-time-sm: 20px/28px;
+  --size-page: 720px; --size-form: 440px; --size-panel: 336px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px;
+  --radius-sm: 4px; --radius-md: 8px; --radius-pill: 999px;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.12);
+  --motion-fast: 150ms; --motion-base: 250ms;
+}
+:root[data-theme="dark"] {
+  --color-bg: #111a23; --color-surface: #1a2734; --color-text: #e6eef5;
+  --color-text-muted: #a6b6c4; --color-border: #5f7385; --color-divider: #263646;
+  --color-accent: #7cbcf5; --color-on-accent: #06213a; --color-danger: #ff8a80;
+  --color-success: #6fd49a; --color-warning: #f0c062; --color-time: #ffffff;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.30), 0 4px 14px rgb(0 0 0 / 0.35);
+  --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 10px 26px rgb(0 0 0 / 0.45);
+  --shadow-button: 0 1px 2px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.30);
+  --shadow-button-hover: 0 2px 4px rgb(0 0 0 / 0.40), 0 6px 16px rgb(0 0 0 / 0.40);
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ===== Mock chrome (nu face parte din design) ===== */
+.mock-bar { font: 13px/1.4 var(--font-text); background: #2d2a4a; color: #fff; padding: 8px 16px;
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.mock-bar b { font-weight: 700; }
+.mock-bar label { display: inline-flex; gap: 6px; align-items: center; }
+.mock-bar select, .mock-bar button { font: inherit; }
+.mock-note { font: 12px/1.4 var(--font-text); background: #fff4cc; color: #3d3000; padding: 6px 16px; }
+/* Containerul face ca previzualizarea la 360 px să folosească stilurile de mobil și pe un ecran lat. */
+.frame { margin: 0 auto; container-type: inline-size; transition: max-width var(--motion-base); }
+.frame[data-width="360"] { max-width: 360px; border-inline: 1px dashed #999; }
+.frame[data-width="full"] { max-width: none; }
+
+/* ===== Pagina ===== */
+html, body { margin: 0; }
+/* Atributul hidden câștigă mereu (altfel un display: flex/grid îl anulează). */
+[hidden] { display: none !important; }
+body { background: #e9e9ee; }
+.page { background: var(--color-bg); color: var(--color-text); font: var(--text-md) var(--font-text);
+  min-height: 100vh; display: flex; flex-direction: column; }
+a { color: var(--color-accent); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.ic { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.25em; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* DS-autobuze-antet */
+.antet { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap;
+  padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider); }
+.antet .brand { font-weight: 700; color: var(--color-text); text-decoration: none; display: inline-flex; gap: var(--space-2); align-items: center; }
+.antet nav { display: flex; gap: var(--space-1); flex-wrap: wrap; }
+.antet nav a { color: var(--color-text); text-decoration: none; padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm); font: var(--text-sm) var(--font-text); }
+.antet nav a:hover { background: var(--color-surface); }
+
+main { flex: 1; width: 100%; max-width: var(--size-page); margin: 0 auto; padding: var(--space-4); box-sizing: border-box; }
+
+/* Harta mică (DS-autobuze-harta-leaflet; în aplicație: Leaflet + tile-uri OSM, D-005) */
+.harta-mini { display: block; position: relative; aspect-ratio: 5 / 2; border-radius: var(--radius-md); overflow: hidden;
+  background: var(--color-surface); border: 1px solid var(--color-divider); }
+.harta-mini svg { width: 100%; height: 100%; display: block; }
+.harta-mini .strada { stroke: var(--color-divider); fill: none; stroke-linecap: round; }
+.harta-mini .strada.mare { stroke-width: 10; }
+.harta-mini .strada.mica { stroke-width: 5; }
+.harta-mini .pin { fill: var(--color-text); stroke: var(--color-bg); stroke-width: 2; }
+.harta-mini .pin-centru { fill: var(--color-bg); }
+.harta-mini .atribuire { position: absolute; right: 0; bottom: 0; font: var(--text-xs) var(--font-text);
+  background: var(--color-bg); color: var(--color-text-muted); padding: 0 var(--space-1); border-top-left-radius: var(--radius-sm); }
+
+/* Capul paginii de stație */
+.statie-cap { margin-top: var(--space-4); }
+.statie-cap h1 { font: 600 var(--text-xl) var(--font-text); margin: 0; overflow-wrap: anywhere;
+  display: flex; gap: var(--space-2); align-items: baseline; }
+.statie-cap h1 .ic { color: var(--color-text-muted); align-self: center; }
+.statie-cap .meta { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); margin: var(--space-1) 0 0;
+  display: flex; gap: var(--space-1); align-items: center; }
+.statie-cap .actiuni { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+.limita { flex-basis: 100%; margin: 0; border: 1px solid var(--color-warning); border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3); font: var(--text-sm) var(--font-text); background: var(--color-bg); }
+.btn { font: var(--text-sm) var(--font-text); padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text);
+  cursor: pointer; min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box;
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  text-decoration: none; transition: background var(--motion-fast); }
+.btn:hover { background: var(--color-surface); }
+.btn-primar { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-on-accent); }
+.btn-primar:hover { background: var(--color-accent); filter: brightness(1.08); }
+.btn[aria-pressed="true"] { border-color: var(--color-accent); color: var(--color-accent); }
+.btn[aria-pressed="true"] .ic { fill: currentColor; }
+
+.info-login { margin: var(--space-4) 0 0; font: var(--text-sm) var(--font-text); color: var(--color-text-muted); }
+
+/* Grupurile de linie și sens: carduri cu bordura de sus în culoarea liniei */
+.plecari { margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+.grup { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4);
+  border-top: var(--space-1) solid var(--linie, var(--color-border)); }
+.grup-cap { display: flex; align-items: center; gap: var(--space-3); }
+.sens { font-weight: 600; overflow-wrap: anywhere; min-width: 0; }
+.sens .ic { color: var(--color-text-muted); margin-inline-end: var(--space-1); }
+.sens small { display: block; font: 400 var(--text-sm) var(--font-text); color: var(--color-text-muted); }
+
+/* DS-autobuze-eticheta-linie */
+.eticheta { font: 700 var(--text-md) var(--font-text); padding: 0 var(--space-3); min-width: var(--space-5); text-align: center;
+  border-radius: var(--radius-pill); flex: none; border: 1px solid transparent; }
+.eticheta.fara-culoare { background: #ffffff; color: #000000; border-color: var(--color-border); }
+/* Eticheta e link spre pagina liniei; ținta de atingere crește fără să mărească eticheta. */
+a.eticheta { text-decoration: none; position: relative; }
+a.eticheta::after { content: ""; position: absolute; inset: calc(-1 * var(--space-3)); }
+
+/* DS-autobuze-rand-plecare: prima plecare mare, ca pe panou */
+.urmatoarea { margin-top: var(--space-3); background: var(--color-bg); border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3); }
+.urmatoarea .ora { font: 700 var(--text-time) var(--font-mono); font-variant-numeric: tabular-nums; display: block; }
+.cand { font: var(--text-sm) var(--font-text); color: var(--color-text-muted); display: flex; gap: var(--space-1); align-items: center; flex-wrap: wrap; }
+.chip-maine { font: 600 var(--text-xs) var(--font-text); color: var(--color-warning);
+  border: 1px solid currentColor; border-radius: var(--radius-pill); padding: 0 var(--space-2); }
+/* celelalte două, mai mici */
+.altele { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+.altele li { padding: var(--space-1) var(--space-3); }
+.altele .ora { font: 700 var(--text-time-sm) var(--font-mono); font-variant-numeric: tabular-nums; display: block; }
+.grup .raporteaza { margin-top: var(--space-3); }
+
+/* Stări */
+.stare { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-5) var(--space-4); margin-top: var(--space-5); }
+.stare h2 { font: 600 var(--text-lg) var(--font-text); margin: 0; }
+.stare p { margin: var(--space-2) 0 var(--space-4); color: var(--color-text-muted); }
+.stare.eroare h2 { color: var(--color-danger); }
+.schelet { background: var(--color-surface); border-radius: var(--radius-md); height: calc(var(--space-7) * 3);
+  border-top: var(--space-1) solid var(--color-divider); position: relative; overflow: hidden; }
+.schelet::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.25), transparent); animation: puls 1.2s infinite; }
+:root[data-theme="dark"] .schelet::after { background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.06), transparent); }
+@keyframes puls { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+/* DS-autobuze-subsol */
+.subsol { border-top: 1px solid var(--color-divider); padding: var(--space-4); font: var(--text-xs) var(--font-text);
+  color: var(--color-text-muted); text-align: center; }
+
+@container (min-width: 600px) {
+  main { padding: var(--space-5); }
+  .statie-cap h1 { font: 700 var(--text-2xl) var(--font-text); }
+  .harta-mini { aspect-ratio: 3 / 1; }
+}
+
+/* ===== D-042: umbre moi, mișcare lină, orele de contrast maxim =====
+   Valori aprobate, scrise direct în mock până la /plan-ul care le pune în DESIGN.md și tokens.css. */
+/* Comutarea temei e lină (culori, borduri, umbre); orele NU intră aici. */
+.page, .page *:not(.ora) {
+  transition: background-color var(--motion-base) var(--ease-out), border-color var(--motion-base) var(--ease-out),
+              color var(--motion-base) var(--ease-out), box-shadow var(--motion-base) var(--ease-out),
+              transform var(--motion-fast) var(--ease-out), opacity var(--motion-fast) var(--ease-out);
+}
+/* Orele: culoarea de contrast maxim, fără nicio tranziție sau animație. */
+.page .ora { color: var(--color-time); transition: none !important; animation: none !important; }
+/* Butoane: umbră moale; la hover se ridică 1 px; apăsat revine. */
+.page .btn { box-shadow: var(--shadow-button); }
+.page .btn:hover { box-shadow: var(--shadow-button-hover); transform: translateY(-1px); }
+.page .btn:active, .page .btn[disabled]:hover { transform: translateY(0); box-shadow: var(--shadow-button); }
+/* Cardurile apar cu un fade scurt (doar la randare), decalat ușor; selectorii sunt mai jos. */
+@keyframes apare { from { opacity: 0; transform: translateY(var(--space-1)); } }
+/* Tot ce se mișcă se oprește la prefers-reduced-motion. */
+@media (prefers-reduced-motion: reduce) {
+  .page, .page * { transition: none !important; animation: none !important; }
+}
+/* Cardurile acestei pagini */
+.page .grup, .page .schelet { box-shadow: var(--shadow-card); animation: apare var(--motion-base) var(--ease-out) both; }
+.page .grup:hover, .page .schelet:hover { box-shadow: var(--shadow-card-hover); }
+.page .grup:nth-child(2), .page .schelet:nth-child(2) { animation-delay: 40ms; }
+.page .grup:nth-child(3), .page .schelet:nth-child(3) { animation-delay: 80ms; }
+.page .grup:nth-child(4), .page .schelet:nth-child(4) { animation-delay: 120ms; }
+.page .grup:nth-child(5), .page .schelet:nth-child(5) { animation-delay: 160ms; }
+/* Alte suprafețe ale paginii */
+.page .harta-mini { box-shadow: var(--shadow-card); }
+@media (prefers-reduced-motion: reduce) { .page, .page * { transition: none !important; animation: none !important; } }
+
+/* ===== DS-autobuze-linie ===== */
+.linie-cap { margin-top: var(--space-4); }
+.linie-cap h1 { font: 600 var(--text-xl) var(--font-text); margin: 0; display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; overflow-wrap: anywhere; }
+.linie-cap h1 .eticheta { font: 700 var(--text-lg) var(--font-text); }
+.linie-cap .meta { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); margin: var(--space-1) 0 0; }
+.harta-linie { aspect-ratio: 3 / 2; }
+.harta-linie .traseu { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.harta-linie .traseu.al-doilea { stroke-dasharray: 2 8; }
+.harta-linie .st { fill: var(--color-bg); stroke: var(--color-text); stroke-width: 2.5; }
+.sensuri { margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+.sens-bloc { background: var(--color-surface); border-radius: var(--radius-md); border-top: var(--space-1) solid var(--linie, var(--color-border)); }
+.sens-bloc > summary { list-style: none; cursor: pointer; padding: var(--space-3) var(--space-4); display: flex; gap: var(--space-2); align-items: center;
+  font: 600 var(--text-md) var(--font-text); min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box; }
+.sens-bloc > summary::-webkit-details-marker { display: none; }
+.sens-bloc > summary .ic { color: var(--color-text-muted); }
+.sens-bloc > summary .chevron { margin-inline-start: auto; transition: transform var(--motion-fast); }
+.sens-bloc[open] > summary .chevron { transform: rotate(180deg); }
+.sens-bloc > summary small { display: block; font: 400 var(--text-sm) var(--font-text); color: var(--color-text-muted); }
+.sens-corp { padding: 0 var(--space-4) var(--space-4); display: grid; gap: var(--space-4); }
+.sens-corp h3 { font: 600 var(--text-sm) var(--font-text); color: var(--color-text-muted); margin: 0 0 var(--space-2); text-transform: none; }
+.statii { list-style: none; margin: 0; padding: 0; display: grid; }
+.statii li { display: grid; grid-template-columns: var(--space-5) 1fr; gap: var(--space-2); align-items: center; position: relative; }
+.statii li::before { content: ""; position: absolute; left: calc(var(--space-5) / 2 - 1px); top: 0; bottom: 0; width: 2px; background: var(--linie, var(--color-border)); }
+.statii li:first-child::before { top: 50%; } .statii li:last-child::before { bottom: 50%; }
+.statii .punct { width: var(--space-3); height: var(--space-3); border-radius: var(--radius-pill); background: var(--color-bg);
+  border: 2px solid var(--color-text); box-sizing: border-box; justify-self: center; position: relative; }
+.statii a { color: var(--color-text); padding: var(--space-2) 0; min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box;
+  display: flex; align-items: center; overflow-wrap: anywhere; text-decoration-color: var(--color-border); text-underline-offset: var(--space-1); }
+.statii li:first-child a, .statii li:last-child a { font-weight: 600; }
+.orar-wrap { overflow-x: auto; }
+table.orar { border-collapse: collapse; width: 100%; font: var(--text-sm) var(--font-text); }
+.orar th { text-align: start; font: 600 var(--text-xs) var(--font-text); color: var(--color-text-muted); padding: var(--space-1) var(--space-2); vertical-align: bottom; }
+.orar th span { display: block; font-weight: 400; }
+.orar tbody th { font: 700 var(--text-md) var(--font-mono); font-variant-numeric: tabular-nums; color: var(--color-text); vertical-align: top; width: var(--space-6); }
+.orar td { font: 600 var(--text-sm) var(--font-mono); font-variant-numeric: tabular-nums; padding: var(--space-1) var(--space-2);
+  vertical-align: top; border-inline-start: 1px solid var(--color-divider); word-spacing: var(--space-1); }
+.orar tbody tr { border-top: 1px solid var(--color-divider); }
+.orar tbody tr:nth-child(even) { background: var(--color-bg); }
+.orar .alt-traseu { text-decoration: underline dotted; text-underline-offset: 3px; }
+.orar .alt-traseu::after { content: "◦"; font-family: var(--font-text); color: var(--color-text-muted); }
+.orar .nu-circula { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); }
+.nota-orar { margin: var(--space-2) 0 0; font: var(--text-xs) var(--font-text); color: var(--color-text-muted); }
+@container (min-width: 600px) {
+  .linie-cap h1 { font: 700 var(--text-2xl) var(--font-text); }
+  .harta-linie { aspect-ratio: 5 / 2; }
+  .sens-corp { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: start; }
+}
+.page .sens-bloc { box-shadow: var(--shadow-card); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/><circle cx="8" cy="14.5" r="0.5"/><circle cx="16" cy="14.5" r="0.5"/></symbol>
+  <symbol id="i-sageata" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-jos" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+</svg>
+<div class="mock-bar" role="region" aria-label="Controale mock">
+  <b>DS-autobuze-linie</b> · mock, nu e aplicația
+  <label>Stare
+    <select id="stare" autocomplete="off">
+      <option value="normal">Linia 11, două sensuri</option>
+      <option value="multe">Linia 19, multe capete</option>
+      <option value="varianta">Sens cu curse pe alt traseu</option>
+      <option value="weekend">Nu circulă în weekend</option>
+      <option value="lung">Nume lungi</option>
+      <option value="neimportat">Orarul nu e încă importat</option>
+    </select>
+  </label>
+  <label>Temă
+    <select id="tema" autocomplete="off"><option value="light">Light</option><option value="dark">Dark</option></select>
+  </label>
+  <label>Lățime
+    <select id="latime" autocomplete="off"><option value="360">360 px (mobil)</option><option value="full">Toată fereastra</option></select>
+  </label>
+</div>
+<div class="mock-note">Date de exemplu, nu din feed: stațiile vin din fișa de teren, orele și culorile sunt inventate. Harta e un desen schematic. Linkuri active: numele aplicației și Hartă, numele stațiilor (pagina de stație). Sensurile se deschid și se închid (fără JS în aplicație: elementul &lt;details&gt;).</div>
+<div class="frame" id="frame" data-width="360">
+<div class="page">
+  <header class="antet">
+    <a class="brand" href="DS-autobuze-harta.html" data-mock><svg class="ic" aria-hidden="true"><use href="#i-bus"/></svg>Staționar</a>
+    <nav aria-label="Navigare principală">
+      <a href="DS-autobuze-harta.html" data-mock>Hartă</a>
+      <a href="DS-autobuze-login.html" data-mock>Autentificare</a>
+    </nav>
+  </header>
+  <main id="main"></main>
+  <footer class="subsol">Date de transport: Tursib S.A. · Aplicație neoficială. Nu este afiliată cu Tursib S.A.</footer>
+</div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const icon = id => `<svg class="ic" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+const ZILE = [["Lucrătoare", "vineri, 27 noiembrie"], ["Sâmbătă", "28 noiembrie"], ["Duminică", "29 noiembrie"]];
+// ore: { "05": [["10"], ["40", true]] }  — true = traseu diferit
+function orar(sablon, alt) {
+  const o = {};
+  for (const [h, mins] of sablon) o[h] = mins.map(m => [m, alt && alt.includes(h + ":" + m)]);
+  return o;
+}
+const LUCR = [["05",["10","40"]],["06",["05","25","45"]],["07",["00","15","30","45"]],["08",["00","20","40"]],["09",["00","30"]],["10",["00","30"]],["11",["00","30"]],["12",["00","30"]],["13",["00","20","40"]],["14",["00","15","30","45"]],["15",["00","15","30","45"]],["16",["00","15","30","45"]],["17",["00","20","40"]],["18",["00","30"]],["19",["00","30"]],["20",["00","40"]],["21",["20"]],["22",["10"]],["23",["05"]],["00",["10"]]];
+const SAMB = [["06",["10","50"]],["07",["30"]],["08",["10","50"]],["09",["30"]],["10",["10","50"]],["11",["30"]],["12",["10","50"]],["13",["30"]],["14",["10","50"]],["16",["10"]],["18",["10"]],["20",["10"]],["22",["10"]]];
+const DUM = [["07",["10"]],["08",["30"]],["10",["10"]],["12",["10"]],["14",["10"]],["16",["10"]],["18",["10"]],["20",["10"]],["22",["10"]]];
+function tabel(zile) {
+  const ore = [...new Set(zile.flatMap(z => z ? Object.keys(z) : []))].sort((a, b) => (a === "00") - (b === "00") || a.localeCompare(b));
+  const cap = ZILE.map(([t, d]) => `<th scope="col">${t}<span>${d}</span></th>`).join("");
+  const randuri = ore.map(h => `<tr><th scope="row">${h}</th>${zile.map(z => {
+      if (!z) return `<td></td>`;
+      return `<td>${(z[h] || []).map(([m, alt]) => alt ? `<span class="alt-traseu" title="Traseu diferit">${m}</span>` : m).join(" ")}</td>`;
+    }).join("")}</tr>`).join("");
+  const goale = zile.map((z, i) => z ? "" : ZILE[i][0]).filter(Boolean);
+  return `<div class="orar-wrap"><table class="orar"><thead><tr><th scope="col"><span class="sr">Ora</span></th>${cap}</tr></thead>
+    <tbody>${goale.length ? `<tr><th scope="row"></th>${zile.map(z => z ? "<td></td>" : `<td class="nu-circula">Nu circulă</td>`).join("")}</tr>` : ""}${randuri}</tbody></table></div>`;
+}
+function sens(s, deschis, culoare) {
+  const statii = s.statii.map(n => `<li><span class="punct" aria-hidden="true"></span><a href="DS-autobuze-statie.html" data-mock>${n}</a></li>`).join("");
+  const alt = s.alt ? `<p class="nota-orar">◦ Traseu diferit: cursa nu trece prin toate stațiile de mai sus. Vezi pagina stației.</p>` : "";
+  return `<details class="sens-bloc" style="--linie:${culoare}" ${deschis ? "open" : ""}>
+    <summary>${icon("sageata")}<span><span class="sr">Spre </span>${s.cap}<small>${s.statii.length} stații · din ${s.statii[0]}</small></span>${icon("jos").replace('class="ic"', 'class="ic chevron"')}</summary>
+    <div class="sens-corp">
+      <section aria-label="Stațiile spre ${s.cap}"><h3>Stațiile, în ordine</h3><ol class="statii">${statii}</ol></section>
+      <section aria-label="Orarul spre ${s.cap}"><h3>Orarul din ${s.statii[0]}</h3>${tabel(s.zile)}${alt}
+        <p class="nota-orar">Duminică: de sărbători, Tursib poate circula după alt orar: vezi pagina stației pentru ziua aceea.</p></section>
+    </div></details>`;
+}
+const S_TUR = ["Turnișor", "Metro", "Piața Cibin 3", "Teatru", "Zidul Cetății", "Casa Armatei", "Andrei Șaguna", "Ambient 1", "Aumovio"];
+const LINII = {
+  normal: { nr: "11", bg: "#0057a8", fg: "#ffffff", nume: "Turnișor - Aumovio", sensuri: [
+    { cap: "Aumovio", statii: S_TUR, zile: [orar(LUCR), orar(SAMB), orar(DUM)] },
+    { cap: "Turnișor", statii: [...S_TUR].reverse(), zile: [orar(LUCR), orar(SAMB), orar(DUM)] }] },
+  multe: { nr: "19", bg: "#f2c500", fg: "#000000", nume: "Cartier Magnolia - Marquardt", sensuri:
+    ["Cartier Magnolia - Gară", "Cartier Magnolia - Marquardt", "Cartier Magnolia - Marquardt - Ocna Sibiului",
+     "Lyon - Monaco - Cartier Magnolia - Gară", "Lyon - Monaco - Marquardt", "Lyon - Monaco - Marquardt - Ocna Sibiului"]
+     .map(cap => ({ cap, statii: S_TUR.slice(0, 6), zile: [orar(LUCR), orar(SAMB), orar(DUM)] })) },
+  varianta: { nr: "21", bg: "#00843d", fg: "#ffffff", nume: "Gară - Marquardt", sensuri: [
+    { cap: "Marquardt", statii: S_TUR, alt: true, zile: [orar(LUCR, ["06:25", "14:45", "22:10"]), orar(SAMB, ["08:10"]), orar(DUM)] }] },
+  weekend: { nr: "E4", bg: "#7a6fb0", fg: "#ffffff", nume: "Gușterița - Col. O. Goga", sensuri: [
+    { cap: "Col. O. Goga - Sc. Regina Maria", statii: S_TUR.slice(2, 7), zile: [orar(LUCR.slice(1, 4)), null, null] }] },
+  lung: { nr: "118", bg: null, nume: "Zona Industrială Vest - Strada Ștefan cel Mare (nume lung de exemplu)", sensuri: [
+    { cap: "Zona Industrială Vest - Strada Ștefan cel Mare (capăt de linie prelungit)",
+      statii: ["Turnișor (Calea Turnișorului, lângă Biserica Sfântul Ioan — nume lung de exemplu)", ...S_TUR.slice(1)],
+      zile: [orar(LUCR), orar(SAMB), orar(DUM)] }] }
+};
+function harta(l) {
+  const c = l.bg || "var(--color-border)";
+  const pts = [[30,130],[80,110],[130,100],[180,80],[230,70],[280,60],[330,45],[370,30]];
+  return `<a class="harta-mini harta-linie" href="DS-autobuze-harta.html" data-mock aria-label="Deschide harta mare">
+    <svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path class="strada mare" d="M-10 110 C 80 100, 160 70, 410 60"/><path class="strada mica" d="M190 -10 L 215 170"/>
+      <polyline class="traseu" style="stroke:${c}" points="${pts.map(p => p.join(",")).join(" ")}"/>
+      ${l.sensuri.length > 1 ? `<polyline class="traseu al-doilea" style="stroke:${c}" points="${pts.map(([x, y]) => x + "," + (y + 14)).join(" ")}"/>` : ""}
+      ${pts.map(([x, y]) => `<circle class="st" cx="${x}" cy="${y}" r="5"/>`).join("")}
+    </svg><span class="atribuire">© OpenStreetMap contributors</span></a>`;
+}
+function randeaza() {
+  const stare = $("stare").value;
+  if (stare === "neimportat") {
+    $("main").innerHTML = `<div class="stare"><h2>Orarul nu e încă importat</h2>
+      <p>Liniile apar după primul import al orarului Tursib. Revino peste câteva minute.</p></div>`;
+    return;
+  }
+  const l = LINII[stare];
+  const et = l.bg ? `<span class="eticheta" style="background:${l.bg};color:${l.fg}">${l.nr}</span>` : `<span class="eticheta fara-culoare">${l.nr}</span>`;
+  $("main").innerHTML = harta(l) + `<section class="linie-cap"><h1>${et}<span>Linia ${l.nr}</span></h1>
+    <p class="meta">${l.nume} · ${l.sensuri.length === 1 ? "un sens" : l.sensuri.length + " sensuri"}</p></section>
+    <div class="sensuri">${l.sensuri.map((s, i) => sens(s, i === 0, l.bg || "var(--color-border)")).join("")}</div>`;
+}
+const aplicaTema = () => document.documentElement.dataset.theme = $("tema").value;
+const aplicaLatime = () => $("frame").dataset.width = $("latime").value;
+$("stare").onchange = randeaza;
+$("tema").onchange = aplicaTema;
+$("latime").onchange = aplicaLatime;
+// La reîncărcare, unele browsere păstrează valorile din select-uri: le aplicăm pe toate la pornire.
+// Navigarea între mock-uri: linkurile cu data-mock duc la alt mock și păstrează tema și lățimea.
+const q = new URLSearchParams(location.search);
+for (const k of ["stare", "tema", "latime"]) {
+  const v = q.get(k);
+  if (v && [...$(k).options].some(o => o.value === v)) $(k).value = v;
+}
+function mergi(href, extra = {}) {
+  const u = new URL(href, location.href);
+  u.searchParams.set("tema", $("tema").value);
+  u.searchParams.set("latime", $("latime").value);
+  for (const [k, v] of Object.entries(extra)) u.searchParams.set(k, v);
+  location.href = u;
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-mock]");
+  if (!a || a.getAttribute("href") === "#") return;
+  e.preventDefault();
+  mergi(a.getAttribute("href"));
+});
+aplicaTema(); aplicaLatime(); randeaza();
+</script>
+</body>
+</html>
