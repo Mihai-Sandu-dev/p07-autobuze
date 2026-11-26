@@ -46,7 +46,22 @@ public class ServiceCalendar {
                 feedVersionId, date, feedVersionId, date, feedVersionId, date));
     }
 
-    /** Tipul zilei (D-014), cu sărbătorile legale din {@code public_holidays} (D-015). */
+    /**
+     * Prima zi de la {@code from} încolo (inclusiv) din care pagina liniei își ia coloana (D-060): o zi
+     * lucrătoare sau o sâmbătă care nu e sărbătoare legală (D-061), respectiv prima duminică.
+     */
+    public LocalDate nextOf(DayType type, LocalDate from) {
+        for (LocalDate d = from; ; d = d.plusDays(1)) {
+            boolean match = type == DayType.DUMINICA_SARBATOARE
+                    ? d.getDayOfWeek() == java.time.DayOfWeek.SUNDAY
+                    : dayType(d) == type;
+            if (match) {
+                return d;
+            }
+        }
+    }
+
+    /** Tipul zilei (D-061), cu sărbătorile legale din {@code public_holidays} (D-015). */
     public DayType dayType(LocalDate date) {
         return DayType.of(date, holiday(date));
     }

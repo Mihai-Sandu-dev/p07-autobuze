@@ -4,8 +4,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 /**
- * Tipul de zi (D-014): lucrătoare, sâmbătă, sau duminică și sărbătoare legală. Dă doar eticheta
- * zilei (orarul pe tipuri de zi, media abaterilor); plecările nu îl folosesc (D-015).
+ * Tipul de zi (D-061): lucrătoare, sâmbătă, sau duminică și sărbătoare legală. Dă eticheta zilei și,
+ * mai târziu, media abaterilor; plecările nu îl folosesc (D-015). Pagina liniei alege zilele după D-060.
  */
 public enum DayType {
     LUCRATOARE, SAMBATA, DUMINICA_SARBATOARE;

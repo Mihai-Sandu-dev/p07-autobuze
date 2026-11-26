@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<!-- DS-autobuze-linie (mock aprobat): pentru fiecare sens (linie + capăt, D-051), stațiile traseului celui mai des
+     și orarul din prima stație, pe rânduri de oră, în coloanele următoarei zile lucrătoare, sâmbete și duminici
+     (D-060). Sensurile sunt <details>, fără JS; harta (traseele și stațiile) e desenată de static/js/harta-mini.js. -->
+<head th:replace="~{fragments/head :: head(${'Linia ' + line + ' · Staționar — când vine autobuzul?'}, null)}"></head>
+<body>
+<header th:replace="~{fragments/antet :: antet('linie')}"></header>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-sageata" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-jos" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+</svg>
+<main class="linie">
+  <div class="stare" th:if="${!feedImported}">
+    <h2>Orarul nu e încă importat</h2>
+    <p>Liniile apar după primul import al orarului Tursib. Revino peste câteva minute.</p>
+  </div>
+
+  <th:block th:if="${feedImported}" th:with="color=${page.colors.background}">
+    <a class="harta-mini harta-linie" href="/harta" th:href="@{/harta}" aria-label="Deschide harta mare"
+       th:style="${color == 'FFFFFF'} ? null : ${'--linie: #' + color}"
+       th:data-trasee="${trasee}" th:data-statii="${statii}"><div class="harta-leaflet"></div></a>
+
+    <section class="linie-cap">
+      <h1><span class="eticheta" th:classappend="${color == 'FFFFFF'} ? 'fara-culoare'"
+            th:style="${'background: #' + color + '; color: #' + page.colors.text}" th:text="${page.line}">11</span><span
+            th:text="${'Linia ' + page.line}">Linia 11</span></h1>
+      <p class="meta" th:text="${(page.longName == null ? '' : page.longName + ' · ')
+          + (#lists.size(page.directions) == 1 ? 'un sens' : #lists.size(page.directions) + ' sensuri')}">Turnișor - Aumovio · 2 sensuri</p>
+    </section>
+
+    <div class="sensuri">
+      <details class="sens-bloc" th:each="dir, di : ${page.directions}" th:open="${di.first}"
+               th:style="${color == 'FFFFFF'} ? null : ${'--linie: #' + color}">
+        <summary><svg class="ic" aria-hidden="true"><use href="#i-sageata"/></svg><span><span class="sr">Spre </span><th:block
+            th:text="${dir.headsign}">Aumovio</th:block><small th:text="${#lists.size(dir.stops) + ' stații · din ' + dir.stops[0].name}">9 stații · din Turnișor</small></span><svg
+            class="ic chevron" aria-hidden="true"><use href="#i-jos"/></svg></summary>
+        <div class="sens-corp">
+          <section th:attr="aria-label=${'Stațiile spre ' + dir.headsign}">
+            <h3>Stațiile, în ordine</h3>
+            <ol class="statii">
+              <li th:each="s : ${dir.stops}"><span class="punct" aria-hidden="true"></span><a href="/statie/1051"
+                  th:href="@{/statie/{id}(id=${s.stopId})}" th:text="${s.name}">Turnișor</a></li>
+            </ol>
+          </section>
+          <section th:attr="aria-label=${'Orarul spre ' + dir.headsign}">
+            <h3 th:text="${'Orarul din ' + dir.stops[0].name}">Orarul din Turnișor</h3>
+            <div class="orar-wrap">
+              <table class="orar">
+                <thead><tr><th scope="col"><span class="sr">Ora</span></th><th scope="col" th:each="d : ${dir.timetable.days}"><th:block
+                    th:text="${d.label}">Lucrătoare</th:block><span th:text="${d.dateText()}">vineri, 27 noiembrie</span></th></tr></thead>
+                <tbody>
+                  <tr th:if="${dir.timetable.emptyDay(0) or dir.timetable.emptyDay(1) or dir.timetable.emptyDay(2)}">
+                    <th scope="row"></th>
+                    <td th:each="d, it : ${dir.timetable.days}" th:classappend="${dir.timetable.emptyDay(it.index)} ? 'nu-circula'"
+                        th:text="${dir.timetable.emptyDay(it.index)} ? 'Nu circulă' : ''"></td>
+                  </tr>
+                  <tr th:each="h : ${dir.timetable.hours}">
+                    <th scope="row" th:text="${h.label}">05</th>
+                    <td th:each="mins : ${h.perDay}"><th:block th:each="m, mi : ${mins}"><span class="alt-traseu"
+                        title="Traseu diferit" th:if="${m.otherRoute}" th:text="${m.minute}">25</span><th:block
+                        th:unless="${m.otherRoute}" th:text="${m.minute}">10</th:block><th:block th:unless="${mi.last}"> </th:block></th:block></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="nota-orar" th:if="${dir.hasOtherRoute}">◦ Traseu diferit: cursa nu trece prin toate stațiile de mai sus. Vezi pagina stației.</p>
+            <p class="nota-orar">Duminică: de sărbători, Tursib poate circula după alt orar: vezi pagina stației pentru ziua aceea.</p>
+          </section>
+        </div>
+      </details>
+    </div>
+  </th:block>
+</main>
+<footer th:replace="~{fragments/subsol :: subsol}"></footer>
+<th:block th:if="${feedImported}">
+<link rel="stylesheet" th:href="@{/vendor/leaflet/leaflet.css}" href="/vendor/leaflet/leaflet.css">
+<script th:src="@{/vendor/leaflet/leaflet.js}" src="/vendor/leaflet/leaflet.js"></script>
+<script th:src="@{/js/harta-mini.js}" src="/js/harta-mini.js"></script>
+</th:block>
+</body>
+</html>

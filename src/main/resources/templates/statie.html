@@ -48,8 +48,9 @@
     <section class="grup" th:each="g : ${board.groups}" th:style="${'--linie: #' + g.color}"
              th:attr="aria-label=${'Linia ' + g.line + ' spre ' + g.headsign}">
       <div class="grup-cap">
-        <span class="eticheta" th:classappend="${g.color == 'FFFFFF'} ? 'fara-culoare'"
-              th:style="${'background: #' + g.color + '; color: #' + g.textColor}" th:text="${g.line}">19</span>
+        <a class="eticheta" th:classappend="${g.color == 'FFFFFF'} ? 'fara-culoare'"
+           th:style="${'background: #' + g.color + '; color: #' + g.textColor}"
+           th:href="@{/linie/{l}(l=${g.line})}" th:aria-label="${'Linia ' + g.line + ', pagina liniei'}" href="/linie/19" aria-label="Linia 19, pagina liniei" th:text="${g.line}">19</a>
         <span class="sens"><svg class="ic" aria-hidden="true"><use href="#i-sageata"/></svg><span class="sr">spre </span><span
             th:text="${g.headsign}">Marquardt</span><small th:if="${#lists.size(g.departures) < 3}"
             th:text="${#lists.size(g.departures) == 1 ? 'doar o plecare azi și mâine' : 'doar ' + #lists.size(g.departures) + ' plecări azi și mâine'}">doar 2 plecări azi și mâine</small></span>

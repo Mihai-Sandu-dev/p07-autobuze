@@ -294,6 +294,62 @@ main.formular { max-width: var(--size-form); }
 .harta-fav-titlu { font: 600 var(--text-lg) var(--font-text); margin: var(--space-6) 0 var(--space-2); }
 .stare p { margin: var(--space-2) 0 var(--space-4); color: var(--color-text-muted); }
 
+/* DS-autobuze-linie (D-060) */
+.eticheta { text-decoration: none; }
+.linie-cap { margin-top: var(--space-4); }
+.linie-cap h1 { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; overflow-wrap: anywhere; }
+.linie-cap h1 .eticheta { font: 700 var(--text-lg) var(--font-text); }
+.linie-cap .meta { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); margin: var(--space-1) 0 0; }
+.harta-linie { aspect-ratio: 3 / 2; }
+.traseu { fill: none; stroke: var(--linie, var(--color-text)); stroke-width: 5; stroke-opacity: 1; stroke-linecap: round; stroke-linejoin: round; }
+.traseu.al-doilea { stroke-dasharray: 2 8; }
+.statie-linie { fill: var(--color-bg); fill-opacity: 1; stroke: var(--color-text); stroke-opacity: 1; stroke-width: 2.5; }
+.sensuri { margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+.sens-bloc { background: var(--color-surface); border-radius: var(--radius-md); border-top: var(--space-1) solid var(--linie, var(--color-border)); }
+.sens-bloc > summary {
+  list-style: none; cursor: pointer; padding: var(--space-3) var(--space-4); display: flex; gap: var(--space-2); align-items: center;
+  font: 600 var(--text-md) var(--font-text); min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box; overflow-wrap: anywhere;
+}
+.sens-bloc > summary::-webkit-details-marker { display: none; }
+.sens-bloc > summary .ic { color: var(--color-text-muted); }
+.sens-bloc > summary .chevron { margin-inline-start: auto; transition: transform var(--motion-fast); }
+.sens-bloc[open] > summary .chevron { transform: rotate(180deg); }
+.sens-bloc > summary small { display: block; font: 400 var(--text-sm) var(--font-text); color: var(--color-text-muted); }
+.sens-corp { padding: 0 var(--space-4) var(--space-4); display: grid; gap: var(--space-4); }
+.sens-corp h3 { font: 600 var(--text-sm) var(--font-text); color: var(--color-text-muted); margin: 0 0 var(--space-2); }
+.statii { list-style: none; margin: 0; padding: 0; display: grid; }
+.statii li { display: grid; grid-template-columns: var(--space-5) 1fr; gap: var(--space-2); align-items: center; position: relative; }
+.statii li::before {
+  content: ""; position: absolute; left: calc(var(--space-5) / 2 - 1px); top: 0; bottom: 0; width: 2px;
+  background: var(--linie, var(--color-border));
+}
+.statii li:first-child::before { top: 50%; }
+.statii li:last-child::before { bottom: 50%; }
+.statii .punct {
+  width: var(--space-3); height: var(--space-3); border-radius: var(--radius-pill); background: var(--color-bg);
+  border: 2px solid var(--color-text); box-sizing: border-box; justify-self: center; position: relative;
+}
+.statii a {
+  color: var(--color-text); padding: var(--space-2) 0; min-height: calc(var(--space-7) - var(--space-1)); box-sizing: border-box;
+  display: flex; align-items: center; overflow-wrap: anywhere; text-decoration-color: var(--color-border); text-underline-offset: var(--space-1);
+}
+.statii li:first-child a, .statii li:last-child a { font-weight: 600; }
+.orar-wrap { overflow-x: auto; }
+table.orar { border-collapse: collapse; width: 100%; font: var(--text-sm) var(--font-text); }
+.orar th { text-align: start; font: 600 var(--text-xs) var(--font-text); color: var(--color-text-muted); padding: var(--space-1) var(--space-2); vertical-align: bottom; }
+.orar th span { display: block; font-weight: 400; }
+.orar tbody th { font: 700 var(--text-md) var(--font-mono); color: var(--color-text); vertical-align: top; width: var(--space-6); }
+.orar td {
+  font: 600 var(--text-sm) var(--font-mono); padding: var(--space-1) var(--space-2); vertical-align: top;
+  border-inline-start: 1px solid var(--color-divider); word-spacing: var(--space-1);
+}
+.orar tbody tr { border-top: 1px solid var(--color-divider); }
+.orar tbody tr:nth-child(even) { background: var(--color-bg); }
+.orar .alt-traseu { text-decoration: underline dotted; text-underline-offset: var(--space-1); }
+.orar .alt-traseu::after { content: "◦"; font-family: var(--font-text); color: var(--color-text-muted); }
+.orar .nu-circula { color: var(--color-text-muted); font: var(--text-sm) var(--font-text); }
+.nota-orar { margin: var(--space-2) 0 0; font: var(--text-xs) var(--font-text); color: var(--color-text-muted); }
+
 /* DS-autobuze-subsol (D-008) */
 .subsol {
   border-top: 1px solid var(--color-divider); padding: var(--space-4);
@@ -306,6 +362,8 @@ main.formular { max-width: var(--size-form); }
   main.statie { padding: var(--space-5); }
   h1 { font: 700 var(--text-2xl) var(--font-text); }
   .harta-mini { aspect-ratio: 3 / 1; }
+  .harta-linie { aspect-ratio: 5 / 2; }
+  .sens-corp { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: start; }
   main.harta-pagina { padding: 0; grid-template-rows: none; grid-template-columns: var(--size-panel) 1fr; }
   .panou { padding: var(--space-5); border-inline-end: 1px solid var(--color-divider); }
   .harta { border-top: 0; min-height: calc(var(--space-7) * 12); }

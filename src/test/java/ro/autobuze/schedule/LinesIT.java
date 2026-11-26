@@ -106,7 +106,8 @@ class LinesIT {
     @Test
     void theShapeComesFromShapesTxtOrElseFromTheStops() {
         assertThat(direction("1", WEDNESDAY).shape())
-                .containsExactly(new double[] {45.7995, 24.1617}, new double[] {45.792, 24.152});
+                .containsExactly(new double[] {45.7995, 24.1617}, new double[] {45.792, 24.152},
+                        new double[] {45.7704, 24.1384});
         // linia 2 nu are shape_id: linie dreaptă între stații
         assertThat(direction("2", WEDNESDAY).shape())
                 .containsExactly(new double[] {45.7929, 24.152}, new double[] {45.8019, 24.152},
