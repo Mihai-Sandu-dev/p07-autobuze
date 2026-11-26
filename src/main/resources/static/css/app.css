@@ -185,6 +185,9 @@ input[type="search"] {
 .leaflet-container .leaflet-bar a:hover { background: var(--color-surface); }
 .leaflet-container .leaflet-bar { border-color: var(--color-border); }
 
+/* Tile-urile OSM: întunecate în tema dark, prin tokenul --filter-tiles (D-059); markerele nu se filtrează */
+.leaflet-tile-pane { filter: var(--filter-tiles); }
+
 /* Markerele: punctul în culoarea textului (accentul e doar pentru acțiuni); ținta de 44 px e transparentă */
 .marker-statie { fill: var(--color-text); fill-opacity: 1; stroke: var(--color-bg); stroke-opacity: 1; stroke-width: 2; }
 .marker-statie.ales { stroke-width: 3; }
