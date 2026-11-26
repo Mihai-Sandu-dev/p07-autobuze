@@ -6,6 +6,7 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.Geolocation;
+import com.microsoft.playwright.options.WaitForSelectorState;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,9 @@ class HartaUiTest extends UiTest {
     static Page open(BrowserContext context, String path) {
         Page page = context.newPage();
         page.navigate(BASE_URL + path);
-        page.waitForSelector(".harta .leaflet-interactive");
+        // Markerele sunt în pagină (nu neapărat vizibile: la zoom mare, multe sunt în afara cadrului)
+        page.waitForSelector(".harta .leaflet-interactive",
+                new Page.WaitForSelectorOptions().setState(WaitForSelectorState.ATTACHED));
         return page;
     }
 
@@ -57,7 +60,8 @@ class HartaUiTest extends UiTest {
         try (BrowserContext context = browser.newContext()) {
             Page page = open(context, "/harta");
             page.fill("#cauta", "turnisor");
-            page.click("#rezultate button");
+            // „turnisor” găsește și „Calea Turnisorului 1/2”; alegem stația „Turnișor”
+            page.click("#rezultate button:text-is('Turnișor')");
             assertThat(page.textContent(".popup h2")).contains("Turnișor");
             assertThat(page.getAttribute(".popup a", "href")).startsWith("/statie/");
         }
