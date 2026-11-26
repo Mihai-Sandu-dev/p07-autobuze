@@ -45,7 +45,7 @@ Verificat local cu SQL: 93.218 rânduri în `stop_times`, 84.954 în `shapes`, t
 separat cu SQL; numărul vine din starea importului de pe live, egal cu cel local.
 
 ## Performanță: următoarele plecări
-Cerința (fișa P07, D-018): „următoarele plecări” sub 300 ms pe feed-ul real, **pe interogare**.
+Cerința (fișa P07, „Cerințe tehnice specifice”): „următoarele plecări” sub 300 ms pe feed-ul real, **pe interogare**.
 Măsurat pe Gară (`stop_id` 1051), stația cu cele mai multe plecări (1.730 de rânduri în `stop_times`),
 pentru o cerere de joi, 26.11.2026, 16:00: fereastra până sâmbătă 00:00, deci 4 zile de serviciu.
 O cerere face 13 interogări; textul lor exact, cu `EXPLAIN (ANALYZE, BUFFERS)`, e în
@@ -56,7 +56,7 @@ O cerere face 13 interogări; textul lor exact, cu `EXPLAIN (ANALYZE, BUFFERS)`,
 | Unde | Suma | Cea mai lentă | Sursa |
 |---|---:|---|---|
 | Local (Docker Compose, PostGIS 17.5) | 9,5–9,7 ms (3 rulări) | stația, D-031 (~4,5 ms); lista de curse pentru D-048 (~2,6 ms, 757 de curse) | `psql` pe fișierul de mai sus, 25.11.2026 |
-| Neon (PostgreSQL 17, Frankfurt) | _de completat_ | | autorul, în Neon SQL Editor, cu același fișier |
+| Neon (PostgreSQL 17, Frankfurt) | 147,4 ms (1 rulare) | lista de curse pentru D-048 (66,6 ms); stația, D-031 (29,2 ms); plecările din 26.11 (28,8 ms) | autorul, în Neon SQL Editor, cu același fișier, 26.11.2026 |
 
 Toate cele 4 interogări de plecări folosesc indexul `stop_times_stop_departure`
 (`feed_version_id, stop_id, departure_sec`); lista de curse folosește cheia primară a lui `stop_times`.
