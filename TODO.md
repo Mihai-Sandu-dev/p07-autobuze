@@ -111,10 +111,10 @@
       de fișă; o regulă nouă de grupare ar schimba D-031 (PROPOSAL, prin `/plan`).
 - [ ] Login direct după înregistrare (acum: pagina de autentificare cu „Contul a fost creat”, D-056), pentru o
       experiență mai scurtă. Ar schimba D-056 (PROPOSAL, prin `/plan`).
-- [ ] Tile-uri întunecate în tema dark: tile-urile OSM rămân deschise, iar markerele (culoarea textului din dark)
-      se văd mai slab decât în light. Nu e cerut de fișă; furnizorul de tile-uri e D-005 (PROPOSAL, prin `/plan`).
-- [ ] `/plan` pentru D-042: tokens noi în DESIGN.md și `tokens.css`, umbrele și mișcarea în `app.css`,
-      screenshot-uri noi; DESIGN.md trimite încă la D-027.
+- [x] D-042, culorile: valorile „rece” în DESIGN.md și `tokens.css`, tile-urile întunecate în dark (D-059),
+      screenshot-uri noi (2026-11-26)
+- [ ] Restul D-042 (cere schimbări în `app.css`, nu doar tokeni): `--color-time` pe ore, umbrele moi
+      (`--shadow-card`, `--shadow-button`) cu hover ridicat, fade-ul cardurilor, comutarea lină a temei.
 - [ ] Mock-uri lipsă (înainte de build-ul ecranului): acasa, linie, raport-abatere, inregistrare,
       admin-import, admin-diferente, admin-rapoarte, eroare; comutatorul vizitator / logat în fiecare mock.
 - [ ] Pagina de eroare pentru 403, 404 și 500 (DS-autobuze-eroare).

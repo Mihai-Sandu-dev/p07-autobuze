@@ -172,7 +172,8 @@ input[type="search"] {
 }
 .harta .harta-leaflet { position: absolute; inset: 0; }
 .harta-leaflet.leaflet-container { background: var(--color-surface); font: var(--text-xs) var(--font-text); }
-.leaflet-container .leaflet-control-attribution {
+/* .leaflet-control în plus: leaflet.css se încarcă după app.css și are aceeași specificitate (fundal alb) */
+.leaflet-container .leaflet-control-attribution.leaflet-control {
   background: var(--color-bg); color: var(--color-text-muted); font: var(--text-xs) var(--font-text);
   padding: 0 var(--space-1); border-top-left-radius: var(--radius-sm);
 }

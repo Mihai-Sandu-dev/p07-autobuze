@@ -3,6 +3,26 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-26 · Culorile D-042 (nuanța rece) și tile-urile întunecate în dark, D-059
+**Unealta:** Claude Code (model Claude Opus 5.5), pe branch-ul `feat/d042-culori`.
+
+**Ce am cerut**
+- `/plan`: D-042 aplicat doar pe valorile din `tokens.css` și DESIGN.md, fără schimbări de pagini, clase sau
+  componente; tile-uri întunecate în dark, dacă e simplu; contrast minim 4,5:1 pe text; screenshot-uri noi.
+
+**Ce am primit**
+- Contrastul calculat pentru toate culorile, pe bg și pe surface, în ambele teme (toate peste 4,5:1; bordurile peste 3:1).
+- O întrebare: tile-urile întunecate cer o regulă în `app.css`; am acceptat-o (→ D-059).
+- Build-ul: `./mvnw verify` cu 106 teste IT trecute, 34 de teste de UI trecute, 28 de screenshot-uri refăcute.
+- Un defect găsit în screenshot-urile dark (exista din punctul 9): atribuirea OSM avea fundalul alb din
+  `leaflet.css`, cu text deschis peste; reprodus întâi cu un test, apoi reparat (specificitate mai mare în `app.css`).
+
+**Ce am făcut cu răspunsul**
+- **Am aprobat schimbarea aserțiunilor din `TemaUiTest`:** testul verifica exact culorile de fundal din D-027
+  (alb și #121417); cu restilizarea D-042 fundalurile sunt #f3f8fc și #111a23. Comportamentul testat (tema după
+  sistem, butonul, alegerea salvată) e același.
+- Restul D-042 (`--color-time`, umbre, mișcare) l-am lăsat în TODO, la extra.
+
 ## 2026-11-26 · Autentificarea, favoritele și „Acasă” (punctul 10), D-055–D-058
 **Unealta:** Claude Code (model Claude Opus 5.5), pe branch-ul `feat/auth`.
 
