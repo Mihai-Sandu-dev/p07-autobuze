@@ -3,6 +3,36 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-26 · Harta Leaflet, căutarea și „aproape de mine” (punctul 9), D-053, D-054, C-003
+**Unealta:** Claude Code (model Claude Opus 5.5), pe branch-ul `feat/harta`.
+
+**Ce am cerut**
+- Timpii EXPLAIN ANALYZE de pe Neon trecuți în DATA.md; corectura sursei pragului de 300 ms (fișa P07,
+  „Cerințe tehnice specifice”, nu D-018) în DATA.md, TODO.md și `docs/perf/next-departures.sql`; merge și push.
+- `/plan` pentru punctul 9: harta Leaflet cu stațiile din API, căutare după nume fără diacritice,
+  „aproape de mine” cu PostGIS și harta mică pe pagina de stație. Apoi `/build`.
+
+**Ce am primit**
+- Suma pe Neon: 147,4 ms (o rulare), sub prag; punctul 8 bifat.
+- Patru întrebări înainte de plan: cum servim Leaflet, unde se caută, câte rezultate, coordonatele în C-002.
+- Planul: `StationDirectory` peste regula D-031, `MapController` cu C-003, `harta.js` și `harta-mini.js`,
+  pagina „hello” înlocuită de hartă.
+- Build-ul: testele noi picate întâi pe stub-uri (404, `UnsupportedOperationException`, `lat` 0, `noindex`),
+  apoi `./mvnw verify` cu 95 de teste trecute și 19 teste de UI trecute; screenshot-urile pe feed-ul real.
+- Observație din feed-ul real: gruparea D-031 nu unește nimic, toate cele 512 rânduri au nume diferite,
+  deci harta are 512 stații (estimarea din plan era ~250).
+
+**Ce am făcut cu răspunsul**
+- Am ales: Leaflet copiat în `static/vendor/leaflet` (→ D-053), căutarea în browser cu toate rezultatele
+  (→ D-054), `station.lat/lon` în C-002; am aprobat C-003 și presupunerile (distanța la 10 m, încadrarea
+  hărții, mesajul fără feed).
+- **Am aprobat schimbarea aserțiunilor din `HelloPageIT`:** pagina „hello” a dispărut, deci textul ei și
+  `<h1>Staționar — când vine autobuzul?</h1>` nu mai au ce verifica; `noindex` era temporar și testul spunea
+  chiar că se scoate odată cu harta (D-022), deci devine „fără `noindex`”. Aserțiunile despre antet, subsol,
+  logo și favicon s-au mutat neschimbate în `MapControllerIT`.
+- Gruparea netranzitivă: am verificat-o eu pe feed-ul real la punctul 8 (nicio stație cu același nume la
+  150–400 m), deci fără Q-026; rezultatul e acum în DATA.md.
+
 ## 2026-11-26 · Logo și favicon
 **Unealta:** Claude Code (model Claude Opus 5.5), pe branch-ul `feat/logo`.
 

@@ -44,6 +44,17 @@ Verificat local cu SQL: 93.218 rânduri în `stop_times`, 84.954 în `shapes`, t
 (`geog`), 48 de plecări la ≥ 24:00 (cea mai târzie 24:21:10). Rândurile de pe Neon nu sunt verificate
 separat cu SQL; numărul vine din starea importului de pe live, egal cu cel local.
 
+## Stațiile pe hartă (D-031, C-003)
+Pe feed-ul real (versiunea 1, v4.9), gruparea D-031 (același nume la cel mult 150 m) nu unește niciun
+rând: toate cele 512 rânduri din `stops.txt` au nume diferite (cele două sensuri au de obicei nume
+separate, de ex. „Aeroport 1” și „Aeroport 2”), deci `GET /api/statii` dă 512 stații, fiecare cu un
+singur `stop_id`. Verificat pe baza locală, 26.11.2026.
+
+Nu există nicio pereche de rânduri cu același nume la 150–400 m (verificat de autor pe feed-ul real,
+25.11.2026, la punctul 8). Deci, dacă două rânduri sunt la cel mult 150 m de un al treilea, sunt la
+cel mult 150 m și între ele: gruparea e tranzitivă, iar harta (`StationDirectory`) și pagina de
+stație (`Stations`) dau aceleași grupuri.
+
 ## Performanță: următoarele plecări
 Cerința (fișa P07, „Cerințe tehnice specifice”): „următoarele plecări” sub 300 ms pe feed-ul real, **pe interogare**.
 Măsurat pe Gară (`stop_id` 1051), stația cu cele mai multe plecări (1.730 de rânduri în `stop_times`),

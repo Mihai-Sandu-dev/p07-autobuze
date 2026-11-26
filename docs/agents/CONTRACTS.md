@@ -65,4 +65,4 @@ Niciunul.
 - **Interface:** tile-urile OpenStreetMap (D-005)
 - **We rely on:** tile-uri raster pentru zona orașului
 - **Known quirks:** politica de utilizare a tile-urilor OSM: atribuirea „© OpenStreetMap contributors” obligatorie, fără trafic intens
-- **Evidence:** nu există cod încă
+- **Evidence:** `static/js/harta.js` și `static/js/harta-mini.js` (punctul 9, 2026-11-26); atribuirea verificată de `HartaUiTest`

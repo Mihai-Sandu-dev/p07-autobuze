@@ -8,6 +8,7 @@
 ## Index
 - PATTERN-001 · Testele de UI rulează în imaginea oficială Playwright când browser-ul nu se poate descărca · candidate
 - PATTERN-002 · `./mvnw` rulează în imaginea `eclipse-temurin:21-jdk` când gazda nu are JDK · candidate
+- PATTERN-003 · Markerele Leaflet primesc culorile din tokeni prin `className` și CSS, nu prin opțiuni JS · candidate
 
 ---
 
@@ -27,3 +28,10 @@
 - **Why:** În WSL nu e instalat niciun JDK (JAVA_HOME nedefinit), iar `./mvnw` are nevoie de unul.
 - **Evidence:** build-ul schemei DB, 2026-11-24: `./mvnw verify` cu 11 teste trecute așa
 
+## PATTERN-003 · Markerele Leaflet primesc culorile din tokeni prin `className` și CSS, nu prin opțiuni JS
+- **Status:** candidate
+- **Date:** 2026-11-26
+- **How:** Un `L.circleMarker` primește doar `radius` și `className`; culoarea, bordura și opacitatea vin din `app.css` (`fill`, `stroke`, `fill-opacity`, `stroke-opacity`, `stroke-width` cu `var(--color-...)`), care bat atributele SVG puse de Leaflet. Tema dark schimbă markerele fără JS. Ținta de atingere de 44 px e un al doilea `circleMarker`, transparent (`fill-opacity: 0`, dar nu `fill: none`, ca să primească clicul).
+- **Example:** `src/main/resources/static/js/harta.js` (`marker-statie`, `marker-tinta`, `marker-eu`) și `static/css/app.css`
+- **Why:** DESIGN.md cere doar tokeni în codul componentelor; opțiunile `color`/`fillColor` din JS ar fi culori scrise de mână și n-ar urma tema.
+- **Evidence:** punctul 9, 2026-11-26; screenshot-urile `DS-autobuze-harta` light și dark

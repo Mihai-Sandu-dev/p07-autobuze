@@ -6,7 +6,7 @@
 <!-- graffino-agentic:end -->
 
 > Rescris din cod după primul build (scheletul proiectului, 2026-11-19); importul GTFS și pagina de
-> stație adăugate 2026-11-25. Harta și autentificarea nu există încă; secțiunile marcate „plan”
+> stație adăugate 2026-11-25; harta 2026-11-26. Autentificarea nu există încă; secțiunile marcate „plan”
 > descriu deciziile aprobate.
 
 ## Overview
@@ -26,10 +26,11 @@ pe Render, din `Dockerfile`, și baza pe Neon (D-037).
 ## Parts
 | Part | Path | Responsibility | Talks to |
 |---|---|---|---|
-| app | `src/main/java/ro/autobuze/` | pornirea (`AutobuzeApplication`); `ClockConfig`: ceasul pe Europe/Bucharest (D-047); `web/HelloController`: pagina „hello” de la „/” (temporară, D-022) | db |
+| app | `src/main/java/ro/autobuze/` | pornirea (`AutobuzeApplication`); `ClockConfig`: ceasul pe Europe/Bucharest (D-047) | db |
 | import | `src/main/java/ro/autobuze/gtfs/` | `GtfsImportService`: descărcare + SHA-256, versiune nouă într-o tranzacție, câte un COPY pe fișier, activare, păstrarea a 2 versiuni (D-003, D-019, D-038); `GtfsTable`: fișierele GTFS → coloanele din DB, citite cu Commons CSV (D-046); `GtfsValues`: orele în secunde (D-043) | db, feed-ul Tursib |
-| orar | `src/main/java/ro/autobuze/schedule/` | `ServiceCalendar`: versiunea activă, serviciile active la o dată (calendar ∪ adăugate − scoase), tipul de zi (D-014, D-015); `Departures`: plecările dintr-o listă de stații într-un interval, din toate zilele de serviciu care îl ating (ore ≥ 24:00, D-043, D-047); `Stations`: stația unui `stop_id` (D-031); `NextDepartures`: următoarele plecări (D-018, D-048, D-051) în `StationBoard`; `LineColors`: culorile etichetei cu regula de contrast | db |
+| orar | `src/main/java/ro/autobuze/schedule/` | `ServiceCalendar`: versiunea activă, serviciile active la o dată (calendar ∪ adăugate − scoase), tipul de zi (D-014, D-015); `Departures`: plecările dintr-o listă de stații într-un interval, din toate zilele de serviciu care îl ating (ore ≥ 24:00, D-043, D-047); `Stations`: stația unui `stop_id` (D-031); `NextDepartures`: următoarele plecări (D-018, D-048, D-051) în `StationBoard`; `LineColors`: culorile etichetei cu regula de contrast; `StationDirectory`: toate stațiile (D-031) și cele mai apropiate 3 la ≤ 1 km (D-034), cu PostGIS | db |
 | pagina de stație | `src/main/java/ro/autobuze/web/StationController.java`, `templates/statie.html` | `GET /statie/{stopId}` randat pe server și `GET /api/statii/{stopId}/plecari` în JSON (C-002, D-050); 404 la o stație necunoscută | orar |
+| harta | `src/main/java/ro/autobuze/web/MapController.java`, `templates/harta.html`, `static/js/harta.js` | `GET /` și `/harta` (D-022, D-030); `GET /api/statii` și `/api/statii/aproape` (C-003); pagina desenează stațiile în browser, cu Leaflet din `static/vendor/leaflet` (D-053), și caută după nume acolo (D-054); harta mică de pe pagina de stație: `static/js/harta-mini.js` | orar, tile-uri OSM |
 | endpoint import | `src/main/java/ro/autobuze/web/ImportController.java` | `POST`/`GET /admin/import` cu token (C-001); importul pe `applicationTaskExecutor` | import |
 | workflow import | `.github/workflows/import.yml` | cron zilnic 01:30 UTC + manual: pornește importul pe live și întreabă starea la fiecare minut | endpoint import |
 | pagini | `src/main/resources/templates/` | Thymeleaf; fragmentele comune `fragments/head`, `antet` (DS-autobuze-antet), `subsol` (DS-autobuze-subsol, D-008) | — |
@@ -39,7 +40,10 @@ pe Render, din `Dockerfile`, și baza pe Neon (D-037).
 | teste | `src/test/java/ro/autobuze/` | `*Test` unitare, `*IT` cu Testcontainers (PostGIS 17); `ui/*UiTest` cu Playwright pe Compose (D-029), compilate și rulate doar cu profilul Maven `ui` | db, app |
 
 ## Data flow
-Acum: browser → `GET /` → `HelloController` → `hello.html` (antet, text, subsol).
+Harta (construită): browser → `GET /` sau `/harta` → `harta.html` → `harta.js` cere `GET /api/statii`
+(`StationDirectory.all`: o interogare, rândurile cu vecinii lor de același nume la ≤ 150 m) și desenează
+markerele pe tile-urile OSM; căutarea filtrează lista în browser. „Aproape de mine”: locația din browser
+→ `GET /api/statii/aproape` → `ST_DWithin` 1 km, ordonat după `ST_Distance` → primele 3 stații.
 
 Pagina de stație (construită): browser → `GET /statie/{stopId}` (sau `/api/statii/{stopId}/plecari`) →
 `StationController` cu ora din `Clock` → `NextDepartures.at`: eticheta zilei, versiunea activă,
@@ -51,7 +55,7 @@ liniilor, gruparea pe linie + capăt cu primele 3 → `statie.html` sau JSON. 13
 Plan, din deciziile aprobate:
 1. **Import (construit):** `import.yml` → `POST /admin/import` (token) → `GtfsImportService` pe un fir separat: descarcă arhiva într-un fișier temporar, calculează SHA-256; același checksum ca versiunea activă → `UNCHANGED`, fără versiune nouă. Altfel, într-o tranzacție: rând nou în `feed_versions`, fișierele în ordinea cheilor străine (agency → stops → routes → calendar → calendar_dates → shapes → trips → stop_times), fiecare printr-un singur `COPY ... FROM STDIN`, activarea, ștergerea versiunilor mai vechi decât cea anterioară, `ANALYZE`. Orice eroare → rollback, starea `FAILED`, versiunea activă rămâne. Starea e în memorie; workflow-ul o întreabă la fiecare minut. Raportul de diferențe (D-003): încă nu.
 2. **Orar (construit):** `Departures.between(fv, stopIds, from, until)` → pentru fiecare zi de serviciu de la ziua dinaintea lui `from` până la ziua lui `until`: `ServiceCalendar.activeServices` și plecările cu `departure_sec` în fereastră (indexul `stop_times_stop_departure`); ora reală = miezul nopții zilei de serviciu + secunde (D-047).
-3. **Harta, trasee, planificator, rapoarte:** D-005, D-030, D-034, D-002, D-012, D-013, D-033, D-009, D-028, D-035, D-036.
+3. **Trasee, planificator, rapoarte:** D-002, D-012, D-013, D-033, D-009, D-028, D-035, D-036.
 
 ## State and storage
 | What | Where | Owner | Notes |

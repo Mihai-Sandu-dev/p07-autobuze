@@ -69,6 +69,12 @@
   - [x] Q-025: sub un minut, pagina afișează „acum” (D-052; testul în `NextDeparturesTest`)
 - [ ] **9. Harta Leaflet** cu date din API, căutare după nume, „aproape de mine” (D-005, D-022, D-030, D-031, D-034);
       înlocuiește pagina „hello” de la „/” (se scoate `noindex`); Q-022 (cum spun paginile că nu e oficială Tursib)
+  - [x] `StationDirectory`, `MapController`: `/` și `/harta`, `GET /api/statii` și `/api/statii/aproape` (C-003,
+        D-053, D-054); `station.lat/lon` în C-002; harta mică și „Vezi pe hartă” pe pagina de stație;
+        „Hartă” în antet; pagina „hello” scoasă
+  - [x] Teste: `StationDirectoryIT` (5), `MapControllerIT` (10, înlocuiește `HelloPageIT`), `StationControllerIT` (+1),
+        `HartaUiTest` (8); screenshot-uri `DS-autobuze-harta` și `DS-autobuze-statie` (feed-ul real, local)
+  - [ ] Deploy (cu acordul autorului) și „aproape de mine” verificat pe telefon, pe live (HTTPS)
 - [ ] **10. Auth USER + ADMIN**, rute protejate pe server; favorite + pagina „Acasă” (D-011, D-020, D-022, D-032)
 - [ ] **11. Pagina de linie**: traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi (D-014, D-016, D-035; Q-010)
 

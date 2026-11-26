@@ -25,14 +25,14 @@ designs:
     source: src/main/resources/templates/statie.html
     screenshots: [screens/DS-autobuze-statie.light.360.png, screens/DS-autobuze-statie.light.1280.png, screens/DS-autobuze-statie.dark.360.png, screens/DS-autobuze-statie.dark.1280.png]
     design_ref: mocks/DS-autobuze-statie.html
-    status: implemented  # punctul 8, 2026-11-25; mock confirmat cu D-042. Lipsesc: harta mică și „Vezi pe hartă” (punctul 9), favorita și Acasă/Ieșire (punctul 10), linkul etichetei (punctul 11), raportul (punctul 13); culorile sunt încă D-027 (tokens.css), până la /plan-ul D-042
+    status: implemented  # punctul 8, 2026-11-25; mock confirmat cu D-042. Harta mică și „Vezi pe hartă”: punctul 9, 2026-11-26. Lipsesc: favorita și Acasă/Ieșire (punctul 10), linkul etichetei (punctul 11), raportul (punctul 13); culorile sunt încă D-027 (tokens.css), până la /plan-ul D-042
   - id: DS-autobuze-harta
     kind: screen
     note: "„/” pentru vizitator și /harta pentru toți — harta cu stații, căutare după nume și „aproape de mine” (D-022, D-030, D-034)"
-    source: none
-    screenshots: []
+    source: src/main/resources/templates/harta.html  # + static/js/harta.js
+    screenshots: [screens/DS-autobuze-harta.light.360.png, screens/DS-autobuze-harta.light.1280.png, screens/DS-autobuze-harta.dark.360.png, screens/DS-autobuze-harta.dark.1280.png]
     design_ref: mocks/DS-autobuze-harta.html
-    status: approved  # confirmat de autor în browser cu D-042, 2026-11-19
+    status: implemented  # punctul 9, 2026-11-26; culorile sunt încă D-027 (tokens.css), până la /plan-ul D-042. Fără „Planificator” și „Autentificare” în antet (paginile lor nu există încă)
   - id: DS-autobuze-acasa
     kind: screen
     note: "„/” pentru utilizator logat — plecările de la favorite, harta dedesubt (D-022)"
@@ -100,7 +100,7 @@ designs:
   - id: DS-autobuze-antet
     kind: component
     note: "antetul cu navigarea (hartă, planificator; Autentificare pentru vizitator; Acasă și Ieșire pentru utilizatorul logat; admin pentru ADMIN)"
-    source: src/main/resources/templates/fragments/antet.html
+    source: src/main/resources/templates/fragments/antet.html  # linkul „Hartă” (D-030) din punctul 9
     design_ref: mocks/DS-autobuze-antet.html
     status: approved  # D-042 confirmat 2026-11-19; codul are încă culorile D-027 până la /plan-ul care aplică D-042. Logo-ul (pătratul cu autobuzul, docs/design/brand/) în locul iconiței, ales de autor 2026-11-26; celelalte mock-uri au încă iconița veche în antet
   - id: DS-autobuze-subsol
@@ -123,14 +123,16 @@ designs:
     status: implemented
   - id: DS-autobuze-harta-leaflet
     kind: component
-    note: "harta Leaflet cu tile-uri OSM și atribuirea „© OpenStreetMap contributors” (D-005)"
-    source: none
-    design_ref: none
+    note: "harta Leaflet cu tile-uri OSM și atribuirea „© OpenStreetMap contributors” (D-005); Leaflet din static/vendor/leaflet (D-053)"
+    source: src/main/resources/static/js/harta.js  # + harta-mini.js (pagina de stație)
+    design_ref: mocks/DS-autobuze-harta.html
+    status: implemented
   - id: DS-autobuze-cautare-statii
     kind: component
-    note: "căutarea după nume și butonul „aproape de mine” (geolocația din browser)"
-    source: none
-    design_ref: none
+    note: "căutarea după nume, în browser, fără diacritice (D-054), și butonul „aproape de mine” (geolocația din browser, D-034)"
+    source: src/main/resources/templates/harta.html  # + static/js/harta.js
+    design_ref: mocks/DS-autobuze-harta.html
+    status: implemented
   - id: DS-autobuze-abatere-medie
     kind: component
     note: "abaterea medie pe intervale de o oră, pe tip de zi (D-016)"
