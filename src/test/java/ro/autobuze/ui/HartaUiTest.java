@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.ColorScheme;
 import com.microsoft.playwright.options.Geolocation;
 import com.microsoft.playwright.options.WaitForSelectorState;
 import java.util.List;
@@ -40,6 +41,17 @@ class HartaUiTest extends UiTest {
             int markers = page.locator(".harta .leaflet-interactive").count();
             assertThat(markers).isGreaterThan(100);
             assertThat(page.textContent(".harta .leaflet-control-attribution")).contains("© OpenStreetMap contributors");
+        }
+    }
+
+    @Test
+    void attributionUsesThePageColoursInDarkMode() {
+        // Contrast ≥ 4,5:1 (D-042): atribuirea stă pe --color-bg, cu --color-text-muted, nu pe albul din leaflet.css
+        try (BrowserContext context = browser.newContext(new Browser.NewContextOptions().setColorScheme(ColorScheme.DARK))) {
+            Page page = open(context, "/harta");
+            String bg = (String) page.evaluate(
+                    "getComputedStyle(document.querySelector('.harta .leaflet-control-attribution')).backgroundColor");
+            assertThat(bg).isEqualTo("rgb(17, 26, 35)"); // --color-bg dark #111a23
         }
     }
 
