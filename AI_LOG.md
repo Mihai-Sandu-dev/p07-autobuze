@@ -3,6 +3,26 @@
 > Jurnalul folosirii AI în proiect: pentru fiecare sesiune, ce am cerut, ce am primit
 > și ce am făcut cu răspunsul. Cele mai noi intrări sunt primele.
 
+## 2026-11-26 · Pagina de linie (punctul 11), D-060, D-061
+**Unealta:** Claude Code (model Claude Opus 5.5), pe branch-ul `feat/linie`.
+
+**Ce am cerut**
+- `/plan` pentru punctul 11: traseul pe hartă, stațiile în ordine pe fiecare sens, orarul complet pe tipuri de zi,
+  link din eticheta liniei; fără abaterile medii. Apoi `/build`.
+
+**Ce am primit**
+- Fapte din feed înainte de plan: linia 19 are 6 capete; 18 din 160 de sensuri au mai multe trasee; pe 30.11 și
+  01.12 (sărbători) feed-ul rulează orarul lucrător, nu pe cel de duminică.
+- Patru întrebări: orarul din ce stație, ce traseu pentru sensurile cu variante, din ce zile, numele coloanei a treia.
+- Mock-ul DS-autobuze-linie, confirmat de mine; testele picate întâi pe stub-uri; `./mvnw verify` cu 118 teste IT
+  și 40 de teste de UI trecute.
+
+**Ce am făcut cu răspunsul**
+- Am ales: orarul din capătul de plecare, traseul cel mai des (cursele pe alt traseu marcate), următoarea zi de
+  fiecare tip, coloana „Duminică” cu notă (→ D-060; D-014 înlocuit de D-061).
+- **Am cerut eu formatul orarului:** câte un rând pe oră, ora în stânga și minutele în dreapta, ca pe orarele din stații.
+- Am adăugat în TODO un exercițiu pe care îl scriu fără AI (sortarea grupurilor după numărul liniei).
+
 ## 2026-11-26 · Culorile D-042 (nuanța rece) și tile-urile întunecate în dark, D-059
 **Unealta:** Claude Code (model Claude Opus 5.5), pe branch-ul `feat/d042-culori`.
 

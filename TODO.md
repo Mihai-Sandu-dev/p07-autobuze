@@ -82,7 +82,12 @@
         `ReturnToTest` (11), `AuthUiTest` (2); screenshot-uri `DS-autobuze-login`, `-inregistrare`, `-acasa`
   - [x] **Autor:** `ADMIN_EMAIL` și `ADMIN_PASSWORD` în Render; deploy și verificare pe live (2026-11-26):
         login admin, favorite + „Acasă”, USER pe /admin → 403, „aproape de mine” pe telefon
-- [ ] **11. Pagina de linie**: traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi (D-014, D-016, D-035; Q-010)
+- [ ] **11. Pagina de linie**: traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi (D-060, D-061, D-016, D-035; Q-010)
+  - [x] `Lines`, `LineController`, `linie.html`: traseul cel mai des pe fiecare sens, stațiile, orarul din capăt pe
+        rânduri de oră, din următoarea zi lucrătoare, sâmbătă și duminică (D-060, D-061); link din eticheta liniei
+  - [x] Teste: `LinesIT` (8), `LineControllerIT` (3), `StationControllerIT` (+1), `LinieUiTest` (2);
+        screenshot-uri `DS-autobuze-linie` (linia 19, feed-ul real)
+  - [ ] **Autor:** deploy și pagina de linie verificată pe live
 
 ## Livrare · jo 03.12
 

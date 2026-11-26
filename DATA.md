@@ -55,6 +55,17 @@ Nu există nicio pereche de rânduri cu același nume la 150–400 m (verificat 
 cel mult 150 m și între ele: gruparea e tranzitivă, iar harta (`StationDirectory`) și pagina de
 stație (`Stations`) dau aceleași grupuri.
 
+## Calendarul și sărbătorile legale (D-060, D-061)
+Feed-ul v4.9 are 4 servicii: `3` (luni–vineri, 2023–2027), `4` (sâmbătă), `5` (duminică) și `E2026` (luni–vineri,
+26.08.2026–18.06.2027). `calendar_dates.txt` scoate doar `E2026` pe 30.11 și 01.12.2026 (sărbători legale), deci
+în acele zile circulă orarul lucrător `3`, **nu** cel de duminică. De aceea pagina liniei are coloana „Duminică”
+(din următoarea duminică), cu o notă despre sărbători, iar „duminică și sărbătoare” rămâne doar pentru eticheta
+zilei și media abaterilor (D-061). Verificat pe baza locală, 26.11.2026.
+
+Pe sensuri (linie + capăt, D-051): 160 de sensuri pe 57 de linii; 18 sensuri au 2–4 trasee de stații diferite
+(cu shape-uri diferite); pagina liniei arată traseul cel mai des și marchează cursele pe alt traseu (D-060).
+`shapes.txt`: 178 de shape-uri, maxim 1.300 de puncte; pagina liniei 19 (6 sensuri) are ~99 KB.
+
 ## Performanță: următoarele plecări
 Cerința (fișa P07, „Cerințe tehnice specifice”): „următoarele plecări” sub 300 ms pe feed-ul real, **pe interogare**.
 Măsurat pe Gară (`stop_id` 1051), stația cu cele mai multe plecări (1.730 de rânduri în `stop_times`),

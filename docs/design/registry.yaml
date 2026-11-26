@@ -25,7 +25,7 @@ designs:
     source: src/main/resources/templates/statie.html
     screenshots: [screens/DS-autobuze-statie.light.360.png, screens/DS-autobuze-statie.light.1280.png, screens/DS-autobuze-statie.dark.360.png, screens/DS-autobuze-statie.dark.1280.png]
     design_ref: mocks/DS-autobuze-statie.html
-    status: implemented  # punctul 8, 2026-11-25; mock confirmat cu D-042. Harta mică și „Vezi pe hartă”: punctul 9; favorita, limita de 10 și Acasă/Ieșire: punctul 10, 2026-11-26. Lipsesc: linkul etichetei (punctul 11), raportul (punctul 13); culorile D-042 din 2026-11-26 (fără --color-time, umbre, mișcare)
+    status: implemented  # punctul 8, 2026-11-25; mock confirmat cu D-042. Harta mică și „Vezi pe hartă”: punctul 9; favorita, limita de 10 și Acasă/Ieșire: punctul 10, 2026-11-26. Linkul etichetei: punctul 11. Lipsește: raportul (punctul 13); culorile D-042 din 2026-11-26 (fără --color-time, umbre, mișcare)
   - id: DS-autobuze-harta
     kind: screen
     note: "„/” pentru vizitator și /harta pentru toți — harta cu stații, căutare după nume și „aproape de mine” (D-022, D-030, D-034)"
@@ -43,10 +43,10 @@ designs:
   - id: DS-autobuze-linie
     kind: screen
     note: "pagina de linie — traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi (D-060), abaterea medie pe ore (D-061, D-016)"
-    source: none
-    screenshots: []
+    source: src/main/resources/templates/linie.html  # + LineController, schedule/Lines
+    screenshots: [screens/DS-autobuze-linie.light.360.png, screens/DS-autobuze-linie.light.1280.png, screens/DS-autobuze-linie.dark.360.png, screens/DS-autobuze-linie.dark.1280.png]
     design_ref: mocks/DS-autobuze-linie.html
-    status: approved  # desenat 2026-11-26 (punctul 11), confirmat de autor în browser 2026-11-26, cu textele propuse
+    status: implemented  # punctul 11, 2026-11-26; fără abaterile medii (punctul 13)
   - id: DS-autobuze-planificator
     kind: screen
     note: "de la stația A la B, acum sau la o oră dată; primele 3 itinerarii (D-002, D-012, D-013)"
@@ -115,7 +115,7 @@ designs:
   - id: DS-autobuze-eticheta-linie
     kind: component
     note: "numărul liniei în eticheta colorată din route_color / route_text_color, cu regula de contrast (D-027); link spre pagina liniei"
-    source: src/main/resources/templates/statie.html  # + LineColors.java; încă fără link (punctul 11)
+    source: src/main/resources/templates/statie.html  # + LineColors.java; link spre /linie/{nr} din punctul 11 (D-060)
     design_ref: mocks/DS-autobuze-statie.html
     status: implemented
   - id: DS-autobuze-rand-plecare
