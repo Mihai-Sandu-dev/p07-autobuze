@@ -35,6 +35,6 @@ public class Stations {
         if (rows.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(new StationBoard.Station(rows.get(0)[1], rows.stream().map(r -> r[0]).toList()));
+        return Optional.of(new StationBoard.Station(rows.get(0)[1], rows.stream().map(r -> r[0]).toList(), 0, 0));
     }
 }

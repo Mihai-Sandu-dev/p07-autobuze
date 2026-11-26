@@ -12,8 +12,8 @@ import java.util.List;
 public record StationBoard(Station station, LocalDateTime now, String dayLabel, boolean feedImported,
         List<Group> groups) {
 
-    /** O stație din aplicație: rândurile grupate din stops.txt (D-031). */
-    public record Station(String name, List<String> stopIds) {
+    /** O stație din aplicație: rândurile grupate din stops.txt (D-031), cu media pozițiilor lor. */
+    public record Station(String name, List<String> stopIds, double lat, double lon) {
     }
 
     /** O linie cu un capăt (D-051), cu primele 3 plecări; culorile sunt hex fără „#”. */

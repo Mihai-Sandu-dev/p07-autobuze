@@ -90,6 +90,21 @@ class StationControllerIT {
     }
 
     @Test
+    void stationPageHasTheSmallMapLinkingToTheBigMap() throws Exception {
+        // Harta mică din mock (DS-autobuze-statie, punctul 9): coordonatele din C-002, link spre harta mare
+        mvc.perform(get("/statie/S_B"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("class=\"harta-mini\" href=\"/harta?statie=S_B\"")))
+                .andExpect(content().string(containsString("data-lat=\"45.7929\" data-lon=\"24.152\"")))
+                .andExpect(content().string(containsString("aria-label=\"Deschide harta mare, centrată pe stația Turnul Sfatului\"")))
+                .andExpect(content().string(containsString("src=\"/vendor/leaflet/leaflet.js\"")))
+                .andExpect(content().string(containsString("src=\"/js/harta-mini.js\"")))
+                .andExpect(content().string(containsString("Vezi pe hartă")))
+                // „Hartă” din antet (D-030); aici nu e pagina curentă
+                .andExpect(content().string(containsString("<a href=\"/harta\">Hartă</a>")));
+    }
+
+    @Test
     void stationWithoutDeparturesShowsTheEmptyState() throws Exception {
         // D-048: toate cursele se termină în S_CIBIN
         mvc.perform(get("/statie/S_CIBIN"))
@@ -105,6 +120,8 @@ class StationControllerIT {
                 .andExpect(jsonPath("$.feedImported").value(true))
                 .andExpect(jsonPath("$.station.name").value("Turnul Sfatului"))
                 .andExpect(jsonPath("$.station.stopIds[0]").value("S_B"))
+                .andExpect(jsonPath("$.station.lat").value(45.7929))
+                .andExpect(jsonPath("$.station.lon").value(24.152))
                 .andExpect(jsonPath("$.now").value("2026-11-25T22:00:00"))
                 .andExpect(jsonPath("$.dayLabel").value("Miercuri, 25 noiembrie · zi lucrătoare"))
                 .andExpect(jsonPath("$.groups[0].line").value("2"))
