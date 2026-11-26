@@ -196,7 +196,7 @@ $("varianta").onchange = e => {
   const v = e.target.value, nav = $("nav");
   nav.hidden = v === "hello";
   nav.innerHTML = v === "logat"
-    ? `<a href="#">Hartă</a><a href="#">Planificator</a><a href="#">Acasă</a><a href="#">Ieșire</a>`
+    ? `<a href="#">Acasă</a><a href="#">Hartă</a><a href="#">Planificator</a><a href="#">Ieșire</a>`
     : `<a href="#">Hartă</a><a href="#">Planificator</a><a href="#">Autentificare</a>`;
 };
 root.dataset.sistem = $("sistem").value;

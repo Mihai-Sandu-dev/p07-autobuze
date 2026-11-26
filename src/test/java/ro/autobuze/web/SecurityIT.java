@@ -2,6 +2,7 @@ package ro.autobuze.web;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.stringContainsInOrder;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
@@ -162,7 +163,15 @@ class SecurityIT {
                 .andExpect(content().string(containsString("<a href=\"/\">Acasă</a>")))
                 .andExpect(content().string(containsString("action=\"/iesire\" method=\"post\"")))
                 .andExpect(content().string(containsString("Ieșire")))
-                .andExpect(content().string(not(containsString(">Autentificare</a>"))));
+                .andExpect(content().string(not(containsString(">Autentificare</a>"))))
+                // Ordinea din antet pentru utilizatorul logat: Acasă · Hartă · Ieșire
+                .andExpect(content().string(stringContainsInOrder(">Acasă</a>", ">Hartă</a>", ">Ieșire</button>")));
+    }
+
+    @Test
+    void headerForAVisitorHasMapThenLogin() throws Exception {
+        mvc.perform(get("/statie/S_B"))
+                .andExpect(content().string(stringContainsInOrder(">Hartă</a>", ">Autentificare</a>")));
     }
 
     @Test

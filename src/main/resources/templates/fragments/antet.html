@@ -4,7 +4,7 @@
 <!-- DS-autobuze-antet: logo-ul (pătratul cu autobuzul, docs/design/brand/), numele aplicației ca text,
      în culoarea temei, și butonul de temă (D-039). Linkurile de navigare
      apar odată cu paginile lor (planul „scheletul proiectului”): „Hartă” duce la /harta (D-030).
-     Vizitator: „Autentificare” cu întoarcere pe pagina curentă (D-032); logat: „Acasă” și „Ieșire” (POST, D-058).
+     Vizitator: „Autentificare” cu întoarcere pe pagina curentă (D-032); logat: Acasă · Hartă · Ieșire (ieșirea e POST, D-058).
      Parametrul `pagina` marchează linkul paginii curente. -->
 <header class="antet" th:fragment="antet(pagina)">
   <svg class="sprite" aria-hidden="true">
@@ -14,10 +14,10 @@
   </svg>
   <a class="brand" th:href="@{/}" href="/"><img class="logo" src="/img/logo-64.png" th:src="@{/img/logo-64.png}" width="32" height="32" alt="">Staționar</a>
   <nav aria-label="Navigare principală">
+    <a th:if="${utilizator != null}" href="/" th:href="@{/}" th:aria-current="${pagina == 'acasa'} ? 'page'">Acasă</a>
     <a href="/harta" th:href="@{/harta}" th:aria-current="${pagina == 'harta'} ? 'page'">Hartă</a>
     <a th:if="${utilizator == null}" href="/autentificare" th:href="@{/autentificare(inapoi=${caleCurenta})}"
        th:aria-current="${pagina == 'autentificare'} ? 'page'">Autentificare</a>
-    <a th:if="${utilizator != null}" href="/" th:href="@{/}" th:aria-current="${pagina == 'acasa'} ? 'page'">Acasă</a>
     <form th:if="${utilizator != null}" class="iesire" action="/iesire" th:action="@{/iesire}" method="post"><button
         type="submit">Ieșire</button></form>
   </nav>
