@@ -26,6 +26,10 @@ class ScreenshotUiTest extends UiTest {
         "DS-autobuze-harta, /harta, dark, 360", "DS-autobuze-harta, /harta, dark, 1280",
         "DS-autobuze-statie, /statie/1051, light, 360", "DS-autobuze-statie, /statie/1051, light, 1280",
         "DS-autobuze-statie, /statie/1051, dark, 360", "DS-autobuze-statie, /statie/1051, dark, 1280",
+        "DS-autobuze-login, /autentificare, light, 360", "DS-autobuze-login, /autentificare, light, 1280",
+        "DS-autobuze-login, /autentificare, dark, 360", "DS-autobuze-login, /autentificare, dark, 1280",
+        "DS-autobuze-inregistrare, /inregistrare, light, 360", "DS-autobuze-inregistrare, /inregistrare, light, 1280",
+        "DS-autobuze-inregistrare, /inregistrare, dark, 360", "DS-autobuze-inregistrare, /inregistrare, dark, 1280",
     })
     void screenshot(String name, String path, String scheme, int width) {
         var options = new Browser.NewContextOptions()
@@ -38,6 +42,25 @@ class ScreenshotUiTest extends UiTest {
             page.screenshot(new Page.ScreenshotOptions()
                     .setFullPage(true)
                     .setPath(SCREENS.resolve(name + "." + scheme + "." + width + ".png")));
+        }
+    }
+
+    /** „Acasă” cere un cont: unul nou la fiecare rulare, cu Gară (1051) la favorite. */
+    @ParameterizedTest(name = "DS-autobuze-acasa · {0} · {1} px")
+    @CsvSource({"light, 360", "light, 1280", "dark, 360", "dark, 1280"})
+    void homeScreenshot(String scheme, int width) {
+        var options = new Browser.NewContextOptions()
+                .setColorScheme("dark".equals(scheme) ? ColorScheme.DARK : ColorScheme.LIGHT)
+                .setViewportSize(width, 800);
+        try (BrowserContext context = browser.newContext(options)) {
+            Page page = context.newPage();
+            AuthUiTest.registerAndLogIn(page, "/statie/1051", AuthUiTest.newEmail());
+            page.click("button:has-text('Adaugă la favorite')");
+            page.navigate(BASE_URL + "/");
+            page.waitForLoadState(LoadState.NETWORKIDLE);
+            page.screenshot(new Page.ScreenshotOptions()
+                    .setFullPage(true)
+                    .setPath(SCREENS.resolve("DS-autobuze-acasa." + scheme + "." + width + ".png")));
         }
     }
 }
