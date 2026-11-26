@@ -17,9 +17,9 @@
   </div>
 
   <th:block th:if="${feedImported}" th:with="color=${page.colors.background}">
-    <a class="harta-mini harta-linie" href="/harta" th:href="@{/harta}" aria-label="Deschide harta mare"
+    <div class="harta-mini harta-linie" role="region" aria-label="Harta liniei" data-interactiv
        th:style="${color == 'FFFFFF'} ? null : ${'--linie: #' + color}"
-       th:data-trasee="${trasee}" th:data-statii="${statii}"><div class="harta-leaflet"></div></a>
+       th:data-trasee="${trasee}" th:data-statii="${statii}"><div class="harta-leaflet"></div></div>
 
     <section class="linie-cap">
       <h1><span class="eticheta" th:classappend="${color == 'FFFFFF'} ? 'fara-culoare'"

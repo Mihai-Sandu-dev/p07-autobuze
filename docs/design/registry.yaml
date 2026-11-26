@@ -46,7 +46,7 @@ designs:
     source: src/main/resources/templates/linie.html  # + LineController, schedule/Lines
     screenshots: [screens/DS-autobuze-linie.light.360.png, screens/DS-autobuze-linie.light.1280.png, screens/DS-autobuze-linie.dark.360.png, screens/DS-autobuze-linie.dark.1280.png]
     design_ref: mocks/DS-autobuze-linie.html
-    status: implemented  # punctul 11, 2026-11-26; fără abaterile medii (punctul 13)
+    status: implemented  # punctul 11, 2026-11-26; harta cu zoom și tragere (fără rotiță) și traseul cu contur, 2026-11-26; fără abaterile medii (punctul 13)
   - id: DS-autobuze-planificator
     kind: screen
     note: "de la stația A la B, acum sau la o oră dată; primele 3 itinerarii (D-002, D-012, D-013)"
