@@ -1,4 +1,5 @@
--- Măsurarea punctului 8 (D-018, C-002): interogările unei cereri GET /api/statii/1051/plecari
+-- Măsurarea punctului 8 (pragul de 300 ms: fișa P07, „Cerințe tehnice specifice”; D-018, C-002):
+-- interogările unei cereri GET /api/statii/1051/plecari
 -- pentru Gară (stop_id 1051, stația cu cele mai multe plecări: 1.730 în stop_times), joi 26.11.2026,
 -- ora 16:00, pe versiunea de feed 1 (arhiva tursib.gtfs_2026-10-v4.9.zip, SHA-256 cb0ddad9…).
 -- Ordinea și textul sunt cele din cod (ServiceCalendar, Stations, Departures, NextDepartures), cu
