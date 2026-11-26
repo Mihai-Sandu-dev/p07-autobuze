@@ -39,7 +39,7 @@ designs:
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-acasa.html
-    status: draft  # desenat 2026-11-26 (punctul 10), de confirmat de autor în browser
+    status: approved  # desenat 2026-11-26 (punctul 10), confirmat de autor în browser 2026-11-26
   - id: DS-autobuze-linie
     kind: screen
     note: "pagina de linie — traseul pe hartă, stațiile în ordine, orarul pe tipuri de zi, abaterea medie pe ore (D-014, D-016)"
@@ -72,7 +72,7 @@ designs:
     source: none
     screenshots: []
     design_ref: mocks/DS-autobuze-inregistrare.html
-    status: draft  # desenat 2026-11-26 (punctul 10), de confirmat de autor în browser
+    status: approved  # desenat 2026-11-26 (punctul 10), confirmat de autor în browser 2026-11-26
   - id: DS-autobuze-admin-import
     kind: screen
     note: "admin — pornește jobul, versiunile și checksum-urile (D-003, D-019)"
